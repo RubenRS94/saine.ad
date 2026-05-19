@@ -1,14 +1,15 @@
 <!--
-SAINE Andorra landing premium
-Uso en WordPress : pegar completo en un bloque HTML personalizado, Elementor HTML o similar.
-Nota formulario: el formulario usa mailto como fallback HTML. Para producción, sustituir el atributo action por el endpoint o shortcode de Contact Form 7, Fluent Forms, Gravity Forms o el plugin que se use.
+SAINE Andorra landing premium bilingüe
+Uso en WordPress: pegar completo en un bloque HTML personalizado, Elementor HTML o similar.
+Incluye versión CAT y ES dentro del mismo código, selector de idioma funcional con HTML + CSS y menú móvil sin JavaScript.
+Nota formulario: el formulario usa mailto como fallback HTML. Para producción, sustituir el atributo action por el endpoint o shortcode del formulario de WordPress.
 -->
 
 <style>
   :root {
     --saine-bg: #f7f4ee;
     --saine-bg-soft: #fbfaf7;
-    --saine-card: rgba(255, 255, 255, 0.82);
+    --saine-card: rgba(255, 255, 255, 0.86);
     --saine-card-solid: #ffffff;
     --saine-ink: #1f2d2a;
     --saine-muted: #6f7d79;
@@ -45,6 +46,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     color: var(--saine-ink);
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     line-height: 1.6;
+    position: relative;
   }
 
   .saine-page a {
@@ -61,6 +63,43 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   .saine-container {
     width: min(var(--saine-max), calc(100% - 42px));
     margin: 0 auto;
+  }
+
+  .saine-lang-state,
+  .saine-menu-state {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .saine-es,
+  #saine-lang-es:checked ~ .saine-page .saine-cat {
+    display: none !important;
+  }
+
+  #saine-lang-es:checked ~ .saine-page .saine-es {
+    display: inline !important;
+  }
+
+  #saine-lang-es:checked ~ .saine-page section.saine-es,
+  #saine-lang-es:checked ~ .saine-page footer.saine-es,
+  #saine-lang-es:checked ~ .saine-page div.saine-es,
+  #saine-lang-es:checked ~ .saine-page article.saine-es,
+  #saine-lang-es:checked ~ .saine-page aside.saine-es,
+  #saine-lang-es:checked ~ .saine-page header.saine-es {
+    display: block !important;
+  }
+
+  #saine-lang-es:checked ~ .saine-page .saine-lang-cat-label {
+    background: transparent;
+    color: var(--saine-muted);
+  }
+
+  #saine-lang-es:checked ~ .saine-page .saine-lang-es-label {
+    background: var(--saine-green-deep);
+    color: #ffffff;
   }
 
   .saine-eyebrow {
@@ -112,9 +151,9 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   .saine-header {
     position: sticky;
     top: 0;
-    z-index: 40;
+    z-index: 50;
     backdrop-filter: blur(22px);
-    background: rgba(251, 250, 247, 0.78);
+    background: rgba(251, 250, 247, 0.88);
     border-bottom: 1px solid rgba(31, 45, 42, 0.08);
   }
 
@@ -129,7 +168,6 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   .saine-logo {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
     min-width: 174px;
   }
 
@@ -146,7 +184,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     padding: 8px;
     border: 1px solid var(--saine-line);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.58);
+    background: rgba(255, 255, 255, 0.62);
     box-shadow: 0 8px 26px rgba(31, 45, 42, 0.05);
   }
 
@@ -176,20 +214,23 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     padding: 5px;
     border: 1px solid var(--saine-line);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.62);
+    background: rgba(255, 255, 255, 0.72);
   }
 
-  .saine-lang a {
+  .saine-lang label {
     padding: 8px 10px;
     border-radius: 999px;
     color: var(--saine-muted);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 200ms ease;
+    user-select: none;
   }
 
-  .saine-lang a:first-child {
+  .saine-lang-cat-label {
     background: var(--saine-green-deep);
-    color: #ffffff;
+    color: #ffffff !important;
   }
 
   .saine-button {
@@ -232,8 +273,11 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     transform: translateY(-2px);
   }
 
-  .saine-mobile-toggle,
-  .saine-mobile-check {
+  .saine-mobile-toggle {
+    display: none;
+  }
+
+  .saine-mobile-menu {
     display: none;
   }
 
@@ -283,7 +327,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     padding: 18px;
     border: 1px solid var(--saine-line);
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.62);
+    background: rgba(255, 255, 255, 0.66);
     backdrop-filter: blur(18px);
   }
 
@@ -306,7 +350,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     position: relative;
     border-radius: var(--saine-radius-xl);
     background:
-      linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(220, 232, 226, 0.72)),
+      linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(220, 232, 226, 0.72)),
       radial-gradient(circle at 72% 22%, rgba(111, 149, 136, 0.22), transparent 38%);
     border: 1px solid rgba(31, 45, 42, 0.10);
     box-shadow: var(--saine-shadow);
@@ -336,7 +380,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   .saine-logo-card {
     padding: 28px;
     border-radius: 26px;
-    background: rgba(255, 255, 255, 0.76);
+    background: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(31, 45, 42, 0.08);
     box-shadow: var(--saine-shadow-soft);
   }
@@ -842,20 +886,28 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       place-items: center;
       border: 1px solid var(--saine-line);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.74);
+      background: rgba(255, 255, 255, 0.80);
       color: var(--saine-green-deep);
       font-size: 22px;
       font-weight: 900;
       cursor: pointer;
+      box-shadow: 0 12px 28px rgba(31, 45, 42, 0.08);
     }
 
     .saine-mobile-menu {
-      display: none;
-      padding: 0 0 20px;
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: max-height 280ms ease, opacity 220ms ease, transform 220ms ease;
     }
 
-    .saine-mobile-check:checked ~ .saine-mobile-menu {
-      display: block;
+    #saine-menu:checked ~ .saine-page .saine-mobile-menu {
+      max-height: 520px;
+      opacity: 1;
+      transform: translateY(0);
+      padding-bottom: 18px;
     }
 
     .saine-mobile-menu-inner {
@@ -864,16 +916,57 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       padding: 16px;
       border: 1px solid var(--saine-line);
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.94);
       box-shadow: var(--saine-shadow-soft);
     }
 
-    .saine-mobile-menu a {
+    .saine-mobile-menu a,
+    .saine-mobile-menu label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 50px;
       padding: 14px 16px;
       border-radius: 16px;
       color: var(--saine-ink);
-      font-weight: 800;
-      background: rgba(247, 244, 238, 0.7);
+      font-weight: 850;
+      background: rgba(247, 244, 238, 0.78);
+      cursor: pointer;
+    }
+
+    .saine-mobile-menu .saine-mobile-cta {
+      justify-content: center;
+      margin-top: 4px;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, var(--saine-green-dark), var(--saine-green-deep));
+    }
+
+    .saine-mobile-lang {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .saine-mobile-lang label {
+      justify-content: center;
+      min-height: 46px;
+      font-size: 13px;
+    }
+
+    .saine-mobile-lang-cat-label {
+      background: var(--saine-green-deep) !important;
+      color: #ffffff !important;
+    }
+
+    #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-cat-label {
+      background: rgba(247, 244, 238, 0.78) !important;
+      color: var(--saine-muted) !important;
+    }
+
+    #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-es-label {
+      background: var(--saine-green-deep) !important;
+      color: #ffffff !important;
     }
 
     .saine-hero-grid,
@@ -907,71 +1000,190 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
 
   @media (max-width: 760px) {
     .saine-container {
-      width: min(100% - 26px, var(--saine-max));
+      width: min(100% - 28px, var(--saine-max));
     }
 
     .saine-nav {
-      min-height: 74px;
+      min-height: 72px;
+    }
+
+    .saine-logo {
+      min-width: auto;
     }
 
     .saine-logo img {
-      width: 112px;
+      width: 110px;
+    }
+
+    .saine-mobile-toggle {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
     }
 
     .saine-hero {
-      padding: 52px 0 56px;
+      padding: 44px 0 54px;
+    }
+
+    .saine-hero-grid {
+      gap: 30px;
+    }
+
+    .saine-hero-copy {
+      text-align: left;
+    }
+
+    .saine-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .saine-eyebrow::before {
+      width: 24px;
     }
 
     .saine-hero h1 {
-      font-size: clamp(42px, 13vw, 58px);
+      font-size: clamp(39px, 12.4vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.052em;
+    }
+
+    .saine-lead {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.65;
     }
 
     .saine-hero-actions {
       align-items: stretch;
       flex-direction: column;
+      margin-top: 26px;
     }
 
     .saine-button {
       width: 100%;
+      min-height: 52px;
+      padding: 15px 18px;
+      font-size: 14px;
+      white-space: normal;
+      text-align: center;
     }
 
     .saine-trust-row {
       grid-template-columns: 1fr;
-      margin-top: 28px;
+      margin-top: 24px;
+      gap: 10px;
     }
 
-    .saine-hero-panel,
-    .saine-copy-card,
-    .saine-info-card,
-    .saine-contact-card {
+    .saine-trust-item {
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .saine-hero-panel {
+      padding: 16px;
       border-radius: 26px;
     }
 
+    .saine-hero-panel::before {
+      inset: 10px;
+      border-radius: 22px;
+    }
+
+    .saine-logo-card {
+      padding: 24px 18px;
+      border-radius: 22px;
+    }
+
+    .saine-floating-card {
+      padding: 20px;
+      border-radius: 22px;
+    }
+
+    .saine-floating-card p {
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
     .saine-section {
-      padding: 66px 0;
+      padding: 62px 0;
     }
 
     .saine-section-head {
-      gap: 18px;
-      margin-bottom: 28px;
+      gap: 16px;
+      margin-bottom: 26px;
     }
 
     .saine-section-title {
-      font-size: clamp(34px, 11vw, 46px);
+      font-size: clamp(33px, 10.6vw, 45px);
+      line-height: 1.03;
+    }
+
+    .saine-copy-card,
+    .saine-info-card,
+    .saine-contact-card {
+      border-radius: 24px;
+    }
+
+    .saine-copy-card,
+    .saine-info-card,
+    .saine-contact-card,
+    .saine-team-card,
+    .saine-location-card,
+    .saine-call-card {
+      padding: 22px;
     }
 
     .saine-copy-card p,
     .saine-platform-card p {
       font-size: 16px;
+      line-height: 1.68;
+    }
+
+    .saine-info-line {
+      gap: 12px;
+    }
+
+    .saine-icon {
+      flex-basis: 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      font-size: 13px;
     }
 
     .saine-service-card {
       min-height: auto;
-      padding: 24px;
+      padding: 22px;
+      border-radius: 22px;
+    }
+
+    .saine-service-number {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      margin-bottom: 18px;
+    }
+
+    .saine-service-card h3 {
+      font-size: 22px;
+    }
+
+    .saine-platform-card {
+      padding: 20px;
+      border-radius: 24px;
+      gap: 22px;
     }
 
     .saine-platform-logo {
-      min-height: 180px;
+      min-height: 160px;
+      padding: 24px;
+      border-radius: 22px;
+    }
+
+    .saine-platform-logo img {
+      width: 200px;
     }
 
     .saine-team-grid {
@@ -981,62 +1193,112 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     .saine-team-top {
       flex-direction: column;
       gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .saine-team-name h3 {
+      font-size: 23px;
+    }
+
+    .saine-email-chip {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .saine-team-card ul {
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .saine-team-note {
+      padding: 22px;
+      border-radius: 24px;
+    }
+
+    .saine-team-note p {
+      font-size: 15px;
+      line-height: 1.65;
     }
 
     .saine-form-row {
       grid-template-columns: 1fr;
     }
 
+    .saine-field input,
+    .saine-field select,
+    .saine-field textarea {
+      min-height: 52px;
+      border-radius: 15px;
+      font-size: 15px;
+    }
+
+    .saine-location-card h3 {
+      font-size: 22px;
+    }
+
     .saine-call-card strong {
       font-size: 28px;
     }
 
+    .saine-footer {
+      margin-top: 64px;
+      padding: 38px 0 34px;
+    }
+
     .saine-footer-grid {
       grid-template-columns: 1fr;
+      gap: 24px;
     }
 
     .saine-footer-links {
       justify-content: flex-start;
+      flex-direction: column;
+      gap: 10px;
     }
   }
 </style>
 
+<input class="saine-lang-state" type="radio" name="saine-language" id="saine-lang-cat" checked>
+<input class="saine-lang-state" type="radio" name="saine-language" id="saine-lang-es">
+<input class="saine-menu-state" type="checkbox" id="saine-menu">
+
 <div class="saine-page" id="saine-andorra">
   <header class="saine-header">
     <div class="saine-container">
-      <input class="saine-mobile-check" type="checkbox" id="saine-menu-toggle" aria-label="Obrir menú">
-      <nav class="saine-nav" aria-label="Navegació principal">
-        <a class="saine-logo" href="https://www.saine.cat/andorra/" aria-label="SAINE Andorra">
+      <nav class="saine-nav" aria-label="Navegación principal">
+        <a class="saine-logo" href="#inici" aria-label="SAINE Andorra">
           <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="SAINE Neuropsicologia">
         </a>
 
         <div class="saine-nav-links">
-          <a href="https://www.saine.cat/">Pàgina inici</a>
-          <a href="#serveis">Serveis</a>
-          <a href="#plataformes">Plataformes integrades</a>
-          <a href="#equip">Equip</a>
-          <a href="#contacte">Contacta</a>
+          <a href="#serveis"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></a>
+          <a href="#plataformes"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></a>
+          <a href="#equip"><span class="saine-cat">Equip</span><span class="saine-es">Equipo</span></a>
+          <a href="#contacte"><span class="saine-cat">Contacta</span><span class="saine-es">Contacto</span></a>
         </div>
 
         <div class="saine-nav-actions">
-          <div class="saine-lang" aria-label="Idiomes">
-            <a href="https://www.saine.cat/andorra/">CAT</a>
-            <a href="https://www.saine.cat/es/andorra/">ES</a>
+          <div class="saine-lang" aria-label="Selector de idioma">
+            <label class="saine-lang-cat-label" for="saine-lang-cat">CAT</label>
+            <label class="saine-lang-es-label" for="saine-lang-es">ES</label>
           </div>
-          <a class="saine-button saine-button-primary" href="#contacte">Concertar visita</a>
+          <a class="saine-button saine-button-primary" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
         </div>
 
-        <label class="saine-mobile-toggle" for="saine-menu-toggle" aria-hidden="true">☰</label>
+        <label class="saine-mobile-toggle" for="saine-menu" aria-hidden="true">☰</label>
       </nav>
 
       <div class="saine-mobile-menu">
         <div class="saine-mobile-menu-inner">
-          <a href="https://www.saine.cat/">Pàgina inici</a>
-          <a href="#serveis">Serveis</a>
-          <a href="#plataformes">Plataformes integrades</a>
-          <a href="#equip">Equip</a>
-          <a href="#contacte">Contacta</a>
-          <a href="https://www.saine.cat/es/andorra/">Español</a>
+          <a href="#serveis"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></a>
+          <a href="#plataformes"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></a>
+          <a href="#equip"><span class="saine-cat">Equip</span><span class="saine-es">Equipo</span></a>
+          <a href="#contacte"><span class="saine-cat">Contacta</span><span class="saine-es">Contacto</span></a>
+          <div class="saine-mobile-lang">
+            <label class="saine-mobile-lang-cat-label" for="saine-lang-cat">CAT</label>
+            <label class="saine-mobile-lang-es-label" for="saine-lang-es">ES</label>
+          </div>
+          <a class="saine-mobile-cta" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
         </div>
       </div>
     </div>
@@ -1046,27 +1308,33 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     <section class="saine-hero" id="inici">
       <div class="saine-container saine-hero-grid">
         <div class="saine-hero-copy">
-          <p class="saine-eyebrow">SAINE aprop teu</p>
-          <h1 class="saine-title">Servei <span>d'atenció i intervenció neuropsicològica a Andorra la Vella</span></h1>
-          <p class="saine-lead">Un equip especialitzat en neuropsicologia, psicologia clínica i psicopedagogia per acompanyar cada persona amb una atenció precisa, humana i personalitzada.</p>
+          <p class="saine-eyebrow"><span class="saine-cat">SAINE aprop teu</span><span class="saine-es">SAINE cerca de ti</span></p>
+          <h1 class="saine-title">
+            <span class="saine-cat">Servei <span>d'atenció i intervenció neuropsicològica a Andorra la Vella</span></span>
+            <span class="saine-es">Servicio <span>de atención e intervención neuropsicológica en Andorra la Vella</span></span>
+          </h1>
+          <p class="saine-lead"><span class="saine-cat">Un equip especialitzat en neuropsicologia, psicologia clínica i psicopedagogia per acompanyar cada persona amb una atenció precisa, humana i personalitzada.</span><span class="saine-es">Un equipo especializado en neuropsicología, psicología clínica y psicopedagogía para acompañar a cada persona con una atención precisa, humana y personalizada.</span></p>
 
           <div class="saine-hero-actions">
-            <a class="saine-button saine-button-primary" href="#contacte">Concertar visita</a>
-            <a class="saine-button saine-button-soft" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra">Enviar un correu</a>
+            <a class="saine-button saine-button-primary" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
+            <a class="saine-button saine-button-soft" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra"><span class="saine-cat">Enviar un correu</span><span class="saine-es">Enviar un correo</span></a>
           </div>
 
-          <div class="saine-trust-row" aria-label="Àrees principals">
+          <div class="saine-trust-row" aria-label="Áreas principales">
             <div class="saine-trust-item">
               <strong>Neuropsicologia</strong>
-              <span>Avaluació diagnòstica, intervenció i orientació terapèutica.</span>
+              <span class="saine-cat">Avaluació diagnòstica, intervenció i orientació terapèutica.</span>
+              <span class="saine-es">Evaluación diagnóstica, intervención y orientación terapéutica.</span>
             </div>
             <div class="saine-trust-item">
-              <strong>Psicologia</strong>
-              <span>Atenció clínica per a infants, adolescents i adults.</span>
+              <strong><span class="saine-cat">Psicologia</span><span class="saine-es">Psicología</span></strong>
+              <span class="saine-cat">Atenció clínica per a infants, adolescents i adults.</span>
+              <span class="saine-es">Atención clínica para niños, adolescentes y adultos.</span>
             </div>
             <div class="saine-trust-item">
               <strong>Psicopedagogia</strong>
-              <span>Suport en dificultats d'aprenentatge i neurodesenvolupament.</span>
+              <span class="saine-cat">Suport en dificultats d'aprenentatge i neurodesenvolupament.</span>
+              <span class="saine-es">Apoyo en dificultades de aprendizaje y neurodesarrollo.</span>
             </div>
           </div>
         </div>
@@ -1074,11 +1342,11 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
         <aside class="saine-hero-panel" aria-label="SAINE Andorra">
           <div class="saine-brain-card">
             <div class="saine-logo-card">
-              <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="Logotip SAINE Neuropsicologia">
+              <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="Logotipo SAINE Neuropsicologia">
             </div>
             <div class="saine-floating-card">
               <span>Andorra la Vella</span>
-              <p>Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</p>
+              <p><span class="saine-cat">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</span><span class="saine-es">Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, trastornos de aprendizaje y trastornos del neurodesarrollo.</span></p>
             </div>
           </div>
         </aside>
@@ -1089,18 +1357,18 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       <div class="saine-container">
         <div class="saine-section-head">
           <div>
-            <p class="saine-eyebrow">Servei d'atenció i intervenció neuropsicològica a Andorra la Vella</p>
+            <p class="saine-eyebrow"><span class="saine-cat">Servei d'atenció i intervenció neuropsicològica a Andorra la Vella</span><span class="saine-es">Servicio de atención e intervención neuropsicológica en Andorra la Vella</span></p>
             <h2 class="saine-section-title">SAINE Andorra</h2>
           </div>
-          <p class="saine-lead">Professionals de diverses disciplines i àmplia experiència compromeses amb el benestar psicològic i emocional.</p>
+          <p class="saine-lead"><span class="saine-cat">Professionals de diverses disciplines i àmplia experiència compromeses amb el benestar psicològic i emocional.</span><span class="saine-es">Profesionales de varias disciplinas y amplia experiencia comprometidas con el bienestar psicológico y emocional.</span></p>
         </div>
 
         <div class="saine-about-card">
           <div class="saine-copy-card">
-            <p>SAINE som un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.</p>
-            <p>Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals així com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.</p>
+            <p><span class="saine-cat">SAINE som un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.</span><span class="saine-es">SAINE somos un equipo de profesionales de varias disciplinas y amplia experiencia comprometidas en promover el bienestar psicológico y emocional, centrándonos en las necesidades de cada persona.</span></p>
+            <p><span class="saine-cat">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals així com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.</span><span class="saine-es">Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, así como en trastornos y dificultades de aprendizaje y trastornos del neurodesarrollo.</span></p>
             <div class="saine-hero-actions">
-              <a class="saine-button saine-button-primary" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra">Clica aquí per a enviar-nos un correu</a>
+              <a class="saine-button saine-button-primary" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra"><span class="saine-cat">Clica aquí per a enviar-nos un correu</span><span class="saine-es">Haz clic aquí para enviarnos un correo</span></a>
             </div>
           </div>
 
@@ -1108,22 +1376,25 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
             <div class="saine-info-line">
               <div class="saine-icon">01</div>
               <div>
-                <strong>Avaluació</strong>
-                <span>Anàlisi professional de cada cas per entendre necessitats cognitives, emocionals i conductuals.</span>
+                <strong><span class="saine-cat">Avaluació</span><span class="saine-es">Evaluación</span></strong>
+                <span class="saine-cat">Anàlisi professional de cada cas per entendre necessitats cognitives, emocionals i conductuals.</span>
+                <span class="saine-es">Análisis profesional de cada caso para entender necesidades cognitivas, emocionales y conductuales.</span>
               </div>
             </div>
             <div class="saine-info-line">
               <div class="saine-icon">02</div>
               <div>
-                <strong>Diagnòstic</strong>
-                <span>Valoració especialitzada per orientar el tractament més adequat.</span>
+                <strong><span class="saine-cat">Diagnòstic</span><span class="saine-es">Diagnóstico</span></strong>
+                <span class="saine-cat">Valoració especialitzada per orientar el tractament més adequat.</span>
+                <span class="saine-es">Valoración especializada para orientar el tratamiento más adecuado.</span>
               </div>
             </div>
             <div class="saine-info-line">
               <div class="saine-icon">03</div>
               <div>
-                <strong>Intervenció</strong>
-                <span>Acompanyament terapèutic i psicopedagògic adaptat a cada persona.</span>
+                <strong><span class="saine-cat">Intervenció</span><span class="saine-es">Intervención</span></strong>
+                <span class="saine-cat">Acompanyament terapèutic i psicopedagògic adaptat a cada persona.</span>
+                <span class="saine-es">Acompañamiento terapéutico y psicopedagógico adaptado a cada persona.</span>
               </div>
             </div>
           </div>
@@ -1135,29 +1406,29 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       <div class="saine-container">
         <div class="saine-section-head">
           <div>
-            <p class="saine-eyebrow">Serveis</p>
-            <h2 class="saine-section-title">Especialitats per a una intervenció integral</h2>
+            <p class="saine-eyebrow"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></p>
+            <h2 class="saine-section-title"><span class="saine-cat">Especialitats per a una intervenció integral</span><span class="saine-es">Especialidades para una intervención integral</span></h2>
           </div>
-          <p class="saine-lead">Una estructura clara de serveis pensada per detectar, orientar i intervenir de forma coordinada.</p>
+          <p class="saine-lead"><span class="saine-cat">Una estructura clara de serveis pensada per detectar, orientar i intervenir de forma coordinada.</span><span class="saine-es">Una estructura clara de servicios pensada para detectar, orientar e intervenir de forma coordinada.</span></p>
         </div>
 
         <div class="saine-services-grid">
           <article class="saine-service-card">
             <div class="saine-service-number">01</div>
             <h3>Neuropsicologia</h3>
-            <p>Des de la neuropsicologia duem a terme avaluacions diagnòstiques, oferim intervenció i/o orientem el tractament més adient a cada cas.</p>
+            <p><span class="saine-cat">Des de la neuropsicologia duem a terme avaluacions diagnòstiques, oferim intervenció i/o orientem el tractament més adient a cada cas.</span><span class="saine-es">Desde la neuropsicología llevamos a cabo evaluaciones diagnósticas, ofrecemos intervención y orientamos el tratamiento más adecuado en cada caso.</span></p>
           </article>
 
           <article class="saine-service-card">
             <div class="saine-service-number">02</div>
-            <h3>Psicologia Clínica</h3>
-            <p>Oferim el servei de psicologia clínica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en teràpies de 3a generació.</p>
+            <h3><span class="saine-cat">Psicologia Clínica</span><span class="saine-es">Psicología Clínica</span></h3>
+            <p><span class="saine-cat">Oferim el servei de psicologia clínica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en teràpies de 3a generació.</span><span class="saine-es">Ofrecemos el servicio de psicología clínica, tanto a niños como a adolescentes y adultos, con un enfoque cognitivo conductual y basado en terapias de tercera generación.</span></p>
           </article>
 
           <article class="saine-service-card">
             <div class="saine-service-number">03</div>
             <h3>Psicopedagogia</h3>
-            <p>L'equip de psicopedagogues intervé en dur a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.</p>
+            <p><span class="saine-cat">L'equip de psicopedagogues intervé en dur a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.</span><span class="saine-es">El equipo de psicopedagogas interviene realizando las intervenciones y abordajes pertinentes en las dificultades de aprendizaje.</span></p>
           </article>
         </div>
       </div>
@@ -1167,8 +1438,8 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       <div class="saine-container">
         <div class="saine-section-head">
           <div>
-            <p class="saine-eyebrow">Plataformes integrades</p>
-            <h2 class="saine-section-title">Millora de la velocitat i la comprensió lectora</h2>
+            <p class="saine-eyebrow"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></p>
+            <h2 class="saine-section-title"><span class="saine-cat">Millora de la velocitat i la comprensió lectora</span><span class="saine-es">Mejora de la velocidad y la comprensión lectora</span></h2>
           </div>
         </div>
 
@@ -1178,7 +1449,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
           </div>
           <div>
             <h3>Mètode Glifing</h3>
-            <p>A SAINE utilitzem el mètode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evidència científica, és utilitzat per més de 200.000 infants de gabinets, escoles i famílies de diversos països en català, castellà i euskera. El seu format ens recorda a un videojoc i això fa que aprendre a llegir sigui divertit.</p>
+            <p><span class="saine-cat">A SAINE utilitzem el mètode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evidència científica, és utilitzat per més de 200.000 infants de gabinets, escoles i famílies de diversos països en català, castellà i euskera. El seu format ens recorda a un videojoc i això fa que aprendre a llegir sigui divertit.</span><span class="saine-es">En SAINE utilizamos el método Glifing para el entrenamiento de la lectura. Creado en Cataluña y basado en la evidencia científica, es utilizado por más de 200.000 niños de gabinetes, escuelas y familias de varios países en catalán, castellano y euskera. Su formato recuerda a un videojuego y eso hace que aprender a leer sea divertido.</span></p>
           </div>
         </article>
       </div>
@@ -1187,9 +1458,9 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     <section class="saine-section" id="equip">
       <div class="saine-container">
         <div class="saine-team-intro">
-          <p class="saine-eyebrow">Coneix l'equip de SAINE</p>
-          <h2 class="saine-section-title">Professionals especialitzades a SAINE Andorra</h2>
-          <p class="saine-lead">SAINE el formem un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona. Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.</p>
+          <p class="saine-eyebrow"><span class="saine-cat">Coneix l'equip de SAINE</span><span class="saine-es">Conoce al equipo de SAINE</span></p>
+          <h2 class="saine-section-title"><span class="saine-cat">Professionals especialitzades a SAINE Andorra</span><span class="saine-es">Profesionales especializadas en SAINE Andorra</span></h2>
+          <p class="saine-lead"><span class="saine-cat">SAINE el formem un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona. Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.</span><span class="saine-es">SAINE lo formamos un equipo de profesionales de varias disciplinas y amplia experiencia comprometidas en promover el bienestar psicológico y emocional, centrándonos en las necesidades de cada persona. Desde SAINE Andorra trabajamos la psicopedagogía, la neuropsicología y la psicología.</span></p>
         </div>
 
         <div class="saine-team-grid">
@@ -1202,12 +1473,12 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
               <a class="saine-email-chip" href="mailto:lnieto.saine@andorra.ad">lnieto.saine@andorra.ad</a>
             </div>
             <ul>
-              <li>Màster en Neurologia de la Conducta i Neuropsicologia per la UAB, acreditada professionalment com a Experta en Neuropsicologia Clínica pel COPC.</li>
-              <li>Postgraduada en Psicopatologia Clínica per la UB.</li>
-              <li>Màster en Teràpies Contextuals de 3a generació per l'Instituto ACT.</li>
-              <li>Educadora de pares i de mestres certificada en Disciplina Positiva.</li>
+              <li><span class="saine-cat">Màster en Neurologia de la Conducta i Neuropsicologia per la UAB, acreditada professionalment com a Experta en Neuropsicologia Clínica pel COPC.</span><span class="saine-es">Máster en Neurología de la Conducta y Neuropsicología por la UAB, acreditada profesionalmente como Experta en Neuropsicología Clínica por el COPC.</span></li>
+              <li><span class="saine-cat">Postgraduada en Psicopatologia Clínica per la UB.</span><span class="saine-es">Postgraduada en Psicopatología Clínica por la UB.</span></li>
+              <li><span class="saine-cat">Màster en Teràpies Contextuals de 3a generació per l'Instituto ACT.</span><span class="saine-es">Máster en Terapias Contextuales de tercera generación por el Instituto ACT.</span></li>
+              <li><span class="saine-cat">Educadora de pares i de mestres certificada en Disciplina Positiva.</span><span class="saine-es">Educadora de padres y de maestros certificada en Disciplina Positiva.</span></li>
             </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologialorena">Contactar amb Lorena</a>
+            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologialorena"><span class="saine-cat">Contactar amb Lorena</span><span class="saine-es">Contactar con Lorena</span></a>
           </article>
 
           <article class="saine-team-card">
@@ -1219,31 +1490,31 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
               <a class="saine-email-chip" href="mailto:cvergesrossell@gmail.com">cvergesrossell@gmail.com</a>
             </div>
             <ul>
-              <li>Llicenciada en Psicopedagogia per la Universitat de Barcelona.</li>
-              <li>Diplomada en Magisteri d'Educació Primària per la Facultat de Psicologia, Ciències de l'Educació i de l'Esport Blanquerna.</li>
-              <li>Acreditada com a experta en intel·ligència emocional per la UNIR.</li>
-              <li>Cursos d'especialització en dificultats i trastorns d'aprenentatge.</li>
-              <li>Entrenadora Glifing.</li>
+              <li><span class="saine-cat">Llicenciada en Psicopedagogia per la Universitat de Barcelona.</span><span class="saine-es">Licenciada en Psicopedagogía por la Universidad de Barcelona.</span></li>
+              <li><span class="saine-cat">Diplomada en Magisteri d'Educació Primària per la Facultat de Psicologia, Ciències de l'Educació i de l'Esport Blanquerna.</span><span class="saine-es">Diplomada en Magisterio de Educación Primaria por la Facultad de Psicología, Ciencias de la Educación y del Deporte Blanquerna.</span></li>
+              <li><span class="saine-cat">Acreditada com a experta en intel·ligència emocional per la UNIR.</span><span class="saine-es">Acreditada como experta en inteligencia emocional por la UNIR.</span></li>
+              <li><span class="saine-cat">Cursos d'especialització en dificultats i trastorns d'aprenentatge.</span><span class="saine-es">Cursos de especialización en dificultades y trastornos de aprendizaje.</span></li>
+              <li><span class="saine-cat">Entrenadora Glifing.</span><span class="saine-es">Entrenadora Glifing.</span></li>
             </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicopedagogia">Contactar amb Carla</a>
+            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicopedagogia"><span class="saine-cat">Contactar amb Carla</span><span class="saine-es">Contactar con Carla</span></a>
           </article>
 
           <article class="saine-team-card">
             <div class="saine-team-top">
               <div class="saine-team-name">
                 <h3>Elisa Bonvilà Queija</h3>
-                <span>Psicòloga Clínica</span>
+                <span><span class="saine-cat">Psicòloga Clínica</span><span class="saine-es">Psicóloga Clínica</span></span>
               </div>
               <a class="saine-email-chip" href="mailto:ebonvila.saine@andorra.ad">ebonvila.saine@andorra.ad</a>
             </div>
             <ul>
-              <li>Llicenciada en Psicologia per la Universitat Autònoma de Barcelona.</li>
-              <li>Postgraduada en Formació d'Especialistes en Psicomotricitat i en Teràpia Psicomotriu.</li>
-              <li>Màster en Atenció Precoç i Psicologia Clínica Infantojuvenil.</li>
-              <li>Màster en Teràpies de Tercera Generació.</li>
-              <li>Educadora de famílies certificada en Disciplina Positiva i entrenadora Glifing.</li>
+              <li><span class="saine-cat">Llicenciada en Psicologia per la Universitat Autònoma de Barcelona.</span><span class="saine-es">Licenciada en Psicología por la Universidad Autónoma de Barcelona.</span></li>
+              <li><span class="saine-cat">Postgraduada en Formació d'Especialistes en Psicomotricitat i en Teràpia Psicomotriu.</span><span class="saine-es">Postgraduada en Formación de Especialistas en Psicomotricidad y en Terapia Psicomotriz.</span></li>
+              <li><span class="saine-cat">Màster en Atenció Precoç i Psicologia Clínica Infantojuvenil.</span><span class="saine-es">Máster en Atención Precoz y Psicología Clínica Infantojuvenil.</span></li>
+              <li><span class="saine-cat">Màster en Teràpies de Tercera Generació.</span><span class="saine-es">Máster en Terapias de Tercera Generación.</span></li>
+              <li><span class="saine-cat">Educadora de famílies certificada en Disciplina Positiva i entrenadora Glifing.</span><span class="saine-es">Educadora de familias certificada en Disciplina Positiva y entrenadora Glifing.</span></li>
             </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiaelisa">Contactar amb Elisa</a>
+            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiaelisa"><span class="saine-cat">Contactar amb Elisa</span><span class="saine-es">Contactar con Elisa</span></a>
           </article>
 
           <article class="saine-team-card">
@@ -1255,35 +1526,35 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
               <a class="saine-email-chip" href="mailto:npico.saine@andorra.ad">npico.saine@andorra.ad</a>
             </div>
             <ul>
-              <li>Llicenciatura en Psicologia per la Universitat de Barcelona.</li>
-              <li>Màster universitari en Neuropsicologia Clínica per la Universitat de Barcelona.</li>
-              <li>Acreditació professional en psicòleg expert en Neuropsicologia Clínica.</li>
-              <li>Acreditació en Psicologia General Sanitària pel Col·legi Oficial de Psicòlegs de Catalunya.</li>
-              <li>Diploma d'Estudis Avançats i suficiència investigadora.</li>
+              <li><span class="saine-cat">Llicenciatura en Psicologia per la Universitat de Barcelona.</span><span class="saine-es">Licenciatura en Psicología por la Universidad de Barcelona.</span></li>
+              <li><span class="saine-cat">Màster universitari en Neuropsicologia Clínica per la Universitat de Barcelona.</span><span class="saine-es">Máster universitario en Neuropsicología Clínica por la Universidad de Barcelona.</span></li>
+              <li><span class="saine-cat">Acreditació professional en psicòleg expert en Neuropsicologia Clínica.</span><span class="saine-es">Acreditación profesional en psicólogo experto en Neuropsicología Clínica.</span></li>
+              <li><span class="saine-cat">Acreditació en Psicologia General Sanitària pel Col·legi Oficial de Psicòlegs de Catalunya.</span><span class="saine-es">Acreditación en Psicología General Sanitaria por el Colegio Oficial de Psicólogos de Cataluña.</span></li>
+              <li><span class="saine-cat">Diploma d'Estudis Avançats i suficiència investigadora.</span><span class="saine-es">Diploma de Estudios Avanzados y suficiencia investigadora.</span></li>
             </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologianatalia">Contactar amb Natàlia</a>
+            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologianatalia"><span class="saine-cat">Contactar amb Natàlia</span><span class="saine-es">Contactar con Natàlia</span></a>
           </article>
 
           <article class="saine-team-card">
             <div class="saine-team-top">
               <div class="saine-team-name">
                 <h3>Sara Aleix Guillaume</h3>
-                <span>Psicòloga</span>
+                <span><span class="saine-cat">Psicòloga</span><span class="saine-es">Psicóloga</span></span>
               </div>
               <a class="saine-email-chip" href="mailto:saleix.saine@andorra.ad">saleix.saine@andorra.ad</a>
             </div>
             <ul>
-              <li>Graduada en Psicologia per la Universitat de Barcelona.</li>
-              <li>Màster en Psicologia Jurídica i Forense per la Universitat Autònoma de Barcelona.</li>
-              <li>Màster en Psicologia Infantil i Juvenil per la Universitat Oberta de Catalunya.</li>
+              <li><span class="saine-cat">Graduada en Psicologia per la Universitat de Barcelona.</span><span class="saine-es">Graduada en Psicología por la Universidad de Barcelona.</span></li>
+              <li><span class="saine-cat">Màster en Psicologia Jurídica i Forense per la Universitat Autònoma de Barcelona.</span><span class="saine-es">Máster en Psicología Jurídica y Forense por la Universidad Autónoma de Barcelona.</span></li>
+              <li><span class="saine-cat">Màster en Psicologia Infantil i Juvenil per la Universitat Oberta de Catalunya.</span><span class="saine-es">Máster en Psicología Infantil y Juvenil por la Universitat Oberta de Catalunya.</span></li>
             </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiasara">Contactar amb Sara</a>
+            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiasara"><span class="saine-cat">Contactar amb Sara</span><span class="saine-es">Contactar con Sara</span></a>
           </article>
         </div>
 
         <div class="saine-team-note">
-          <p>Per tal d'oferir una intervenció integral a cada problemàtica el nostre equip el formen neuropsicològues, psicòlogues sanitàries, psicomotricista, logopeda i psicopedagogues que fundamenten l'actuació en el treball cooperatiu mantenint una constant i estreta col·laboració amb la resta de professionals del grup SAINE.</p>
-          <a class="saine-button saine-button-soft" href="https://www.saine.cat/equip/">Coneix + professionals de SAINE</a>
+          <p><span class="saine-cat">Per tal d'oferir una intervenció integral a cada problemàtica el nostre equip el formen neuropsicològues, psicòlogues sanitàries, psicomotricista, logopeda i psicopedagogues que fundamenten l'actuació en el treball cooperatiu mantenint una constant i estreta col·laboració amb la resta de professionals del grup SAINE.</span><span class="saine-es">Para ofrecer una intervención integral a cada problemática, nuestro equipo está formado por neuropsicólogas, psicólogas sanitarias, psicomotricista, logopeda y psicopedagogas que fundamentan la actuación en el trabajo cooperativo, manteniendo una colaboración constante y estrecha con el resto de profesionales del grupo SAINE.</span></p>
+          <a class="saine-button saine-button-soft" href="https://www.saine.cat/equip/"><span class="saine-cat">Coneix + professionals de SAINE</span><span class="saine-es">Conoce más profesionales de SAINE</span></a>
         </div>
       </div>
     </section>
@@ -1292,29 +1563,29 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
       <div class="saine-container">
         <div class="saine-contact-wrap">
           <div class="saine-contact-card">
-            <p class="saine-eyebrow">Contacta amb SAINE Andorra</p>
-            <h2 class="saine-section-title">Explica'ns el teu cas</h2>
-            <p class="saine-lead">Emplena aquest formulari i et respondrem el més aviat possible.</p>
+            <p class="saine-eyebrow"><span class="saine-cat">Contacta amb SAINE Andorra</span><span class="saine-es">Contacta con SAINE Andorra</span></p>
+            <h2 class="saine-section-title"><span class="saine-cat">Explica'ns el teu cas</span><span class="saine-es">Cuéntanos tu caso</span></h2>
+            <p class="saine-lead"><span class="saine-cat">Emplena aquest formulari i et respondrem el més aviat possible.</span><span class="saine-es">Rellena este formulario y te responderemos lo antes posible.</span></p>
 
             <form class="saine-form" action="mailto:info@saine.cat" method="post" enctype="text/plain">
               <div class="saine-form-row">
                 <div class="saine-field">
-                  <label for="saine-name">Nom i cognoms</label>
+                  <label for="saine-name"><span class="saine-cat">Nom i cognoms</span><span class="saine-es">Nombre y apellidos</span></label>
                   <input id="saine-name" name="Nom" type="text" autocomplete="name" required>
                 </div>
                 <div class="saine-field">
-                  <label for="saine-phone">Telèfon</label>
+                  <label for="saine-phone"><span class="saine-cat">Telèfon</span><span class="saine-es">Teléfono</span></label>
                   <input id="saine-phone" name="Telefon" type="tel" autocomplete="tel" required>
                 </div>
               </div>
 
               <div class="saine-form-row">
                 <div class="saine-field">
-                  <label for="saine-email">Correu electrònic</label>
+                  <label for="saine-email"><span class="saine-cat">Correu electrònic</span><span class="saine-es">Correo electrónico</span></label>
                   <input id="saine-email" name="Email" type="email" autocomplete="email" required>
                 </div>
                 <div class="saine-field">
-                  <label for="saine-service">Servei d'interès</label>
+                  <label for="saine-service"><span class="saine-cat">Servei d'interès</span><span class="saine-es">Servicio de interés</span></label>
                   <select id="saine-service" name="Servei">
                     <option value="Neuropsicologia">Neuropsicologia</option>
                     <option value="Psicologia Clínica">Psicologia Clínica</option>
@@ -1325,18 +1596,18 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
               </div>
 
               <div class="saine-field">
-                <label for="saine-message">Missatge</label>
+                <label for="saine-message"><span class="saine-cat">Missatge</span><span class="saine-es">Mensaje</span></label>
                 <textarea id="saine-message" name="Missatge" placeholder="Explica'ns breument com et podem ajudar" required></textarea>
               </div>
 
-              <small>En enviar el formulari acceptes que SAINE pugui contactar amb tu per respondre la teva consulta.</small>
-              <button class="saine-button saine-button-primary" type="submit">Enviar consulta</button>
+              <small><span class="saine-cat">En enviar el formulari acceptes que SAINE pugui contactar amb tu per respondre la teva consulta.</span><span class="saine-es">Al enviar el formulario aceptas que SAINE pueda contactar contigo para responder tu consulta.</span></small>
+              <button class="saine-button saine-button-primary" type="submit"><span class="saine-cat">Enviar consulta</span><span class="saine-es">Enviar consulta</span></button>
             </form>
           </div>
 
           <aside class="saine-contact-side">
             <div class="saine-location-card">
-              <h3>Adreces i contacte</h3>
+              <h3><span class="saine-cat">Adreces i contacte</span><span class="saine-es">Direcciones y contacto</span></h3>
               <div class="saine-location-item">
                 <strong>Andorra la Vella</strong>
                 <span>Prat de la Creu, 93, 1r 1a</span>
@@ -1350,9 +1621,9 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
             </div>
 
             <div class="saine-call-card">
-              <span>També ens pots trucar al:</span>
+              <span><span class="saine-cat">També ens pots trucar al:</span><span class="saine-es">También puedes llamarnos al:</span></span>
               <strong>+376 728 877</strong>
-              <a class="saine-button saine-button-primary" href="tel:+376728877">Truca'ns</a>
+              <a class="saine-button saine-button-primary" href="tel:+376728877"><span class="saine-cat">Truca'ns</span><span class="saine-es">Llámanos</span></a>
             </div>
           </aside>
         </div>
@@ -1364,7 +1635,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     <div class="saine-container saine-footer-grid">
       <div>
         <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="SAINE">
-        <p>SAINE Neuropsicologia. Atenció i intervenció neuropsicològica a Andorra la Vella.</p>
+        <p><span class="saine-cat">SAINE Neuropsicologia. Atenció i intervenció neuropsicològica a Andorra la Vella.</span><span class="saine-es">SAINE Neuropsicologia. Atención e intervención neuropsicológica en Andorra la Vella.</span></p>
       </div>
       <div class="saine-footer-links">
         <a href="https://www.saine.cat/avis-legal/">Avís Legal</a>
