@@ -93,13 +93,15 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   }
 
   #saine-lang-es:checked ~ .saine-page .saine-lang-cat-label {
-    background: transparent;
-    color: var(--saine-muted);
+    background: var(--saine-green-deep);
+    color: #ffffff !important;
+    border: 1px solid var(--saine-green-deep);
   }
 
   #saine-lang-es:checked ~ .saine-page .saine-lang-es-label {
     background: var(--saine-green-deep);
-    color: #ffffff;
+    color: #ffffff !important;
+    border: 1px solid var(--saine-green-deep);
   }
 
   .saine-eyebrow {
@@ -210,15 +212,22 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
 
   .saine-lang {
     display: flex;
-    gap: 4px;
+    align-items: center;
+    gap: 5px;
     padding: 5px;
     border: 1px solid var(--saine-line);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 10px 24px rgba(31, 45, 42, 0.06);
   }
 
   .saine-lang label {
-    padding: 8px 10px;
+    min-width: 42px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
     border-radius: 999px;
     color: var(--saine-muted);
     font-size: 12px;
@@ -226,6 +235,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     cursor: pointer;
     transition: 200ms ease;
     user-select: none;
+    opacity: 1;
   }
 
   .saine-lang-cat-label {
@@ -324,11 +334,16 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
   }
 
   .saine-trust-item {
-    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 134px;
+    padding: 20px;
     border: 1px solid var(--saine-line);
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.66);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.78);
     backdrop-filter: blur(18px);
+    box-shadow: 0 14px 34px rgba(31, 45, 42, 0.07);
   }
 
   .saine-trust-item strong {
@@ -338,12 +353,18 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     line-height: 1.1;
   }
 
-  .saine-trust-item span {
+  .saine-trust-item > span {
     display: block;
-    margin-top: 6px;
+    margin-top: 8px;
     color: var(--saine-muted);
-    font-size: 13px;
-    line-height: 1.45;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #saine-lang-es:checked ~ .saine-page .saine-trust-item > .saine-es,
+  #saine-lang-es:checked ~ .saine-page .saine-floating-card p > .saine-es,
+  #saine-lang-es:checked ~ .saine-page .saine-section-head > .saine-lead .saine-es {
+    display: block !important;
   }
 
   .saine-hero-panel {
@@ -404,7 +425,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     line-height: 1.55;
   }
 
-  .saine-floating-card span {
+  .saine-floating-card .saine-floating-card-badge {
     display: inline-flex;
     margin-bottom: 14px;
     padding: 8px 12px;
@@ -415,6 +436,21 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     font-weight: 800;
     letter-spacing: 0.13em;
     text-transform: uppercase;
+  }
+
+  .saine-floating-card p .saine-cat,
+  .saine-floating-card p .saine-es {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    line-height: inherit !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
 
   .saine-section {
@@ -428,6 +464,17 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     gap: 50px;
     align-items: end;
     margin-bottom: 42px;
+  }
+
+  .saine-section-head > .saine-lead {
+    padding: 24px 26px;
+    border: 1px solid rgba(31, 45, 42, 0.10);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.66);
+    box-shadow: 0 14px 36px rgba(31, 45, 42, 0.07);
+    color: #526a64;
+    font-size: 18px;
+    line-height: 1.65;
   }
 
   .saine-about-card {
@@ -960,8 +1007,9 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     }
 
     #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-cat-label {
-      background: rgba(247, 244, 238, 0.78) !important;
-      color: var(--saine-muted) !important;
+      background: #ffffff !important;
+      color: var(--saine-green-deep) !important;
+      border: 1px solid rgba(31, 45, 42, 0.10);
     }
 
     #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-es-label {
@@ -1077,8 +1125,9 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
     }
 
     .saine-trust-item {
-      padding: 16px;
-      border-radius: 18px;
+      min-height: auto;
+      padding: 18px;
+      border-radius: 20px;
     }
 
     .saine-hero-panel {
@@ -1345,7 +1394,7 @@ Nota formulario: el formulario usa mailto como fallback HTML. Para producción, 
               <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="Logotipo SAINE Neuropsicologia">
             </div>
             <div class="saine-floating-card">
-              <span>Andorra la Vella</span>
+              <span class="saine-floating-card-badge">Andorra la Vella</span>
               <p><span class="saine-cat">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</span><span class="saine-es">Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, trastornos de aprendizaje y trastornos del neurodesarrollo.</span></p>
             </div>
           </div>
