@@ -6,248 +6,319 @@
 <meta name="description" content="SAINE – Servei d'atenció i intervenció neuropsicològica a Andorra la Vella. Neuropsicologia, Psicologia Clínica i Psicopedagogia.">
 <title>SAINE Andorra – Neuropsicologia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --sage:#4a7c6f;--sage-dark:#2e5a4e;--sage-light:#e8f2ef;--sage-mid:#6a9e8f;
-  --cream:#f5f3ee;--stone:#e2ddd5;--td:#1c2520;--tm:#4a5550;--tl:#7a8a84;
-  --w:#ffffff;--r:16px;--rs:8px;
-  --sh:0 4px 24px rgba(30,50,40,.08);--shl:0 16px 48px rgba(30,50,40,.14)
+  --g:#3d6b5f;--gd:#243f38;--gl:#e6f0ed;--gm:#5a8f80;--g2:#c8ddd8;
+  --bg:#f4f1eb;--bg2:#ede9e1;--stone:#d9d4ca;
+  --td:#1a1f1c;--tm:#485049;--tl:#7a8880;
+  --w:#fff;--r:18px;--rs:10px;
+  --sh:0 2px 20px rgba(24,40,32,.07);--shl:0 8px 40px rgba(24,40,32,.13)
 }
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;color:var(--td);background:var(--w);overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.15}
+h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif;line-height:1.1;letter-spacing:-.01em}
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
 
-/* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--stone);transition:box-shadow .3s}
+/* ══ NAV ══ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;background:rgba(244,241,235,.97);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--stone);
+  transition:box-shadow .3s
+}
 .nav.scrolled{box-shadow:var(--sh)}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{width:42px;height:42px;background:var(--sage);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-icon svg{width:24px;height:24px;fill:none;stroke:white;stroke-width:1.8}
-.logo-text{display:flex;flex-direction:column;line-height:1}
-.logo-text .lt{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--sage-dark)}
-.logo-text .ls{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--tl);font-weight:500}
-.nav-links{display:flex;align-items:center;gap:0;list-style:none;background:rgba(245,243,238,.85);border:1px solid var(--stone);border-radius:50px;padding:6px 8px;gap:2px}
-.nav-links a{font-size:13.5px;font-weight:500;color:var(--tm);padding:7px 16px;border-radius:50px;transition:all .2s;cursor:pointer;white-space:nowrap}
-.nav-links a:hover{background:var(--sage-light);color:var(--sage-dark)}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-mark{
+  width:40px;height:40px;background:var(--gd);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0
+}
+.logo-mark svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.7}
+.logo-words{display:flex;flex-direction:column;line-height:1}
+.logo-words .lw1{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gd);letter-spacing:.02em}
+.logo-words .lw2{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tl);font-weight:500;margin-top:1px}
+.nav-center{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.6);border:1px solid var(--stone);border-radius:50px;padding:5px 6px}
+.nav-center a{font-size:13px;font-weight:500;color:var(--tm);padding:7px 18px;border-radius:50px;transition:all .2s;cursor:pointer;white-space:nowrap}
+.nav-center a:hover{background:var(--gl);color:var(--gd)}
 .nav-right{display:flex;align-items:center;gap:10px}
-.lang-switcher{display:flex;gap:4px;background:var(--cream);border:1px solid var(--stone);border-radius:50px;padding:4px}
-.lang-btn{font-size:12.5px;font-weight:700;color:var(--tl);padding:5px 12px;border-radius:50px;border:none;cursor:pointer;background:none;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:.04em}
-.lang-btn.active{background:var(--sage);color:white}
-.btn-cta-nav{background:var(--sage-dark);color:white;padding:10px 22px;border-radius:50px;font-size:13.5px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
-.btn-cta-nav:hover{background:var(--sage);transform:translateY(-1px)}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
-.nav-toggle span{display:block;width:22px;height:2px;background:var(--td);border-radius:2px;transition:all .3s}
+.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.6);border:1px solid var(--stone);border-radius:50px;padding:4px}
+.lang-btn{font-size:12px;font-weight:700;color:var(--tl);padding:5px 13px;border-radius:50px;border:none;cursor:pointer;background:none;font-family:'DM Sans',sans-serif;letter-spacing:.06em;transition:all .2s}
+.lang-btn.active{background:var(--gd);color:#fff}
+.nav-cta{
+  background:var(--gd);color:#fff;padding:9px 22px;border-radius:50px;
+  font-size:13px;font-weight:600;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+  display:inline-flex;align-items:center;gap:7px;letter-spacing:.01em
+}
+.nav-cta:hover{background:var(--g);transform:translateY(-1px)}
+.nav-cta svg{width:15px;height:15px;flex-shrink:0}
+.nav-tog{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+.nav-tog span{display:block;width:22px;height:1.5px;background:var(--td);border-radius:2px;transition:all .3s}
 
-/* ── MOBILE MENU ── */
-.mob-menu{position:fixed;top:72px;left:0;right:0;bottom:0;background:white;padding:2rem 2.5rem;overflow-y:auto;z-index:999;display:none;flex-direction:column;gap:4px}
-.mob-menu.open{display:flex}
-.mob-menu a{font-size:17px;font-weight:500;color:var(--td);padding:.9rem 0;border-bottom:1px solid var(--stone);cursor:pointer;transition:color .2s}
-.mob-menu a:hover{color:var(--sage)}
-.mob-lang{display:flex;gap:.7rem;padding:.9rem 0;border-bottom:1px solid var(--stone)}
+/* ══ MOBILE MENU ══ */
+.mob{position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--bg);padding:2rem 2.5rem;z-index:999;display:none;flex-direction:column;gap:2px;overflow-y:auto}
+.mob.open{display:flex}
+.mob a{font-size:18px;font-weight:500;color:var(--td);padding:.9rem 0;border-bottom:1px solid var(--stone);cursor:pointer}
+.mob a:hover{color:var(--g)}
+.mob-lang{display:flex;gap:.8rem;padding:.9rem 0;border-bottom:1px solid var(--stone)}
 .mob-lang button{font-size:14px;font-weight:700;background:none;border:1.5px solid var(--stone);border-radius:8px;padding:7px 18px;cursor:pointer;color:var(--tm);font-family:'DM Sans',sans-serif;transition:all .2s}
-.mob-lang button.active{background:var(--sage);color:white;border-color:var(--sage)}
-.mob-cta{background:var(--sage-dark)!important;color:white!important;text-align:center;border-radius:50px!important;padding:.9rem 2rem!important;border:none!important;margin-top:1rem;font-weight:600!important}
+.mob-lang button.active{background:var(--gd);color:#fff;border-color:var(--gd)}
+.mob-cta-btn{background:var(--gd)!important;color:#fff!important;text-align:center;border-radius:50px!important;padding:.9rem 2rem!important;border-bottom:none!important;margin-top:1rem;font-weight:600!important;font-size:16px!important}
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;border:2px solid transparent;text-decoration:none}
-.btn svg{width:17px;height:17px;flex-shrink:0}
-.btn-primary{background:var(--sage-dark);color:white;border-color:var(--sage-dark);box-shadow:0 4px 18px rgba(46,90,78,.3)}
-.btn-primary:hover{background:var(--sage);border-color:var(--sage);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--sage-dark);border-color:var(--sage-dark)}
-.btn-outline:hover{background:var(--sage-light);transform:translateY(-2px)}
+/* ══ HERO ══ */
+.hero{
+  padding-top:68px;min-height:100vh;display:flex;align-items:center;
+  background:var(--bg);position:relative;overflow:hidden
+}
+.hero-line1{position:absolute;top:0;left:0;right:0;height:3px;background:var(--gd)}
+.hero-grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  opacity:.5;pointer-events:none
+}
+.hero-inner{
+  max-width:1280px;margin:0 auto;padding:6rem 3rem 5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+  position:relative;z-index:1;width:100%
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gd);margin-bottom:2rem
+}
+.hero-label::before{content:'';width:28px;height:1.5px;background:var(--gd)}
+.hero h1{
+  font-size:clamp(3rem,5.5vw,5.2rem);font-weight:600;color:var(--td);
+  line-height:.97;margin-bottom:2rem
+}
+.hero h1 em{color:var(--gd);font-style:italic;font-weight:400}
+.hero-desc{
+  font-size:17px;color:var(--tm);line-height:1.85;max-width:480px;
+  margin-bottom:3rem;font-family:'DM Sans',sans-serif
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 28px;border-radius:50px;
+  font-size:14.5px;font-weight:600;cursor:pointer;
+  transition:all .25s;font-family:'DM Sans',sans-serif;
+  background:var(--gd);color:#fff;border:none;
+  box-shadow:0 4px 20px rgba(36,63,56,.28)
+}
+.btn-p:hover{background:var(--g);transform:translateY(-2px);box-shadow:0 8px 28px rgba(36,63,56,.35)}
+.btn-p svg{width:16px;height:16px;flex-shrink:0}
+.btn-o{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 28px;border-radius:50px;
+  font-size:14.5px;font-weight:600;cursor:pointer;
+  transition:all .25s;font-family:'DM Sans',sans-serif;
+  background:transparent;color:var(--gd);border:1.5px solid var(--gd)
+}
+.btn-o:hover{background:var(--gl);transform:translateY(-2px)}
+.btn-o svg{width:16px;height:16px;flex-shrink:0}
+.hero-right{position:relative}
+.hero-card{
+  background:#fff;border-radius:24px;
+  box-shadow:var(--shl);overflow:hidden;border:1px solid rgba(61,107,95,.08)
+}
+.hc-top{background:var(--gd);padding:2rem 2.2rem}
+.hc-top-label{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem}
+.hc-top-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:#fff;line-height:1.2}
+.hc-body{padding:2rem 2.2rem}
+.hc-desc{font-size:14.5px;color:var(--tm);line-height:1.75;margin-bottom:1.8rem}
+.hc-pills{display:flex;flex-wrap:wrap;gap:8px}
+.hc-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--gl);color:var(--gd);font-size:12.5px;font-weight:600;
+  padding:7px 16px;border-radius:50px;border:1px solid var(--g2)
+}
+.hc-pill::before{content:'✓';font-size:10px;background:var(--gd);color:#fff;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.hero-stats{display:flex;gap:12px;margin-top:14px}
+.hs{flex:1;background:var(--bg);border-radius:14px;padding:1.1rem 1.2rem;border:1px solid var(--stone)}
+.hs-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gd);line-height:1}
+.hs-lbl{font-size:11.5px;color:var(--tl);margin-top:3px;font-weight:500}
 
-/* ── HERO ── */
-.hero{padding-top:72px;min-height:100vh;display:flex;align-items:center;background:var(--cream);position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 70% 50%,rgba(74,124,111,.07) 0%,transparent 70%)}
-.hero-dots{position:absolute;right:0;top:0;width:50%;height:100%;opacity:.045;background-image:radial-gradient(circle at 1.5px 1.5px,var(--sage-dark) 1px,transparent 0);background-size:28px 28px}
-.hero-inner{max-width:1240px;margin:0 auto;padding:5rem 2.5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1;width:100%}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--sage-light);border:1px solid rgba(74,124,111,.2);padding:6px 16px;border-radius:50px;margin-bottom:1.6rem}
-.hero-tag::before{content:'';width:5px;height:5px;background:var(--sage);border-radius:50%}
-.hero h1{font-size:clamp(2.4rem,4.5vw,4rem);font-weight:700;color:var(--td);line-height:1.07;margin-bottom:1.6rem}
-.hero h1 em{color:var(--sage-dark);font-style:normal}
-.hero-desc{font-size:17px;color:var(--tm);line-height:1.8;max-width:480px;margin-bottom:2.8rem}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
-.hero-card-wrap{display:flex;align-items:center;justify-content:center;position:relative}
-.hero-card{background:white;border-radius:20px;padding:2.2rem;box-shadow:var(--shl);border:1px solid rgba(74,124,111,.1);width:100%;max-width:400px;position:relative}
-.hero-logo-block{display:flex;align-items:center;gap:12px;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--stone)}
-.hero-logo-block .hl-icon{width:52px;height:52px;background:var(--cream);border-radius:12px;border:1px solid var(--stone);display:flex;align-items:center;justify-content:center}
-.hero-logo-block .hl-icon svg{width:30px;height:30px;fill:none;stroke:var(--sage);stroke-width:1.5}
-.hero-logo-block .hl-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-dark)}
-.hero-logo-block .hl-sub{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--tl)}
-.hero-info-block{background:var(--sage-dark);border-radius:14px;padding:1.4rem 1.6rem;color:white}
-.hero-info-block .hib-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.65;margin-bottom:.4rem}
-.hero-info-block .hib-text{font-size:14px;line-height:1.6;font-weight:500}
-.hero-pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:1.4rem}
-.hero-pill{display:inline-flex;align-items:center;gap:6px;background:var(--sage-light);color:var(--sage-dark);font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:50px;border:1px solid rgba(74,124,111,.2)}
-.hero-pill::before{content:'✓';font-size:9px;background:var(--sage);color:white;width:15px;height:15px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+/* ══ SECTION BASE ══ */
+.section{padding:7rem 3rem}
+.container{max-width:1280px;margin:0 auto}
+.sec-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gd);margin-bottom:1.2rem}
+.sec-label::before{content:'';width:24px;height:1.5px;background:var(--gd)}
+.sec-title{font-size:clamp(2rem,3.2vw,3rem);font-weight:600;color:var(--td);margin-bottom:1.6rem;line-height:1.05}
+.sec-lead{font-size:17px;color:var(--tm);line-height:1.85;max-width:580px;margin-bottom:3.5rem}
 
-/* ── SECTIONS ── */
-.section{padding:5.5rem 2.5rem}
-.container{max-width:1240px;margin:0 auto}
-.sec-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--sage);margin-bottom:.9rem}
-.sec-title{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--td);margin-bottom:1.4rem}
-.sec-lead{font-size:16.5px;color:var(--tm);line-height:1.8;max-width:620px;margin-bottom:3rem}
-.center{text-align:center}
-.center .sec-lead{margin-left:auto;margin-right:auto}
-
-/* ── ABOUT ── */
-.about{background:white}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.about-text p{color:var(--tm);font-size:15.5px;line-height:1.85;margin-bottom:1rem}
-.about-text b{color:var(--sage-dark);font-weight:600}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:1.8rem}
-.af{background:var(--sage-light);border-radius:var(--rs);padding:1rem 1.2rem;border-left:3px solid var(--sage)}
-.af strong{display:block;font-size:13.5px;font-weight:600;color:var(--sage-dark);margin-bottom:2px}
+/* ══ ABOUT ══ */
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
+.about-text p{color:var(--tm);font-size:16px;line-height:1.9;margin-bottom:1.1rem}
+.about-text b{color:var(--gd);font-weight:600}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2rem}
+.af{background:var(--bg);border-radius:12px;padding:1.1rem 1.3rem;border:1px solid var(--stone)}
+.af strong{display:block;font-size:13.5px;font-weight:600;color:var(--gd);margin-bottom:2px}
 .af span{font-size:12.5px;color:var(--tm)}
-.about-boxes{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.ab{background:var(--cream);border-radius:var(--r);padding:1.8rem 1.5rem;text-align:center;border:1px solid var(--stone);transition:transform .2s}
-.ab:hover{transform:translateY(-4px)}
-.ab:first-child{grid-column:span 2;background:var(--sage-dark);color:white}
-.ab .abn{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--sage-dark)}
-.ab:first-child .abn{color:white;font-size:1.4rem}
-.ab .abl{font-size:12.5px;font-weight:500;color:var(--tm);margin-top:4px}
-.ab:first-child .abl{color:rgba(255,255,255,.75)}
+.about-visual{display:flex;flex-direction:column;gap:16px}
+.av-big{
+  background:var(--gd);border-radius:20px;padding:2.8rem 2.5rem;
+  color:#fff;position:relative;overflow:hidden
+}
+.av-big::after{
+  content:'';position:absolute;right:-30px;top:-30px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.05)
+}
+.av-big-num{font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:700;line-height:1;color:#fff;margin-bottom:.4rem}
+.av-big-txt{font-size:14px;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.04em}
+.av-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.av-sm{background:var(--bg);border-radius:16px;padding:1.6rem 1.5rem;border:1px solid var(--stone)}
+.av-sm-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:700;color:var(--gd);line-height:1;margin-bottom:.3rem}
+.av-sm-txt{font-size:12.5px;color:var(--tl);font-weight:500}
+.av-wide{background:var(--bg2);border-radius:16px;padding:1.6rem 1.8rem;border:1px solid var(--stone);display:flex;align-items:center;gap:14px}
+.av-wide-icon{width:44px;height:44px;background:var(--gd);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.av-wide-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8}
+.av-wide-text .avw-title{font-size:14px;font-weight:600;color:var(--td)}
+.av-wide-text .avw-sub{font-size:12.5px;color:var(--tl)}
 
-/* ── SERVICES ── */
-.services{background:var(--cream)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.sc{background:white;border-radius:var(--r);padding:2.4rem 2rem;border:1px solid var(--stone);transition:all .3s;position:relative;overflow:hidden}
-.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--sage);transform:scaleX(0);transition:transform .3s;transform-origin:left}
-.sc:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:rgba(74,124,111,.15)}
-.sc:hover::after{transform:scaleX(1)}
-.sc-icon{width:50px;height:50px;background:var(--sage-light);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem;border:1px solid rgba(74,124,111,.15)}
-.sc-icon svg{width:24px;height:24px;stroke:var(--sage);fill:none;stroke-width:1.8}
-.sc h3{font-size:1.25rem;font-weight:700;color:var(--td);margin-bottom:.7rem}
-.sc p{font-size:14.5px;color:var(--tm);line-height:1.7}
+/* ══ SERVICES ══ */
+.services{background:var(--bg)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sc{
+  background:#fff;border-radius:20px;padding:2.4rem 2rem;
+  border:1px solid var(--stone);transition:all .3s;position:relative;overflow:hidden
+}
+.sc-line{position:absolute;top:0;left:0;right:0;height:3px;background:var(--gd);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.sc:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:transparent}
+.sc:hover .sc-line{transform:scaleX(1)}
+.sc-icon{width:52px;height:52px;background:var(--gl);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.6rem;border:1px solid var(--g2)}
+.sc-icon svg{width:24px;height:24px;stroke:var(--gd);fill:none;stroke-width:1.8}
+.sc h3{font-size:1.4rem;font-weight:600;color:var(--td);margin-bottom:.9rem}
+.sc p{font-size:14.5px;color:var(--tm);line-height:1.75}
 
-/* ── PLATFORMS ── */
-.platforms{background:white}
-.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.glifing{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;background:linear-gradient(135deg,#e8a020,#c97012);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:1.2rem}
-.plat-card{background:var(--cream);border-radius:var(--r);padding:2.5rem;border:1px solid var(--stone)}
-.plat-card h3{font-size:1.2rem;margin-bottom:1rem;color:var(--td)}
-.plat-card p{font-size:15px;color:var(--tm);line-height:1.85}
-.plat-badge{display:inline-flex;align-items:center;gap:6px;background:#fff8e6;color:#9a5e08;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:5px 13px;border-radius:50px;margin-bottom:1.5rem;border:1px solid #f0d090}
+/* ══ PLATFORMS ══ */
+.platforms{background:#fff}
+.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
+.glifing-logo{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;background:linear-gradient(135deg,#e8a020,#c97012);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:1.4rem;line-height:1}
+.plat-card{background:var(--bg);border-radius:20px;padding:2.8rem;border:1px solid var(--stone)}
+.plat-card h3{font-size:1.35rem;font-weight:600;margin-bottom:1rem;color:var(--td)}
+.plat-card p{font-size:15px;color:var(--tm);line-height:1.9}
+.plat-badge{display:inline-flex;align-items:center;gap:7px;background:#fff8e6;color:#8a5008;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:5px 14px;border-radius:50px;margin-bottom:1.8rem;border:1px solid #f0d080}
 
-/* ── TEAM ── */
-.team{background:var(--sage-light)}
-.team-intro{text-align:center;max-width:680px;margin:0 auto 4rem}
-.team-intro p{color:var(--tm);font-size:15.5px;line-height:1.85;margin-top:.6rem}
-.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-bottom:1.4rem}
-.tc{background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:transform .3s,box-shadow .3s}
+/* ══ TEAM ══ */
+.team{background:var(--bg)}
+.team-intro{text-align:center;max-width:660px;margin:0 auto 5rem}
+.team-intro .sec-label{justify-content:center}
+.team-intro .sec-label::before{display:none}
+.team-intro p{color:var(--tm);font-size:16px;line-height:1.85;margin-top:.8rem}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:16px}
+.tc{background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--sh);transition:transform .3s,box-shadow .3s}
 .tc:hover{transform:translateY(-4px);box-shadow:var(--shl)}
-.tc-head{background:var(--sage-dark);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
-.tc-email{font-size:11.5px;color:rgba(255,255,255,.8);font-weight:500}
-.tc-email a{color:inherit}
-.tc-email a:hover{color:white;text-decoration:underline}
-.tc-body{padding:1.4rem 1.8rem 1.8rem}
-.tc-body h2{font-size:1.3rem;font-weight:700;color:var(--sage-dark);margin-bottom:3px}
-.tc-role{font-size:12px;font-weight:700;color:var(--sage);text-transform:uppercase;letter-spacing:.07em;margin-bottom:1.3rem;padding-bottom:.85rem;border-bottom:1px solid var(--stone)}
-.tc-list{list-style:none;margin-bottom:1.7rem}
-.tc-list li{display:flex;gap:9px;font-size:13.5px;color:var(--tm);padding:5px 0;border-bottom:1px solid #f0f0ec;line-height:1.5;align-items:flex-start}
+.tc-top{background:var(--gd);padding:1rem 1.6rem;display:flex;align-items:center;justify-content:space-between}
+.tc-email{font-size:11.5px;color:rgba(255,255,255,.75);font-weight:500}
+.tc-email a{color:inherit;transition:color .2s}
+.tc-email a:hover{color:#fff}
+.tc-body{padding:1.6rem 2rem 2rem}
+.tc-body h2{font-size:1.4rem;font-weight:600;color:var(--gd);margin-bottom:3px;letter-spacing:-.01em}
+.tc-role{font-size:11.5px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--stone)}
+.tc-list{list-style:none;margin-bottom:1.8rem}
+.tc-list li{display:flex;gap:10px;font-size:13.5px;color:var(--tm);padding:5px 0;border-bottom:1px solid #f2f0ec;line-height:1.5;align-items:flex-start}
 .tc-list li:last-child{border-bottom:none}
-.chk{width:17px;height:17px;min-width:17px;background:var(--sage);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
-.chk svg{width:9px;height:9px;stroke:white;fill:none;stroke-width:2.5}
-.tc-list b{color:var(--sage-dark);font-weight:600}
-.btn-tc{display:block;text-align:center;background:var(--sage-light);color:var(--sage-dark);padding:11px 20px;border-radius:50px;font-weight:600;font-size:13.5px;border:1.5px solid var(--sage);transition:all .2s}
-.btn-tc:hover{background:var(--sage-dark);color:white;border-color:var(--sage-dark)}
-.team-note{background:white;border-radius:var(--r);padding:2rem 2.4rem;margin:2.5rem 0 0;border:1px solid var(--stone)}
-.team-note p{font-size:15px;color:var(--tm);line-height:1.85;margin-bottom:1.4rem}
-.team-note p b{color:var(--sage-dark)}
+.chk{width:17px;height:17px;min-width:17px;background:var(--gd);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
+.chk svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:2.5}
+.tc-list b{color:var(--gd);font-weight:600}
+.btn-tc{display:block;text-align:center;background:var(--gl);color:var(--gd);padding:11px 20px;border-radius:50px;font-weight:600;font-size:13.5px;border:1.5px solid var(--g2);transition:all .2s;letter-spacing:.01em}
+.btn-tc:hover{background:var(--gd);color:#fff;border-color:var(--gd)}
+.team-note{background:#fff;border-radius:20px;padding:2.2rem 2.6rem;margin-top:2rem;border:1px solid var(--stone)}
+.team-note p{font-size:15.5px;color:var(--tm);line-height:1.85;margin-bottom:1.6rem}
+.team-note p b{color:var(--gd)}
 
-/* ── CONTACT ── */
-.contact{background:white}
-.contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4rem;align-items:start}
-.cf-wrap{background:var(--cream);border-radius:var(--r);padding:2.8rem;border:1px solid var(--stone)}
-.cf-wrap h3{font-size:1.55rem;margin-bottom:.5rem;color:var(--td)}
-.cf-sub{font-size:15px;color:var(--tm);margin-bottom:1.8rem;line-height:1.7}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.fg{margin-bottom:1rem}
-.fg label{display:block;font-size:11.5px;font-weight:700;color:var(--td);margin-bottom:5px;text-transform:uppercase;letter-spacing:.07em}
-.fg input,.fg select,.fg textarea{width:100%;padding:11px 15px;border:1.5px solid var(--stone);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--td);background:white;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,124,111,.1)}
+/* ══ CONTACT ══ */
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:start}
+.cf{background:var(--bg);border-radius:20px;padding:3rem;border:1px solid var(--stone)}
+.cf h3{font-size:1.8rem;font-weight:600;margin-bottom:.6rem;color:var(--td)}
+.cf-sub{font-size:15px;color:var(--tm);margin-bottom:2rem;line-height:1.7}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--td);margin-bottom:5px;text-transform:uppercase;letter-spacing:.09em}
+.fg input,.fg select,.fg textarea{width:100%;padding:12px 16px;border:1.5px solid var(--stone);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--td);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(61,107,95,.1)}
 .fg textarea{min-height:115px;resize:vertical}
-.gdpr-row{display:flex;gap:10px;align-items:flex-start;margin:1.3rem 0}
-.gdpr-row input{width:16px;height:16px;min-width:16px;margin-top:3px;accent-color:var(--sage);cursor:pointer}
-.gdpr-row label{font-size:11.5px;color:var(--tl);line-height:1.65;cursor:pointer}
-.btn-send{width:100%;background:var(--sage-dark);color:white;padding:15px;border-radius:50px;font-size:15.5px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
-.btn-send:hover{background:var(--sage);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,124,111,.35)}
-.cs{display:flex;flex-direction:column;gap:1.2rem}
-.cs h3{font-size:1.55rem;color:var(--td)}
-.phone-block{background:var(--sage-dark);color:white;border-radius:var(--r);padding:2.2rem;text-align:center}
-.phone-lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:.5rem}
-.phone-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:white;display:block;margin-bottom:1.3rem;transition:opacity .2s}
+.gdpr{display:flex;gap:11px;align-items:flex-start;margin:1.4rem 0}
+.gdpr input{width:16px;height:16px;min-width:16px;margin-top:3px;accent-color:var(--gd);cursor:pointer}
+.gdpr label{font-size:12px;color:var(--tl);line-height:1.65;cursor:pointer}
+.btn-send{width:100%;background:var(--gd);color:#fff;padding:15px;border-radius:50px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:.02em}
+.btn-send:hover{background:var(--g);transform:translateY(-2px);box-shadow:0 8px 28px rgba(36,63,56,.32)}
+.cs{display:flex;flex-direction:column;gap:16px}
+.cs h3{font-size:1.8rem;font-weight:600;color:var(--td)}
+.cs-sub{font-size:15px;color:var(--tm);line-height:1.7}
+.phone-card{background:var(--gd);border-radius:20px;padding:2.4rem;text-align:center;color:#fff}
+.phone-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.15em;opacity:.65;margin-bottom:.6rem;font-weight:600}
+.phone-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:#fff;display:block;margin-bottom:1.4rem;transition:opacity .2s}
 .phone-num:hover{opacity:.8}
-.btn-call{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--sage-dark);padding:11px 26px;border-radius:50px;font-weight:700;font-size:14.5px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;border:none;text-decoration:none}
-.btn-call:hover{background:var(--sage-light)}
-.map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--stone)}
-.map-wrap iframe{display:block;width:100%;height:230px;border:none}
-.map-link{display:flex;align-items:center;gap:9px;background:var(--sage-light);color:var(--sage-dark);padding:12px 16px;font-size:13px;font-weight:600;transition:background .15s;border-top:1px solid rgba(74,124,111,.15)}
-.map-link:hover{background:#d0e8e2}
-.map-link svg{width:15px;height:15px;stroke:var(--sage);fill:none;stroke-width:2;flex-shrink:0}
+.btn-call{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--gd);padding:11px 26px;border-radius:50px;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;border:none}
+.btn-call:hover{background:var(--gl)}
+.map-box{border-radius:20px;overflow:hidden;border:1px solid var(--stone)}
+.map-box iframe{display:block;width:100%;height:220px;border:none}
+.map-lnk{display:flex;align-items:center;gap:9px;background:var(--gl);color:var(--gd);padding:12px 16px;font-size:13px;font-weight:600;transition:background .2s;border-top:1px solid var(--g2)}
+.map-lnk:hover{background:var(--g2)}
+.map-lnk svg{width:15px;height:15px;stroke:var(--gd);fill:none;stroke-width:2;flex-shrink:0}
 
-/* ── FOOTER ── */
-.footer{background:#111d18;color:white;padding:4.5rem 2.5rem 2.5rem}
-.footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.09);margin-bottom:2.5rem}
-.fb .fn{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;margin-bottom:2px}
-.fb .fs{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:rgba(255,255,255,.35);margin-bottom:1.4rem}
-.fb p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.85}
-.fc h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-bottom:1.2rem;font-family:'DM Sans',sans-serif}
-.faddr{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.85}
-.faddr a{color:rgba(255,255,255,.65)}
-.faddr a:hover{color:white}
+/* ══ FOOTER ══ */
+.footer{background:var(--td);color:#fff;padding:5rem 3rem 2.5rem}
+.footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:3.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:2.5rem}
+.fb .fn{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:2px;letter-spacing:.02em}
+.fb .fs{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.3);margin-bottom:1.6rem}
+.fb p{font-size:14px;color:rgba(255,255,255,.45);line-height:1.9}
+.fc h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-bottom:1.3rem;font-family:'DM Sans',sans-serif}
+.faddr{font-size:14px;color:rgba(255,255,255,.6);line-height:1.85}
+.faddr a{color:rgba(255,255,255,.6);transition:color .2s}
+.faddr a:hover{color:#fff}
 .ai{display:flex;gap:10px;margin-bottom:.6rem;align-items:flex-start}
-.ai svg{width:14px;height:14px;min-width:14px;stroke:var(--sage-mid);fill:none;stroke-width:2;margin-top:4px}
-.footer-bot{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-bot p{font-size:12.5px;color:rgba(255,255,255,.3)}
+.ai svg{width:14px;height:14px;min-width:14px;stroke:var(--gm);fill:none;stroke-width:2;margin-top:4px}
+.footer-bot{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bot p{font-size:12.5px;color:rgba(255,255,255,.25)}
 .flinks{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:center}
-.flinks a{font-size:12px;color:rgba(255,255,255,.35);transition:color .15s}
+.flinks a{font-size:12px;color:rgba(255,255,255,.3);transition:color .2s}
 .flinks a:hover{color:rgba(255,255,255,.8)}
 .fig{display:inline-flex;align-items:center;gap:6px;color:#e1306c!important}
 .fig svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
 
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
-@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.fu{animation:fu .65s ease both}
-.fu1{animation-delay:.15s}
-.fu2{animation-delay:.3s}
-.fu3{animation-delay:.45s}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fu .7s ease both}
+.fu1{animation-delay:.18s}
+.fu2{animation-delay:.34s}
+.fu3{animation-delay:.5s}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--sage-dark);color:white;padding:1rem 1.6rem;border-radius:50px;font-size:14.5px;font-weight:600;box-shadow:var(--shl);z-index:9999;opacity:0;transform:translateY(12px);transition:all .4s;pointer-events:none}
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--gd);color:#fff;padding:1rem 1.8rem;border-radius:50px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transform:translateY(14px);transition:all .4s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* ── RESPONSIVE ── */
+/* ══ RESPONSIVE ══ */
 @media(max-width:1024px){
-  .nav-links{display:none}
-  .lang-switcher,.btn-cta-nav{display:none}
-  .nav-toggle{display:flex}
-  .hero-inner{grid-template-columns:1fr;gap:3rem;padding:3rem 1.5rem 4rem}
-  .hero-card-wrap{justify-content:flex-start}
-  .hero-card{max-width:480px}
-  .about-grid,.plat-grid,.contact-grid{grid-template-columns:1fr;gap:3rem}
-  .about-boxes{grid-template-columns:1fr 1fr}
-  .ab:first-child{grid-column:span 2}
-  .about-features{grid-template-columns:1fr}
+  .nav-center,.lang-sw,.nav-cta{display:none}
+  .nav-tog{display:flex}
+  .hero-inner{grid-template-columns:1fr;gap:3.5rem;padding:3.5rem 1.8rem 4rem}
+  .hero h1{font-size:clamp(2.4rem,7vw,3.6rem)}
+  .about-grid,.plat-grid,.contact-grid{grid-template-columns:1fr;gap:3.5rem}
   .svc-grid{grid-template-columns:1fr 1fr}
   .team-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr;gap:2.5rem}
   .footer-bot{flex-direction:column;text-align:center}
   .form-row{grid-template-columns:1fr}
+  .section{padding:5rem 1.8rem}
 }
 @media(max-width:640px){
-  .section{padding:4rem 1.5rem}
-  .hero h1{font-size:2.1rem}
-  .hero-actions{flex-direction:column}
-  .btn{justify-content:center}
+  .hero h1{font-size:2.4rem}
+  .hero-btns{flex-direction:column}
+  .hero-stats{flex-direction:column}
+  .btn-p,.btn-o{justify-content:center}
   .svc-grid{grid-template-columns:1fr}
-  .phone-num{font-size:2rem}
+  .about-feats{grid-template-columns:1fr}
+  .av-row{grid-template-columns:1fr}
+  .phone-num{font-size:2.2rem}
 }
 </style>
 </head>
@@ -256,35 +327,35 @@ img{max-width:100%;display:block}
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <a href="#hero" class="nav-logo">
-    <div class="logo-icon">
+    <div class="logo-mark">
       <svg viewBox="0 0 24 24"><path d="M12 3C8 3 5 6 5 9.5c0 2 .8 3.8 2.1 5L12 21l4.9-6.5A7.5 7.5 0 0 0 12 3z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5"/></svg>
     </div>
-    <div class="logo-text">
-      <span class="lt">Saine</span>
-      <span class="ls" data-t="neuropsico">Neuropsicologia</span>
+    <div class="logo-words">
+      <span class="lw1">Saine</span>
+      <span class="lw2" data-t="neuropsico">Neuropsicologia</span>
     </div>
   </a>
-  <ul class="nav-links">
-    <li><a href="#serveis" data-t="nav-serveis">Serveis</a></li>
-    <li><a href="#plataformes" data-t="nav-plataformes">Plataformes integrades</a></li>
-    <li><a href="#equip" data-t="nav-equip">Equip</a></li>
-    <li><a href="#contacta" data-t="nav-contacta">Contacta</a></li>
-  </ul>
+  <nav class="nav-center">
+    <a href="#serveis" data-t="nav-serveis">Serveis</a>
+    <a href="#plataformes" data-t="nav-plataformes">Plataformes integrades</a>
+    <a href="#equip" data-t="nav-equip">Equip</a>
+    <a href="#contacta" data-t="nav-contacta">Contacta</a>
+  </nav>
   <div class="nav-right">
-    <div class="lang-switcher">
+    <div class="lang-sw">
       <button class="lang-btn active" id="btnCA" onclick="setLang('ca')">CAT</button>
       <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
     </div>
-    <a href="#contacta" class="btn-cta-nav" data-t="btn-visita">
+    <a href="tel:00376728877" class="nav-cta">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Concertar visita
+      <span data-t="btn-visita">Concertar visita</span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    <button class="nav-tog" id="navTog" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mob-menu" id="mobMenu">
+<div class="mob" id="mobMenu">
   <div class="mob-lang">
     <button class="active" id="mCA" onclick="setLang('ca');closeMob()">Català</button>
     <button id="mES" onclick="setLang('es');closeMob()">Español</button>
@@ -292,52 +363,51 @@ img{max-width:100%;display:block}
   <a href="#serveis" onclick="closeMob()" data-t="nav-serveis">Serveis</a>
   <a href="#plataformes" onclick="closeMob()" data-t="nav-plataformes">Plataformes integrades</a>
   <a href="#equip" onclick="closeMob()" data-t="nav-equip">Equip</a>
-  <a href="#contacta" onclick="closeMob()" class="mob-cta" data-t="nav-contacta">Contacta</a>
+  <a href="#contacta" onclick="closeMob()" class="mob-cta-btn" data-t="nav-contacta">Contacta</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-dots"></div>
+  <div class="hero-line1"></div>
+  <div class="hero-grain"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-tag fu" data-t="eyebrow">SAINE aprop teu</div>
+      <div class="hero-label fu" data-t="eyebrow">SAINE aprop teu</div>
       <h1 class="fu fu1">
         <span data-t="h1a">Servei d'atenció<br>i intervenció</span><br>
         <em data-t="h1b">neuropsicològica</em><br>
         <span data-t="h1c">a Andorra la Vella</span>
       </h1>
       <p class="hero-desc fu fu2" data-t="hero-desc">Un equip especialitzat en neuropsicologia, psicologia clínica i psicopedagogia per acompanyar cada persona amb una atenció precisa, humana i personalitzada.</p>
-      <div class="hero-actions fu fu3">
-        <a href="tel:00376728877" class="btn btn-primary">
+      <div class="hero-btns fu fu3">
+        <a href="tel:00376728877" class="btn-p">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <span data-t="btn-visita">Concertar visita</span>
         </a>
-        <a href="#contacta" class="btn btn-outline">
+        <a href="#contacta" class="btn-o">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <span data-t="btn-correu">Enviar un correu</span>
         </a>
       </div>
     </div>
-    <div class="hero-card-wrap">
+    <div class="hero-right">
       <div class="hero-card">
-        <div class="hero-logo-block">
-          <div class="hl-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 3C8 3 5 6 5 9.5c0 2 .8 3.8 2.1 5L12 21l4.9-6.5A7.5 7.5 0 0 0 12 3z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          </div>
-          <div>
-            <div class="hl-name">Saine</div>
-            <div class="hl-sub" data-t="neuropsico">Neuropsicologia</div>
-          </div>
+        <div class="hc-top">
+          <div class="hc-top-label">Andorra la Vella</div>
+          <div class="hc-top-title" data-t="hc-title">Servei de Neuropsicologia, Psicologia Clínica i Psicopedagogia</div>
         </div>
-        <div class="hero-info-block">
-          <div class="hib-label">Andorra la Vella</div>
-          <div class="hib-text" data-t="hero-card-text">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</div>
-        </div>
-        <div class="hero-pills">
-          <span class="hero-pill" data-t="pill1">Neuropsicologia</span>
-          <span class="hero-pill" data-t="pill2">Psicologia Clínica</span>
-          <span class="hero-pill" data-t="pill3">Psicopedagogia</span>
+        <div class="hc-body">
+          <p class="hc-desc" data-t="hc-desc">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</p>
+          <div class="hc-pills">
+            <span class="hc-pill" data-t="pill1">Neuropsicologia</span>
+            <span class="hc-pill" data-t="pill2">Psicologia Clínica</span>
+            <span class="hc-pill" data-t="pill3">Psicopedagogia</span>
+          </div>
+          <div class="hero-stats">
+            <div class="hs"><div class="hs-num">4</div><div class="hs-lbl" data-t="hs1">Especialistes</div></div>
+            <div class="hs"><div class="hs-num">20+</div><div class="hs-lbl" data-t="hs2">Anys d'experiència</div></div>
+            <div class="hs"><div class="hs-num">3</div><div class="hs-lbl" data-t="hs3">Àrees clíniques</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -356,18 +426,32 @@ img{max-width:100%;display:block}
           <p data-t="ab-p2">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals així com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.</p>
           <p data-t="ab-p3">Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.</p>
         </div>
-        <div class="about-features">
+        <div class="about-feats">
           <div class="af"><strong data-t="af1t">Avaluació diagnòstica</strong><span data-t="af1s">Identificació precisa de cada cas</span></div>
           <div class="af"><strong data-t="af2t">Intervenció integral</strong><span data-t="af2s">Abordatge multidisciplinar</span></div>
           <div class="af"><strong data-t="af3t">Treball cooperatiu</strong><span data-t="af3s">Col·laboració contínua entre professionals</span></div>
           <div class="af"><strong data-t="af4t">Enfoc personalitzat</strong><span data-t="af4s">Centrat en cada persona</span></div>
         </div>
-        <div style="margin-top:2rem"><a href="#contacta" class="btn btn-primary" data-t="ab-cta">Clica aquí per enviar-nos un correu →</a></div>
+        <div style="margin-top:2.4rem"><a href="#contacta" class="btn-p" data-t="ab-cta">Clica aquí per enviar-nos un correu →</a></div>
       </div>
-      <div class="about-boxes reveal">
-        <div class="ab"><div class="abn">Andorra la Vella</div><div class="abl">Prat de la Creu, 93, 1r 1a</div></div>
-        <div class="ab"><div class="abn">20+</div><div class="abl" data-t="ab-exp">Anys d'experiència</div></div>
-        <div class="ab"><div class="abn">4</div><div class="abl" data-t="ab-esp">Especialistes</div></div>
+      <div class="about-visual reveal">
+        <div class="av-big">
+          <div class="av-big-num">Andorra<br>la Vella</div>
+          <div class="av-big-txt">Prat de la Creu, 93 · 1r 1a</div>
+        </div>
+        <div class="av-row">
+          <div class="av-sm"><div class="av-sm-num">4</div><div class="av-sm-txt" data-t="ab-esp">Especialistes</div></div>
+          <div class="av-sm"><div class="av-sm-num">20+</div><div class="av-sm-txt" data-t="ab-exp">Anys d'experiència</div></div>
+        </div>
+        <div class="av-wide">
+          <div class="av-wide-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="av-wide-text">
+            <div class="avw-title">+376 728 877</div>
+            <div class="avw-sub" data-t="av-tel">Truca'ns per demanar cita</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -376,22 +460,25 @@ img{max-width:100%;display:block}
 <!-- SERVICES -->
 <section class="section services" id="serveis">
   <div class="container">
-    <div style="text-align:center;max-width:580px;margin:0 auto 3.5rem" class="reveal">
-      <p class="sec-label" data-t="sv-lbl">El que oferim</p>
+    <div style="text-align:center;max-width:560px;margin:0 auto 4rem" class="reveal">
+      <p class="sec-label" style="justify-content:center" data-t="sv-lbl">El que oferim</p>
       <h2 class="sec-title" data-t="sv-title">Serveis</h2>
     </div>
     <div class="svc-grid">
       <div class="sc reveal">
+        <div class="sc-line"></div>
         <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
         <h3 data-t="s1t">Neuropsicologia</h3>
         <p data-t="s1d">Des de la neuropsicologia duem a terme avaluacions diagnòstiques, oferim intervenció i/o orientem el tractament més adient a cada cas.</p>
       </div>
       <div class="sc reveal">
+        <div class="sc-line"></div>
         <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <h3 data-t="s2t">Psicologia Clínica</h3>
         <p data-t="s2d">Oferim el servei de psicologia clínica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en teràpies de 3a generació.</p>
       </div>
       <div class="sc reveal">
+        <div class="sc-line"></div>
         <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         <h3 data-t="s3t">Psicopedagogia</h3>
         <p data-t="s3d">L'equip de psicopedagogues intervé duent a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.</p>
@@ -411,7 +498,7 @@ img{max-width:100%;display:block}
       </div>
       <div class="plat-card reveal">
         <div class="plat-badge" data-t="pl-badge">✦ Basat en evidència científica</div>
-        <span class="glifing">glifing</span>
+        <span class="glifing-logo">glifing</span>
         <h3 data-t="gl-title">Millora de la velocitat i la comprensió lectora</h3>
         <p data-t="gl-desc">A SAINE utilitzem el mètode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evidència científica, és utilitzat per més de 200.000 infants de gabinets, escoles i famílies de diversos països en català, castellà i euskera. El seu format ens recorda a un videojoc i això fa que aprendre a llegir sigui divertit.</p>
       </div>
@@ -430,7 +517,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="team-grid">
       <div class="tc reveal">
-        <div class="tc-head"><span class="tc-email"><a href="mailto:lnieto.saine@andorra.ad">lnieto.saine@andorra.ad</a></span></div>
+        <div class="tc-top"><span class="tc-email"><a href="mailto:lnieto.saine@andorra.ad">lnieto.saine@andorra.ad</a></span></div>
         <div class="tc-body">
           <h2>Lorena Nieto Viñals</h2>
           <div class="tc-role" data-t="r-neuro">Neuropsicòloga</div>
@@ -444,7 +531,7 @@ img{max-width:100%;display:block}
         </div>
       </div>
       <div class="tc reveal">
-        <div class="tc-head"><span class="tc-email"><a href="mailto:cvergesrossell@gmail.com">cvergesrossell@gmail.com</a></span></div>
+        <div class="tc-top"><span class="tc-email"><a href="mailto:cvergesrossell@gmail.com">cvergesrossell@gmail.com</a></span></div>
         <div class="tc-body">
           <h2>Carla Vergés Rossell</h2>
           <div class="tc-role" data-t="r-psicoped">Psicopedagoga</div>
@@ -461,7 +548,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="team-grid">
       <div class="tc reveal">
-        <div class="tc-head"><span class="tc-email"><a href="mailto:ebonvila.saine@andorra.ad">ebonvila.saine@andorra.ad</a></span></div>
+        <div class="tc-top"><span class="tc-email"><a href="mailto:ebonvila.saine@andorra.ad">ebonvila.saine@andorra.ad</a></span></div>
         <div class="tc-body">
           <h2>Elisa Bonvilà Queija</h2>
           <div class="tc-role" data-t="r-psicoc">Psicòloga Clínica</div>
@@ -481,7 +568,7 @@ img{max-width:100%;display:block}
         </div>
       </div>
       <div class="tc reveal">
-        <div class="tc-head"><span class="tc-email"><a href="mailto:npico.saine@andorra.ad">npico.saine@andorra.ad</a></span></div>
+        <div class="tc-top"><span class="tc-email"><a href="mailto:npico.saine@andorra.ad">npico.saine@andorra.ad</a></span></div>
         <div class="tc-body">
           <h2>Natàlia Picó Azanza</h2>
           <div class="tc-role" data-t="r-neuro">Neuropsicòloga</div>
@@ -497,9 +584,9 @@ img{max-width:100%;display:block}
         </div>
       </div>
     </div>
-    <div style="max-width:500px;margin:1.4rem auto 0" class="reveal">
+    <div style="max-width:520px;margin:16px auto 0" class="reveal">
       <div class="tc">
-        <div class="tc-head"><span class="tc-email"><a href="mailto:saleix.saine@andorra.ad">saleix.saine@andorra.ad</a></span></div>
+        <div class="tc-top"><span class="tc-email"><a href="mailto:saleix.saine@andorra.ad">saleix.saine@andorra.ad</a></span></div>
         <div class="tc-body">
           <h2>Sara Aleix Guillaume</h2>
           <div class="tc-role" data-t="r-psico">Psicòloga</div>
@@ -521,12 +608,12 @@ img{max-width:100%;display:block}
 <!-- CONTACT -->
 <section class="section contact" id="contacta">
   <div class="container">
-    <div style="text-align:center;max-width:580px;margin:0 auto 3.5rem" class="reveal">
-      <p class="sec-label" data-t="ct-lbl">Estem aquí per tu</p>
+    <div style="text-align:center;max-width:560px;margin:0 auto 4rem" class="reveal">
+      <p class="sec-label" style="justify-content:center" data-t="ct-lbl">Estem aquí per tu</p>
       <h2 class="sec-title" data-t="ct-title">Contacta amb nosaltres</h2>
     </div>
     <div class="contact-grid">
-      <div class="cf-wrap reveal">
+      <div class="cf reveal">
         <h3 data-t="f-title">Contacta amb SAINE Andorra</h3>
         <p class="cf-sub" data-t="f-sub">Emplena aquest formulari i et respondrem el més aviat possible.</p>
         <div class="form-row">
@@ -554,7 +641,7 @@ img{max-width:100%;display:block}
           </select>
         </div>
         <div class="fg"><label data-t="f-msg">Missatge *</label><textarea id="fMsg" placeholder="Com et podem ajudar?" required></textarea></div>
-        <div class="gdpr-row">
+        <div class="gdpr">
           <input type="checkbox" id="gdpr" required>
           <label for="gdpr" data-t="gdpr">He llegit, accepto i consenteixo les condicions d'ús i política de privacitat de SAINE, responsable del fitxer SAINE, amb la finalitat de gestionar aquesta consulta. Exercici de drets de protecció de dades a saine@saine.cat.</label>
         </div>
@@ -562,8 +649,8 @@ img{max-width:100%;display:block}
       </div>
       <div class="cs reveal">
         <h3 data-t="cs-title">També ens pots trucar</h3>
-        <p class="cf-sub" data-t="cs-sub">Estem disponibles per atendre't personalment.</p>
-        <div class="phone-block">
+        <p class="cs-sub" data-t="cs-sub">Estem disponibles per atendre't personalment.</p>
+        <div class="phone-card">
           <p class="phone-lbl" data-t="ph-lbl">Telèfon SAINE Andorra</p>
           <a href="tel:00376728877" class="phone-num">+376 728 877</a>
           <a href="tel:00376728877" class="btn-call">
@@ -571,9 +658,9 @@ img{max-width:100%;display:block}
             <span data-t="btn-call">Truca'ns</span>
           </a>
         </div>
-        <div class="map-wrap">
+        <div class="map-box">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.5!2d1.5172781!3d42.5054781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a5f53329cd59cb%3A0x652f9d4d2a6ed51e!2sSAINE%20Servei%20d&#39;Atenci%C3%B3%20i%20Intervenci%C3%B3%20Neuropsicol%C3%B2gica!5e0!3m2!1sca!2sad!4v1716000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa SAINE Andorra la Vella"></iframe>
-          <a href="https://www.google.com/maps/place/SAINE+Servei+d%27Atenci%C3%B3+i+Intervenci%C3%B3+Neuropsicol%C3%B2gica/@42.5054781,1.5172781,17z" target="_blank" rel="noopener" class="map-link">
+          <a href="https://www.google.com/maps/place/SAINE+Servei+d%27Atenci%C3%B3+i+Intervenci%C3%B3+Neuropsicol%C3%B2gica/@42.5054781,1.5172781,17z" target="_blank" rel="noopener" class="map-lnk">
             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span data-t="map-link">Prat de la Creu, 93, 1r 1a — Andorra la Vella · Obrir a Google Maps</span>
           </a>
@@ -598,10 +685,12 @@ img{max-width:100%;display:block}
         <div class="ai"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@saine.cat">info@saine.cat</a></div>
       </div>
     </div>
-    <div class="fc"><h4 data-t="ft-seu">LA SEU D'URGELL</h4>
+    <div class="fc"><h4 data-t="ft-links">ENLLAÇOS</h4>
       <div class="faddr">
-        <div class="ai"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Pl. Sta. Magdalena, 109<br>La Seu d'Urgell</span></div>
-        <div class="ai"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@saine.cat">info@saine.cat</a></div>
+        <div style="margin-bottom:.5rem"><a href="#serveis" data-t="nav-serveis" style="color:rgba(255,255,255,.55);font-size:14px;transition:color .2s">Serveis</a></div>
+        <div style="margin-bottom:.5rem"><a href="#plataformes" data-t="nav-plataformes" style="color:rgba(255,255,255,.55);font-size:14px;transition:color .2s">Plataformes integrades</a></div>
+        <div style="margin-bottom:.5rem"><a href="#equip" data-t="nav-equip" style="color:rgba(255,255,255,.55);font-size:14px;transition:color .2s">Equip</a></div>
+        <div><a href="#contacta" data-t="nav-contacta" style="color:rgba(255,255,255,.55);font-size:14px;transition:color .2s">Contacta</a></div>
       </div>
     </div>
   </div>
@@ -611,7 +700,6 @@ img{max-width:100%;display:block}
       <a href="https://www.saine.cat/avis-legal/" data-t="ft-avis">Avís Legal</a>
       <a href="https://www.saine.cat/politica-de-privacitat-i-galetes/" data-t="ft-priv">Política de Privacitat</a>
       <a href="https://www.saine.cat/politica-de-proteccio-de-dades/" data-t="ft-dades">Protecció de Dades</a>
-      <a href="https://www.saine.cat/kit-digital/" data-t="ft-kit">Kit Digital</a>
       <a href="https://www.instagram.com/saine_neuropsicologia" target="_blank" rel="noopener" class="fig">
         <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         <span data-t="ft-ig">Segueix-nos a Instagram</span>
@@ -623,20 +711,23 @@ img{max-width:100%;display:block}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── TRANSLATIONS ──────────────────────────────────────────────
 const T={
 ca:{
 "neuropsico":"Neuropsicologia","nav-serveis":"Serveis","nav-plataformes":"Plataformes integrades","nav-equip":"Equip","nav-contacta":"Contacta",
 "eyebrow":"SAINE aprop teu","h1a":"Servei d'atenció\ni intervenció","h1b":"neuropsicològica","h1c":"a Andorra la Vella",
 "hero-desc":"Un equip especialitzat en neuropsicologia, psicologia clínica i psicopedagogia per acompanyar cada persona amb una atenció precisa, humana i personalitzada.",
-"hero-card-text":"Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.",
-"btn-visita":"Concertar visita","btn-correu":"Enviar un correu","pill1":"Neuropsicologia","pill2":"Psicologia Clínica","pill3":"Psicopedagogia",
-"ab-lbl":"Qui som","ab-p1":"<b>SAINE</b> som un equip de <b>professionals de diverses disciplines</b> i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.",
+"hc-title":"Servei de Neuropsicologia, Psicologia Clínica i Psicopedagogia",
+"hc-desc":"Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.",
+"btn-visita":"Concertar visita","btn-correu":"Enviar un correu",
+"pill1":"Neuropsicologia","pill2":"Psicologia Clínica","pill3":"Psicopedagogia",
+"hs1":"Especialistes","hs2":"Anys d'experiència","hs3":"Àrees clíniques",
+"ab-lbl":"Qui som",
+"ab-p1":"<b>SAINE</b> som un equip de <b>professionals de diverses disciplines</b> i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.",
 "ab-p2":"Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals així com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.",
 "ab-p3":"Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.",
 "af1t":"Avaluació diagnòstica","af1s":"Identificació precisa de cada cas","af2t":"Intervenció integral","af2s":"Abordatge multidisciplinar",
 "af3t":"Treball cooperatiu","af3s":"Col·laboració contínua entre professionals","af4t":"Enfoc personalitzat","af4s":"Centrat en cada persona",
-"ab-cta":"Clica aquí per enviar-nos un correu →","ab-exp":"Anys d'experiència","ab-esp":"Especialistes",
+"ab-cta":"Clica aquí per enviar-nos un correu →","ab-exp":"Anys d'experiència","ab-esp":"Especialistes","av-tel":"Truca'ns per demanar cita",
 "sv-lbl":"El que oferim","sv-title":"Serveis",
 "s1t":"Neuropsicologia","s1d":"Des de la neuropsicologia duem a terme avaluacions diagnòstiques, oferim intervenció i/o orientem el tractament més adient a cada cas.",
 "s2t":"Psicologia Clínica","s2d":"Oferim el servei de psicologia clínica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en teràpies de 3a generació.",
@@ -673,22 +764,26 @@ ca:{
 "btn-send":"Enviar","cs-title":"També ens pots trucar","cs-sub":"Estem disponibles per atendre't personalment.","ph-lbl":"Telèfon SAINE Andorra","btn-call":"Truca'ns",
 "map-link":"Prat de la Creu, 93, 1r 1a — Andorra la Vella · Obrir a Google Maps",
 "ft-desc":"Equip de professionals compromesos en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.",
-"ft-and":"SAINE ANDORRA","ft-seu":"LA SEU D'URGELL","ft-copy":"© 2025 SAINE Neuropsicologia. Tots els drets reservats.",
-"ft-avis":"Avís Legal","ft-priv":"Política de Privacitat","ft-dades":"Protecció de Dades","ft-kit":"Kit Digital","ft-ig":"Segueix-nos a Instagram",
+"ft-and":"SAINE ANDORRA","ft-links":"ENLLAÇOS","ft-copy":"© 2025 SAINE Neuropsicologia. Tots els drets reservats.",
+"ft-avis":"Avís Legal","ft-priv":"Política de Privacitat","ft-dades":"Protecció de Dades","ft-ig":"Segueix-nos a Instagram",
 "toast-ok":"Gràcies! Ens posarem en contacte aviat.","toast-err":"Si us plau, omple tots els camps obligatoris."
 },
 es:{
 "neuropsico":"Neuropsicología","nav-serveis":"Servicios","nav-plataformes":"Plataformas integradas","nav-equip":"Equipo","nav-contacta":"Contacta",
 "eyebrow":"SAINE cerca de ti","h1a":"Servicio de atención\ne intervención","h1b":"neuropsicológica","h1c":"en Andorra la Vella",
 "hero-desc":"Un equipo especializado en neuropsicología, psicología clínica y psicopedagogía para acompañar a cada persona con una atención precisa, humana y personalizada.",
-"hero-card-text":"Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, trastornos de aprendizaje y trastornos del neurodesarrollo.",
-"btn-visita":"Concertar visita","btn-correu":"Enviar un correo","pill1":"Neuropsicología","pill2":"Psicología Clínica","pill3":"Psicopedagogía",
-"ab-lbl":"Quiénes somos","ab-p1":"<b>SAINE</b> somos un equipo de <b>profesionales de diversas disciplinas</b> y amplia experiencia comprometidas en promover el bienestar psicológico y emocional centrándonos en las necesidades de cada persona.",
+"hc-title":"Servicio de Neuropsicología, Psicología Clínica y Psicopedagogía",
+"hc-desc":"Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, trastornos de aprendizaje y trastornos del neurodesarrollo.",
+"btn-visita":"Concertar visita","btn-correu":"Enviar un correo",
+"pill1":"Neuropsicología","pill2":"Psicología Clínica","pill3":"Psicopedagogía",
+"hs1":"Especialistas","hs2":"Años de experiencia","hs3":"Áreas clínicas",
+"ab-lbl":"Quiénes somos",
+"ab-p1":"<b>SAINE</b> somos un equipo de <b>profesionales de diversas disciplinas</b> y amplia experiencia comprometidas en promover el bienestar psicológico y emocional centrándonos en las necesidades de cada persona.",
 "ab-p2":"Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales así como los trastornos y dificultades de aprendizaje y trastornos del neurodesarrollo.",
 "ab-p3":"Desde SAINE Andorra trabajamos la psicopedagogía, la neuropsicología y la psicología.",
 "af1t":"Evaluación diagnóstica","af1s":"Identificación precisa de cada caso","af2t":"Intervención integral","af2s":"Abordaje multidisciplinar",
 "af3t":"Trabajo cooperativo","af3s":"Colaboración continua entre profesionales","af4t":"Enfoque personalizado","af4s":"Centrado en cada persona",
-"ab-cta":"Haz clic aquí para enviarnos un correo →","ab-exp":"Años de experiencia","ab-esp":"Especialistas",
+"ab-cta":"Haz clic aquí para enviarnos un correo →","ab-exp":"Años de experiencia","ab-esp":"Especialistas","av-tel":"Llámanos para pedir cita",
 "sv-lbl":"Lo que ofrecemos","sv-title":"Servicios",
 "s1t":"Neuropsicología","s1d":"Desde la neuropsicología llevamos a cabo evaluaciones diagnósticas, ofrecemos intervención y/u orientamos el tratamiento más adecuado para cada caso.",
 "s2t":"Psicología Clínica","s2d":"Ofrecemos el servicio de psicología clínica, tanto a niños como a adolescentes y adultos con un enfoque cognitivo-conductual y basado en terapias de 3ª generación.",
@@ -725,14 +820,13 @@ es:{
 "btn-send":"Enviar","cs-title":"También nos puedes llamar","cs-sub":"Estamos disponibles para atenderte personalmente.","ph-lbl":"Teléfono SAINE Andorra","btn-call":"Llámanos",
 "map-link":"Prat de la Creu, 93, 1º 1ª — Andorra la Vella · Abrir en Google Maps",
 "ft-desc":"Equipo de profesionales comprometidos en promover el bienestar psicológico y emocional centrándonos en las necesidades de cada persona.",
-"ft-and":"SAINE ANDORRA","ft-seu":"LA SEU D'URGELL","ft-copy":"© 2025 SAINE Neuropsicología. Todos los derechos reservados.",
-"ft-avis":"Aviso Legal","ft-priv":"Política de Privacidad","ft-dades":"Protección de Datos","ft-kit":"Kit Digital","ft-ig":"Síguenos en Instagram",
+"ft-and":"SAINE ANDORRA","ft-links":"ENLACES","ft-copy":"© 2025 SAINE Neuropsicología. Todos los derechos reservados.",
+"ft-avis":"Aviso Legal","ft-priv":"Política de Privacidad","ft-dades":"Protección de Datos","ft-ig":"Síguenos en Instagram",
 "toast-ok":"¡Gracias! Nos pondremos en contacto pronto.","toast-err":"Por favor, rellena todos los campos obligatorios."
 }
 };
 
 let lang='ca';
-
 function setLang(l){
   lang=l;
   const d=T[l];
@@ -752,16 +846,10 @@ function setLang(l){
   document.documentElement.lang=l;
   document.title=l==='es'?'SAINE Andorra – Neuropsicología':'SAINE Andorra – Neuropsicologia';
 }
-
-// Nav scroll
 window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',scrollY>20));
-
-// Mobile menu
-const tog=document.getElementById('navToggle'),mob=document.getElementById('mobMenu');
-tog.addEventListener('click',()=>{mob.classList.toggle('open');});
+const tog=document.getElementById('navTog'),mob=document.getElementById('mobMenu');
+tog.addEventListener('click',()=>mob.classList.toggle('open'));
 function closeMob(){mob.classList.remove('open')}
-
-// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const id=a.getAttribute('href').slice(1);
@@ -770,45 +858,18 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
   });
 });
-
-// Scroll reveal
-const ro=new IntersectionObserver((entries,obs)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-},{threshold:.1});
+const ro=new IntersectionObserver((en,ob)=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ob.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-
-// Preselect dropdown from team buttons
-function preselect(val){
-  setTimeout(()=>{
-    const sel=document.getElementById('fConsulta');
-    if(sel)sel.value=val;
-  },400);
-}
-
-// Toast
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3500);
-}
-
-// Form submit
+function preselect(v){setTimeout(()=>{const s=document.getElementById('fConsulta');if(s)s.value=v;},400);}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
 document.getElementById('btnSub').addEventListener('click',()=>{
-  const nom=document.getElementById('fNom').value.trim();
-  const email=document.getElementById('fEmail').value.trim();
-  const msg=document.getElementById('fMsg').value.trim();
-  const gdpr=document.getElementById('gdpr').checked;
-  if(!nom||!email||!msg||!gdpr){
-    showToast(T[lang]['toast-err']);
-    return;
-  }
+  const n=document.getElementById('fNom').value.trim();
+  const e=document.getElementById('fEmail').value.trim();
+  const m=document.getElementById('fMsg').value.trim();
+  const g=document.getElementById('gdpr').checked;
+  if(!n||!e||!m||!g){showToast(T[lang]['toast-err']);return;}
   showToast(T[lang]['toast-ok']);
-  document.getElementById('fNom').value='';
-  document.getElementById('fCog').value='';
-  document.getElementById('fTel').value='';
-  document.getElementById('fEmail').value='';
-  document.getElementById('fMsg').value='';
+  ['fNom','fCog','fTel','fEmail','fMsg'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('gdpr').checked=false;
 });
 </script>
