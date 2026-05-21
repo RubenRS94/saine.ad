@@ -1,1698 +1,547 @@
-<!--
-SAINE Andorra landing premium bilingüe
-Uso en WordPress: pegar completo en un bloque HTML personalizado, Elementor HTML o similar.
-Incluye versión CAT y ES dentro del mismo código, selector de idioma funcional con HTML + CSS y menú móvil sin JavaScript.
-Nota formulario: el formulario usa mailto como fallback HTML. Para producción, sustituir el atributo action por el endpoint o shortcode del formulario de WordPress.
--->
-
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAINE Andorra</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --saine-bg: #f7f4ee;
-    --saine-bg-soft: #fbfaf7;
-    --saine-card: rgba(255, 255, 255, 0.86);
-    --saine-card-solid: #ffffff;
-    --saine-ink: #1f2d2a;
-    --saine-muted: #6f7d79;
-    --saine-green: #6f9588;
-    --saine-green-dark: #3d665a;
-    --saine-green-deep: #203d36;
-    --saine-sage: #dce8e2;
-    --saine-sand: #eee6d7;
-    --saine-line: rgba(31, 45, 42, 0.12);
-    --saine-shadow: 0 28px 80px rgba(31, 45, 42, 0.14);
-    --saine-shadow-soft: 0 18px 45px rgba(31, 45, 42, 0.09);
-    --saine-radius-xl: 34px;
-    --saine-radius-lg: 24px;
-    --saine-radius-md: 18px;
-    --saine-max: 1180px;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  .saine-page,
-  .saine-page * {
-    box-sizing: border-box;
-  }
-
-  .saine-page {
-    width: 100%;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 15% 6%, rgba(111, 149, 136, 0.20), transparent 30%),
-      radial-gradient(circle at 86% 12%, rgba(238, 230, 215, 0.85), transparent 34%),
-      linear-gradient(180deg, var(--saine-bg-soft) 0%, var(--saine-bg) 48%, #ffffff 100%);
-    color: var(--saine-ink);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    line-height: 1.6;
-    position: relative;
-  }
-
-  .saine-page a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .saine-page img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .saine-container {
-    width: min(var(--saine-max), calc(100% - 42px));
-    margin: 0 auto;
-  }
-
-  .saine-lang-state,
-  .saine-menu-state {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .saine-es,
-  #saine-lang-es:checked ~ .saine-page .saine-cat {
-    display: none !important;
-  }
-
-  #saine-lang-es:checked ~ .saine-page .saine-es {
-    display: inline !important;
-  }
-
-  #saine-lang-es:checked ~ .saine-page section.saine-es,
-  #saine-lang-es:checked ~ .saine-page footer.saine-es,
-  #saine-lang-es:checked ~ .saine-page div.saine-es,
-  #saine-lang-es:checked ~ .saine-page article.saine-es,
-  #saine-lang-es:checked ~ .saine-page aside.saine-es,
-  #saine-lang-es:checked ~ .saine-page header.saine-es {
-    display: block !important;
-  }
-
-  #saine-lang-es:checked ~ .saine-page .saine-lang-cat-label {
-    background: var(--saine-green-deep);
-    color: #ffffff !important;
-    border: 1px solid var(--saine-green-deep);
-  }
-
-  #saine-lang-es:checked ~ .saine-page .saine-lang-es-label {
-    background: var(--saine-green-deep);
-    color: #ffffff !important;
-    border: 1px solid var(--saine-green-deep);
-  }
-
-  .saine-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 16px;
-    color: var(--saine-green-dark);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .saine-eyebrow::before {
-    content: "";
-    width: 32px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.55;
-  }
-
-  .saine-title {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 500;
-    letter-spacing: -0.045em;
-    line-height: 0.98;
-    color: var(--saine-ink);
-  }
-
-  .saine-section-title {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(34px, 5vw, 58px);
-    line-height: 1.02;
-    letter-spacing: -0.045em;
-    font-weight: 500;
-    color: var(--saine-ink);
-  }
-
-  .saine-lead {
-    margin: 18px 0 0;
-    color: var(--saine-muted);
-    font-size: clamp(17px, 1.6vw, 20px);
-    line-height: 1.75;
-  }
-
-  .saine-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    backdrop-filter: blur(22px);
-    background: rgba(251, 250, 247, 0.88);
-    border-bottom: 1px solid rgba(31, 45, 42, 0.08);
-  }
-
-  .saine-nav {
-    min-height: 84px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 22px;
-  }
-
-  .saine-logo {
-    display: inline-flex;
-    align-items: center;
-    min-width: 174px;
-  }
-
-  .saine-logo img {
-    width: 128px;
-    filter: drop-shadow(0 10px 18px rgba(31, 45, 42, 0.08));
-  }
-
-  .saine-nav-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px;
-    border: 1px solid var(--saine-line);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.62);
-    box-shadow: 0 8px 26px rgba(31, 45, 42, 0.05);
-  }
-
-  .saine-nav-links a {
-    padding: 11px 15px;
-    border-radius: 999px;
-    color: rgba(31, 45, 42, 0.78);
-    font-size: 14px;
-    font-weight: 700;
-    transition: 220ms ease;
-  }
-
-  .saine-nav-links a:hover {
-    background: var(--saine-sage);
-    color: var(--saine-green-deep);
-  }
-
-  .saine-nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .saine-lang {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px;
-    border: 1px solid var(--saine-line);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.82);
-    box-shadow: 0 10px 24px rgba(31, 45, 42, 0.06);
-  }
-
-  .saine-lang label {
-    min-width: 42px;
-    height: 34px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10px;
-    border-radius: 999px;
-    color: var(--saine-muted);
-    font-size: 12px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: 200ms ease;
-    user-select: none;
-    opacity: 1;
-  }
-
-  .saine-lang-cat-label {
-    background: var(--saine-green-deep);
-    color: #ffffff !important;
-  }
-
-  .saine-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 48px;
-    padding: 14px 20px;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1;
-    cursor: pointer;
-    transition: 230ms ease;
-    white-space: nowrap;
-  }
-
-  .saine-button-primary {
-    color: #ffffff !important;
-    background: linear-gradient(135deg, var(--saine-green-dark), var(--saine-green-deep));
-    box-shadow: 0 18px 34px rgba(61, 102, 90, 0.24);
-  }
-
-  .saine-button-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 24px 44px rgba(61, 102, 90, 0.30);
-  }
-
-  .saine-button-soft {
-    color: var(--saine-green-deep) !important;
-    background: rgba(255, 255, 255, 0.74);
-    border-color: var(--saine-line);
-    box-shadow: 0 14px 28px rgba(31, 45, 42, 0.08);
-  }
-
-  .saine-button-soft:hover {
-    background: #ffffff;
-    transform: translateY(-2px);
-  }
-
-  .saine-mobile-toggle {
-    display: none;
-  }
-
-  .saine-mobile-menu {
-    display: none;
-  }
-
-  .saine-hero {
-    position: relative;
-    padding: 86px 0 88px;
-  }
-
-  .saine-hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.78fr);
-    gap: 58px;
-    align-items: center;
-  }
-
-  .saine-hero h1 {
-    max-width: 780px;
-    font-size: clamp(48px, 7vw, 88px);
-  }
-
-  .saine-hero h1 span {
-    display: block;
-    color: var(--saine-green-dark);
-  }
-
-  .saine-hero-copy {
-    max-width: 650px;
-  }
-
-  .saine-hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    margin-top: 34px;
-  }
-
-  .saine-trust-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 42px;
-    max-width: 680px;
-  }
-
-  .saine-trust-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 134px;
-    padding: 20px;
-    border: 1px solid var(--saine-line);
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(18px);
-    box-shadow: 0 14px 34px rgba(31, 45, 42, 0.07);
-  }
-
-  .saine-trust-item strong {
-    display: block;
-    color: var(--saine-ink);
-    font-size: 19px;
-    line-height: 1.1;
-  }
-
-  .saine-trust-item > span {
-    display: block;
-    margin-top: 8px;
-    color: var(--saine-muted);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  #saine-lang-es:checked ~ .saine-page .saine-trust-item > .saine-es,
-  #saine-lang-es:checked ~ .saine-page .saine-floating-card p > .saine-es,
-  #saine-lang-es:checked ~ .saine-page .saine-section-head > .saine-lead .saine-es {
-    display: block !important;
-  }
-
-  .saine-hero-panel {
-    position: relative;
-    border-radius: var(--saine-radius-xl);
-    background:
-      linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(220, 232, 226, 0.72)),
-      radial-gradient(circle at 72% 22%, rgba(111, 149, 136, 0.22), transparent 38%);
-    border: 1px solid rgba(31, 45, 42, 0.10);
-    box-shadow: var(--saine-shadow);
-    padding: 28px;
-    min-height: 548px;
-    overflow: hidden;
-  }
-
-  .saine-hero-panel::before {
-    content: "";
-    position: absolute;
-    inset: 18px;
-    border: 1px solid rgba(31, 45, 42, 0.10);
-    border-radius: 28px;
-    pointer-events: none;
-  }
-
-  .saine-brain-card {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: 22px;
-    min-height: 492px;
-    align-content: space-between;
-  }
-
-  .saine-logo-card {
-    padding: 28px;
-    border-radius: 26px;
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(31, 45, 42, 0.08);
-    box-shadow: var(--saine-shadow-soft);
-  }
-
-  .saine-logo-card img {
-    width: min(100%, 330px);
-    margin: 0 auto;
-  }
-
-  .saine-floating-card {
-    padding: 24px;
-    border-radius: 26px;
-    background: var(--saine-green-deep);
-    color: #ffffff;
-    box-shadow: 0 24px 52px rgba(31, 45, 42, 0.22);
-  }
-
-  .saine-floating-card p {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.55;
-  }
-
-  .saine-floating-card .saine-floating-card-badge {
-    display: inline-flex;
-    margin-bottom: 14px;
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    color: rgba(255, 255, 255, 0.84);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .saine-floating-card p .saine-cat,
-  .saine-floating-card p .saine-es {
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    color: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    letter-spacing: normal !important;
-    text-transform: none !important;
-    line-height: inherit !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
-  .saine-section {
-    padding: 94px 0;
-    position: relative;
-  }
-
-  .saine-section-head {
-    display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(320px, 0.68fr);
-    gap: 50px;
-    align-items: end;
-    margin-bottom: 42px;
-  }
-
-  .saine-section-head > .saine-lead {
-    padding: 24px 26px;
-    border: 1px solid rgba(31, 45, 42, 0.10);
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.66);
-    box-shadow: 0 14px 36px rgba(31, 45, 42, 0.07);
-    color: #526a64;
-    font-size: 18px;
-    line-height: 1.65;
-  }
-
-  .saine-about-card {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.62fr);
-    gap: 28px;
-    align-items: stretch;
-  }
-
-  .saine-copy-card,
-  .saine-info-card,
-  .saine-service-card,
-  .saine-platform-card,
-  .saine-team-card,
-  .saine-contact-card {
-    border: 1px solid var(--saine-line);
-    background: var(--saine-card);
-    backdrop-filter: blur(16px);
-    box-shadow: var(--saine-shadow-soft);
-  }
-
-  .saine-copy-card {
-    padding: clamp(28px, 5vw, 54px);
-    border-radius: var(--saine-radius-xl);
-  }
-
-  .saine-copy-card p {
-    margin: 0;
-    color: var(--saine-muted);
-    font-size: 19px;
-    line-height: 1.78;
-  }
-
-  .saine-copy-card p + p {
-    margin-top: 20px;
-  }
-
-  .saine-info-card {
-    padding: 32px;
-    border-radius: var(--saine-radius-xl);
-    display: grid;
-    gap: 18px;
-    align-content: center;
-    background: linear-gradient(160deg, #ffffff, rgba(220, 232, 226, 0.68));
-  }
-
-  .saine-info-line {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-
-  .saine-icon {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border-radius: 16px;
-    background: var(--saine-sage);
-    color: var(--saine-green-deep);
-    font-weight: 900;
-  }
-
-  .saine-info-line strong {
-    display: block;
-    font-size: 18px;
-    line-height: 1.25;
-  }
-
-  .saine-info-line span {
-    display: block;
-    margin-top: 4px;
-    color: var(--saine-muted);
-    font-size: 15px;
-    line-height: 1.55;
-  }
-
-  .saine-services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .saine-service-card {
-    position: relative;
-    min-height: 310px;
-    padding: 30px;
-    border-radius: var(--saine-radius-lg);
-    overflow: hidden;
-    transition: 260ms ease;
-  }
-
-  .saine-service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--saine-shadow);
-  }
-
-  .saine-service-card::after {
-    content: "";
-    position: absolute;
-    width: 160px;
-    height: 160px;
-    right: -62px;
-    bottom: -62px;
-    border-radius: 999px;
-    background: rgba(111, 149, 136, 0.16);
-  }
-
-  .saine-service-number {
-    width: 52px;
-    height: 52px;
-    display: grid;
-    place-items: center;
-    border-radius: 18px;
-    background: var(--saine-green-deep);
-    color: #ffffff;
-    font-weight: 900;
-    margin-bottom: 24px;
-  }
-
-  .saine-service-card h3 {
-    margin: 0;
-    font-size: 24px;
-    line-height: 1.14;
-    letter-spacing: -0.03em;
-  }
-
-  .saine-service-card p {
-    position: relative;
-    z-index: 1;
-    margin: 16px 0 0;
-    color: var(--saine-muted);
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  .saine-platform {
-    background: linear-gradient(180deg, transparent 0%, rgba(220, 232, 226, 0.42) 100%);
-  }
-
-  .saine-platform-card {
-    display: grid;
-    grid-template-columns: 320px minmax(0, 1fr);
-    gap: 34px;
-    align-items: center;
-    border-radius: var(--saine-radius-xl);
-    padding: clamp(26px, 4vw, 44px);
-    background: linear-gradient(135deg, #ffffff, rgba(247, 244, 238, 0.78));
-  }
-
-  .saine-platform-logo {
-    min-height: 220px;
-    display: grid;
-    place-items: center;
-    border-radius: 28px;
-    background: #ffffff;
-    border: 1px solid rgba(31, 45, 42, 0.08);
-    box-shadow: inset 0 0 0 10px rgba(247, 244, 238, 0.5);
-    padding: 32px;
-  }
-
-  .saine-platform-logo img {
-    width: 245px;
-  }
-
-  .saine-platform-card h3 {
-    margin: 0;
-    font-size: clamp(28px, 4vw, 44px);
-    line-height: 1.05;
-    letter-spacing: -0.045em;
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 500;
-  }
-
-  .saine-platform-card p {
-    margin: 18px 0 0;
-    color: var(--saine-muted);
-    font-size: 18px;
-    line-height: 1.75;
-  }
-
-  .saine-team-intro {
-    max-width: 820px;
-    margin-bottom: 34px;
-  }
-
-  .saine-team-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .saine-team-card {
-    padding: 28px;
-    border-radius: var(--saine-radius-lg);
-    background: rgba(255, 255, 255, 0.88);
-  }
-
-  .saine-team-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  .saine-team-name h3 {
-    margin: 0;
-    font-size: 25px;
-    line-height: 1.12;
-    letter-spacing: -0.035em;
-  }
-
-  .saine-team-name span {
-    display: inline-flex;
-    margin-top: 8px;
-    color: var(--saine-green-dark);
-    font-size: 14px;
-    font-weight: 900;
-  }
-
-  .saine-email-chip {
-    display: inline-flex;
-    max-width: 100%;
-    padding: 8px 10px;
-    border-radius: 999px;
-    background: var(--saine-sage);
-    color: var(--saine-green-deep);
-    font-size: 12px;
-    font-weight: 800;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .saine-team-card ul {
-    margin: 0;
-    padding: 0 0 0 18px;
-    color: var(--saine-muted);
-    font-size: 15px;
-    line-height: 1.65;
-  }
-
-  .saine-team-card li + li {
-    margin-top: 8px;
-  }
-
-  .saine-team-card .saine-button {
-    margin-top: 22px;
-    min-height: 42px;
-    padding: 12px 16px;
-    font-size: 13px;
-  }
-
-  .saine-team-note {
-    margin-top: 24px;
-    padding: 32px;
-    border-radius: var(--saine-radius-lg);
-    background: var(--saine-green-deep);
-    color: rgba(255, 255, 255, 0.84);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .saine-team-note p {
-    margin: 0;
-    max-width: 760px;
-    font-size: 17px;
-    line-height: 1.7;
-  }
-
-  .saine-contact {
-    padding-bottom: 0;
-  }
-
-  .saine-contact-wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(340px, 0.58fr);
-    gap: 24px;
-    align-items: stretch;
-  }
-
-  .saine-contact-card {
-    border-radius: var(--saine-radius-xl);
-    padding: clamp(28px, 4vw, 46px);
-    background: rgba(255, 255, 255, 0.88);
-  }
-
-  .saine-form {
-    display: grid;
-    gap: 14px;
-    margin-top: 28px;
-  }
-
-  .saine-form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .saine-field {
-    display: grid;
-    gap: 7px;
-  }
-
-  .saine-field label {
-    color: var(--saine-green-deep);
-    font-size: 13px;
-    font-weight: 900;
-  }
-
-  .saine-field input,
-  .saine-field select,
-  .saine-field textarea {
-    width: 100%;
-    min-height: 54px;
-    border: 1px solid rgba(31, 45, 42, 0.13);
-    border-radius: 16px;
-    background: rgba(247, 244, 238, 0.64);
-    padding: 14px 16px;
-    color: var(--saine-ink);
-    font: inherit;
-    outline: none;
-    transition: 220ms ease;
-  }
-
-  .saine-field textarea {
-    min-height: 132px;
-    resize: vertical;
-  }
-
-  .saine-field input:focus,
-  .saine-field select:focus,
-  .saine-field textarea:focus {
-    border-color: var(--saine-green);
-    box-shadow: 0 0 0 4px rgba(111, 149, 136, 0.16);
-    background: #ffffff;
-  }
-
-  .saine-form small {
-    color: var(--saine-muted);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  .saine-contact-side {
-    display: grid;
-    gap: 18px;
-  }
-
-  .saine-location-card {
-    padding: 28px;
-    border-radius: var(--saine-radius-lg);
-    background: linear-gradient(160deg, var(--saine-green-deep), #32594f);
-    color: #ffffff;
-    box-shadow: var(--saine-shadow-soft);
-  }
-
-  .saine-location-card h3 {
-    margin: 0 0 18px;
-    font-size: 24px;
-    letter-spacing: -0.03em;
-  }
-
-  .saine-location-item {
-    padding: 18px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
-  .saine-location-item strong {
-    display: block;
-    font-size: 17px;
-  }
-
-  .saine-location-item span,
-  .saine-location-item a {
-    display: block;
-    margin-top: 5px;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 15px;
-  }
-
-  .saine-call-card {
-    padding: 28px;
-    border-radius: var(--saine-radius-lg);
-    border: 1px solid var(--saine-line);
-    background: #ffffff;
-    box-shadow: var(--saine-shadow-soft);
-  }
-
-  .saine-call-card span {
-    display: block;
-    color: var(--saine-muted);
-    font-size: 14px;
-    font-weight: 800;
-  }
-
-  .saine-call-card strong {
-    display: block;
-    margin: 8px 0 20px;
-    font-size: 34px;
-    line-height: 1;
-    letter-spacing: -0.05em;
-    color: var(--saine-green-deep);
-  }
-
-  .saine-footer {
-    margin-top: 94px;
-    padding: 48px 0 38px;
-    background: #162b26;
-    color: rgba(255, 255, 255, 0.74);
-  }
-
-  .saine-footer-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 34px;
-    align-items: center;
-  }
-
-  .saine-footer img {
-    width: 150px;
-    filter: brightness(0) invert(1) opacity(0.84);
-  }
-
-  .saine-footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 14px 20px;
-  }
-
-  .saine-footer a {
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 14px;
-    font-weight: 700;
-  }
-
-  .saine-footer a:hover {
-    color: #ffffff;
-  }
-
-  @media (max-width: 1080px) {
-    .saine-nav-links,
-    .saine-nav-actions {
-      display: none;
-    }
-
-    .saine-mobile-toggle {
-      display: inline-grid;
-      width: 48px;
-      height: 48px;
-      place-items: center;
-      border: 1px solid var(--saine-line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.80);
-      color: var(--saine-green-deep);
-      font-size: 22px;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 12px 28px rgba(31, 45, 42, 0.08);
-    }
-
-    .saine-mobile-menu {
-      display: block;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(-8px);
-      transition: max-height 280ms ease, opacity 220ms ease, transform 220ms ease;
-    }
-
-    #saine-menu:checked ~ .saine-page .saine-mobile-menu {
-      max-height: 520px;
-      opacity: 1;
-      transform: translateY(0);
-      padding-bottom: 18px;
-    }
-
-    .saine-mobile-menu-inner {
-      display: grid;
-      gap: 8px;
-      padding: 16px;
-      border: 1px solid var(--saine-line);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.94);
-      box-shadow: var(--saine-shadow-soft);
-    }
-
-    .saine-mobile-menu a,
-    .saine-mobile-menu label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 50px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      color: var(--saine-ink);
-      font-weight: 850;
-      background: rgba(247, 244, 238, 0.78);
-      cursor: pointer;
-    }
-
-    .saine-mobile-menu .saine-mobile-cta {
-      justify-content: center;
-      margin-top: 4px;
-      color: #ffffff !important;
-      background: linear-gradient(135deg, var(--saine-green-dark), var(--saine-green-deep));
-    }
-
-    .saine-mobile-lang {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .saine-mobile-lang label {
-      justify-content: center;
-      min-height: 46px;
-      font-size: 13px;
-    }
-
-    .saine-mobile-lang-cat-label {
-      background: var(--saine-green-deep) !important;
-      color: #ffffff !important;
-    }
-
-    #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-cat-label {
-      background: #ffffff !important;
-      color: var(--saine-green-deep) !important;
-      border: 1px solid rgba(31, 45, 42, 0.10);
-    }
-
-    #saine-lang-es:checked ~ .saine-page .saine-mobile-lang-es-label {
-      background: var(--saine-green-deep) !important;
-      color: #ffffff !important;
-    }
-
-    .saine-hero-grid,
-    .saine-about-card,
-    .saine-section-head,
-    .saine-contact-wrap {
-      grid-template-columns: 1fr;
-    }
-
-    .saine-hero-panel {
-      min-height: auto;
-    }
-
-    .saine-brain-card {
-      min-height: auto;
-    }
-
-    .saine-services-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .saine-platform-card {
-      grid-template-columns: 1fr;
-    }
-
-    .saine-team-note {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .saine-container {
-      width: min(100% - 28px, var(--saine-max));
-    }
-
-    .saine-nav {
-      min-height: 72px;
-    }
-
-    .saine-logo {
-      min-width: auto;
-    }
-
-    .saine-logo img {
-      width: 110px;
-    }
-
-    .saine-mobile-toggle {
-      width: 44px;
-      height: 44px;
-      font-size: 20px;
-    }
-
-    .saine-hero {
-      padding: 44px 0 54px;
-    }
-
-    .saine-hero-grid {
-      gap: 30px;
-    }
-
-    .saine-hero-copy {
-      text-align: left;
-    }
-
-    .saine-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      margin-bottom: 12px;
-    }
-
-    .saine-eyebrow::before {
-      width: 24px;
-    }
-
-    .saine-hero h1 {
-      font-size: clamp(39px, 12.4vw, 56px);
-      line-height: 0.98;
-      letter-spacing: -0.052em;
-    }
-
-    .saine-lead {
-      margin-top: 16px;
-      font-size: 16px;
-      line-height: 1.65;
-    }
-
-    .saine-hero-actions {
-      align-items: stretch;
-      flex-direction: column;
-      margin-top: 26px;
-    }
-
-    .saine-button {
-      width: 100%;
-      min-height: 52px;
-      padding: 15px 18px;
-      font-size: 14px;
-      white-space: normal;
-      text-align: center;
-    }
-
-    .saine-trust-row {
-      grid-template-columns: 1fr;
-      margin-top: 24px;
-      gap: 10px;
-    }
-
-    .saine-trust-item {
-      min-height: auto;
-      padding: 18px;
-      border-radius: 20px;
-    }
-
-    .saine-hero-panel {
-      padding: 16px;
-      border-radius: 26px;
-    }
-
-    .saine-hero-panel::before {
-      inset: 10px;
-      border-radius: 22px;
-    }
-
-    .saine-logo-card {
-      padding: 24px 18px;
-      border-radius: 22px;
-    }
-
-    .saine-floating-card {
-      padding: 20px;
-      border-radius: 22px;
-    }
-
-    .saine-floating-card p {
-      font-size: 16px;
-      line-height: 1.58;
-    }
-
-    .saine-section {
-      padding: 62px 0;
-    }
-
-    .saine-section-head {
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-
-    .saine-section-title {
-      font-size: clamp(33px, 10.6vw, 45px);
-      line-height: 1.03;
-    }
-
-    .saine-copy-card,
-    .saine-info-card,
-    .saine-contact-card {
-      border-radius: 24px;
-    }
-
-    .saine-copy-card,
-    .saine-info-card,
-    .saine-contact-card,
-    .saine-team-card,
-    .saine-location-card,
-    .saine-call-card {
-      padding: 22px;
-    }
-
-    .saine-copy-card p,
-    .saine-platform-card p {
-      font-size: 16px;
-      line-height: 1.68;
-    }
-
-    .saine-info-line {
-      gap: 12px;
-    }
-
-    .saine-icon {
-      flex-basis: 40px;
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      font-size: 13px;
-    }
-
-    .saine-service-card {
-      min-height: auto;
-      padding: 22px;
-      border-radius: 22px;
-    }
-
-    .saine-service-number {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      margin-bottom: 18px;
-    }
-
-    .saine-service-card h3 {
-      font-size: 22px;
-    }
-
-    .saine-platform-card {
-      padding: 20px;
-      border-radius: 24px;
-      gap: 22px;
-    }
-
-    .saine-platform-logo {
-      min-height: 160px;
-      padding: 24px;
-      border-radius: 22px;
-    }
-
-    .saine-platform-logo img {
-      width: 200px;
-    }
-
-    .saine-team-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .saine-team-top {
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .saine-team-name h3 {
-      font-size: 23px;
-    }
-
-    .saine-email-chip {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .saine-team-card ul {
-      font-size: 14px;
-      line-height: 1.58;
-    }
-
-    .saine-team-note {
-      padding: 22px;
-      border-radius: 24px;
-    }
-
-    .saine-team-note p {
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    .saine-form-row {
-      grid-template-columns: 1fr;
-    }
-
-    .saine-field input,
-    .saine-field select,
-    .saine-field textarea {
-      min-height: 52px;
-      border-radius: 15px;
-      font-size: 15px;
-    }
-
-    .saine-location-card h3 {
-      font-size: 22px;
-    }
-
-    .saine-call-card strong {
-      font-size: 28px;
-    }
-
-    .saine-footer {
-      margin-top: 64px;
-      padding: 38px 0 34px;
-    }
-
-    .saine-footer-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .saine-footer-links {
-      justify-content: flex-start;
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--sage:#4a7c6f;--sage-dark:#2e5a4e;--sage-light:#e8f2ef;--sage-mid:#6a9e8f;--cream:#f8f6f1;--stone:#e8e4dc;--td:#1c2520;--tm:#4a5550;--tl:#7a8a84;--w:#ffffff;--r:16px;--rs:8px;--sh:0 4px 24px rgba(30,50,40,.08);--shl:0 12px 48px rgba(30,50,40,.12)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;color:var(--td);background:var(--w);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.2}
+a{color:inherit}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--stone);padding:0 2rem;height:72px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:var(--sh)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:44px;height:44px;background:var(--sage);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon svg{width:26px;height:26px;fill:none;stroke:white;stroke-width:1.8}
+.brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--sage-dark)}
+.brand-sub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tl);font-weight:500}
+.nav-links{display:flex;align-items:center;gap:1.6rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:13.5px;font-weight:500;color:var(--tm);transition:color .2s;cursor:pointer;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--sage);transform:scaleX(0);transition:transform .2s;border-radius:2px}
+.nav-links a:hover{color:var(--sage-dark)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-dropdown{position:relative}
+.nav-dropdown>a::after{display:none}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-4px);background:white;border:1px solid var(--stone);border-radius:var(--rs);box-shadow:var(--sh);min-width:165px;padding:8px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:8px 12px;border-radius:6px;font-size:13px;transition:background .15s;text-decoration:none}
+.nav-dropdown-menu a:hover{background:var(--sage-light)}
+.nav-dropdown-menu a::after{display:none!important}
+.nav-cta{background:var(--sage);color:white!important;padding:10px 22px;border-radius:50px;font-size:14px!important;font-weight:600!important;text-decoration:none;transition:background .2s!important;cursor:pointer}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--sage-dark)!important}
+.lang-switcher{display:flex;gap:4px}
+.lang-btn{font-size:13px;font-weight:600;color:var(--tl);padding:5px 10px;border-radius:6px;border:1.5px solid transparent;transition:all .15s;cursor:pointer;background:none;font-family:'DM Sans',sans-serif}
+.lang-btn.active{color:var(--sage);border-color:var(--sage);background:var(--sage-light)}
+.lang-btn:hover:not(.active){color:var(--sage)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--td);border-radius:2px;transition:all .3s}
+.hero{padding-top:72px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--cream) 0%,#eef5f2 50%,var(--sage-light) 100%);position:relative;overflow:hidden}
+.hero-dots{position:absolute;top:0;right:0;width:55%;height:100%;opacity:.055;background-image:radial-gradient(circle at 2px 2px,var(--sage-dark) 1px,transparent 0);background-size:30px 30px}
+.hero-inner{max-width:1200px;margin:0 auto;padding:5rem 2rem;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);background:var(--sage-light);padding:6px 16px;border-radius:50px;margin-bottom:1.5rem}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%}
+.hero h1{font-size:clamp(2rem,4vw,3.4rem);font-weight:700;color:var(--td);margin-bottom:1.5rem;line-height:1.1}
+.hero h1 em{color:var(--sage);font-style:normal}
+.hero-desc{font-size:16.5px;color:var(--tm);margin-bottom:2.5rem;max-width:500px;line-height:1.8}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn svg{width:17px;height:17px;flex-shrink:0}
+.btn-primary{background:var(--sage);color:white;border-color:var(--sage);box-shadow:0 4px 16px rgba(74,124,111,.3)}
+.btn-primary:hover{background:var(--sage-dark);border-color:var(--sage-dark);transform:translateY(-2px)}
+.btn-secondary{background:white;color:var(--sage);border-color:var(--sage)}
+.btn-secondary:hover{background:var(--sage-light);transform:translateY(-2px)}
+.hero-visual{display:flex;align-items:center;justify-content:center}
+.hero-card{background:white;border-radius:var(--r);padding:2rem;box-shadow:var(--shl);border:1px solid rgba(74,124,111,.12);position:relative;width:100%;max-width:390px}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--tl);font-weight:600;margin-bottom:4px}
+.stat-value{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--sage-dark)}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.2rem}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:var(--sage-light);color:var(--sage-dark);font-size:13px;font-weight:500;padding:6px 14px;border-radius:50px}
+.hero-pill::before{content:'\2713';font-size:10px;background:var(--sage);color:white;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.hero-float{position:absolute;right:-14px;bottom:-14px;background:var(--sage-dark);color:white;border-radius:12px;padding:.9rem 1.4rem;box-shadow:var(--shl)}
+.hero-float .fc-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;opacity:.7}
+.hero-float .fc-value{font-size:19px;font-weight:700;font-family:'Playfair Display',serif}
+.section{padding:5.5rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--sage);margin-bottom:1rem}
+.section-title{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;color:var(--td);margin-bottom:1.5rem}
+.section-lead{font-size:16.5px;color:var(--tm);max-width:600px;line-height:1.8;margin-bottom:3rem}
+.about{background:var(--w)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-text p{color:var(--tm);margin-bottom:1rem;font-size:15.5px;line-height:1.8}
+.about-text b{color:var(--sage-dark);font-weight:600}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.8rem}
+.about-feature{background:var(--sage-light);border-radius:var(--rs);padding:1rem 1.2rem;border-left:3px solid var(--sage)}
+.about-feature strong{display:block;font-size:14px;font-weight:600;color:var(--sage-dark);margin-bottom:3px}
+.about-feature span{font-size:13px;color:var(--tm)}
+.about-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-box{background:var(--cream);border-radius:var(--r);padding:1.8rem 1.5rem;text-align:center;border:1px solid var(--stone);transition:transform .2s}
+.about-box:hover{transform:translateY(-4px)}
+.about-box:first-child{grid-column:span 2;background:var(--sage);color:white}
+.about-box .abn{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--sage-dark)}
+.about-box:first-child .abn{color:white;font-size:1.5rem}
+.about-box .abl{font-size:13px;font-weight:500;color:var(--tm);margin-top:4px}
+.about-box:first-child .abl{color:rgba(255,255,255,.8)}
+.services{background:var(--cream)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.svc-card{background:white;border-radius:var(--r);padding:2.5rem 2rem;border:1px solid var(--stone);transition:all .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--sage);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.svc-card:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:transparent}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-icon{width:52px;height:52px;background:var(--sage-light);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.svc-icon svg{width:25px;height:25px;stroke:var(--sage);fill:none;stroke-width:1.8}
+.svc-card h3{font-size:1.3rem;font-weight:700;color:var(--td);margin-bottom:.8rem}
+.svc-card p{font-size:14.5px;color:var(--tm);line-height:1.7}
+.platforms{background:white}
+.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.glifing-logo{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;background:linear-gradient(135deg,#e8a020,#c97012);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.2rem;display:block}
+.plat-card{background:var(--cream);border-radius:var(--r);padding:2.5rem;border:1px solid var(--stone)}
+.plat-card h3{font-size:1.25rem;margin-bottom:1rem;color:var(--td)}
+.plat-card p{font-size:15px;color:var(--tm);line-height:1.8}
+.plat-badge{display:inline-flex;align-items:center;gap:6px;background:#fff8e6;color:#a06010;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:50px;margin-bottom:1.5rem;border:1px solid #f0d090}
+.team{background:var(--sage-light)}
+.team-intro{text-align:center;max-width:700px;margin:0 auto 3.5rem}
+.team-intro p{color:var(--tm);font-size:15.5px;line-height:1.8;margin-top:.5rem}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:1.5rem}
+.tc{background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:transform .3s,box-shadow .3s}
+.tc:hover{transform:translateY(-4px);box-shadow:var(--shl)}
+.tc-head{background:var(--sage);padding:.9rem 1.5rem}
+.tc-email{font-size:12px;color:rgba(255,255,255,.85);font-weight:500}
+.tc-email a{color:inherit;text-decoration:none}
+.tc-email a:hover{text-decoration:underline}
+.tc-body{padding:1.5rem 2rem 2rem}
+.tc-body h2{font-size:1.35rem;font-weight:700;color:var(--sage-dark);margin-bottom:4px}
+.tc-role{font-size:12.5px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.4rem;padding-bottom:.9rem;border-bottom:1px solid var(--stone)}
+.tc-list{list-style:none;margin-bottom:1.8rem}
+.tc-list li{display:flex;gap:10px;font-size:13.5px;color:var(--tm);padding:5px 0;border-bottom:1px solid #f0f0ec;line-height:1.5;align-items:flex-start}
+.tc-list li:last-child{border-bottom:none}
+.chk{width:18px;height:18px;min-width:18px;background:var(--sage);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-top:2px}
+.chk svg{width:10px;height:10px;stroke:white;fill:none;stroke-width:2.5}
+.tc-list b{color:var(--sage-dark);font-weight:600}
+.btn-tc{display:block;text-align:center;background:var(--sage-light);color:var(--sage-dark);padding:11px 24px;border-radius:50px;text-decoration:none;font-weight:600;font-size:14px;border:2px solid var(--sage);transition:all .2s}
+.btn-tc:hover{background:var(--sage);color:white}
+.team-note{background:white;border-radius:var(--r);padding:2rem 2.5rem;margin:2.5rem 0;border:1px solid var(--stone)}
+.team-note p{font-size:15px;color:var(--tm);line-height:1.8;margin-bottom:1.5rem}
+.team-note p b{color:var(--sage-dark)}
+.contact{background:white}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:start}
+.cf-wrap{background:var(--cream);border-radius:var(--r);padding:2.8rem;border:1px solid var(--stone)}
+.cf-wrap h3{font-size:1.6rem;margin-bottom:.5rem;color:var(--td)}
+.cf-sub{font-size:15px;color:var(--tm);margin-bottom:1.8rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{margin-bottom:1.1rem}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--td);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.fg input,.fg select,.fg textarea{width:100%;padding:11px 15px;border:1.5px solid var(--stone);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--td);background:white;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,124,111,.12)}
+.fg textarea{min-height:110px;resize:vertical}
+.gdpr{display:flex;gap:10px;align-items:flex-start;margin:1.3rem 0}
+.gdpr input{width:16px;height:16px;min-width:16px;margin-top:3px;accent-color:var(--sage);cursor:pointer}
+.gdpr label{font-size:12px;color:var(--tl);line-height:1.6;cursor:pointer}
+.btn-sub{width:100%;background:var(--sage);color:white;padding:15px;border-radius:50px;font-size:16px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-sub:hover{background:var(--sage-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,124,111,.35)}
+.cs h3{font-size:1.6rem;margin-bottom:.5rem;color:var(--td)}
+.phone-block{background:var(--sage);color:white;border-radius:var(--r);padding:2.5rem;margin-top:1.8rem;text-align:center}
+.phone-lbl{font-size:12px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;margin-bottom:.5rem}
+.phone-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:white;text-decoration:none;display:block;margin-bottom:1.3rem}
+.phone-num:hover{opacity:.85}
+.btn-call{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--sage);padding:11px 26px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:all .2s;font-family:'DM Sans',sans-serif;border:none;cursor:pointer}
+.btn-call:hover{background:var(--sage-light)}
+.footer{background:var(--td);color:white;padding:4rem 2rem 2rem}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2rem}
+.fb .fn{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:white;margin-bottom:2px}
+.fb .fs{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+.fb p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8}
+.fc h4{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:1.2rem;font-family:'DM Sans',sans-serif}
+.faddr{font-size:14px;color:rgba(255,255,255,.7);line-height:1.8}
+.faddr a{color:rgba(255,255,255,.7);text-decoration:none}
+.faddr a:hover{color:white}
+.ai{display:flex;gap:10px;margin-bottom:.5rem;align-items:flex-start}
+.ai svg{width:15px;height:15px;min-width:15px;stroke:var(--sage-mid);fill:none;stroke-width:2;margin-top:4px}
+.footer-bot{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bot p{font-size:13px;color:rgba(255,255,255,.35)}
+.flinks{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:center}
+.flinks a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.flinks a:hover{color:rgba(255,255,255,.8)}
+.fig{display:inline-flex;align-items:center;gap:6px;color:#e1306c!important;font-size:13px!important;font-weight:500}
+.fig svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .6s ease both}
+.fu1{animation-delay:.15s}
+.fu2{animation-delay:.3s}
+.fu3{animation-delay:.45s}
+.mob-menu{position:fixed;top:72px;left:0;right:0;bottom:0;background:white;padding:1.5rem 2rem;overflow-y:auto;z-index:999;display:none;flex-direction:column}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:18px;font-weight:500;color:var(--td);text-decoration:none;padding:1rem 0;border-bottom:1px solid var(--stone);display:block;cursor:pointer}
+.mob-menu a:hover{color:var(--sage)}
+.mob-cta{background:var(--sage)!important;color:white!important;text-align:center;border-radius:50px;padding:1rem 2rem!important;border-bottom:none!important;margin-top:1rem}
+.mob-lang{display:flex;gap:.8rem;padding:1rem 0;border-bottom:1px solid var(--stone)}
+.mob-lang button{font-size:15px;font-weight:600;background:none;border:1.5px solid var(--stone);border-radius:8px;padding:7px 18px;cursor:pointer;color:var(--tm);font-family:'DM Sans',sans-serif;transition:all .15s}
+.mob-lang button.active{background:var(--sage-light);color:var(--sage);border-color:var(--sage)}
+@media(max-width:960px){
+  .nav-links,.lang-switcher,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .hero-inner{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}
+  .hero-visual{display:none}
+  .hero{min-height:auto;padding-bottom:4rem}
+  .about-grid,.plat-grid,.contact-grid{grid-template-columns:1fr;gap:3rem}
+  .about-visual{grid-template-columns:1fr 1fr}
+  .about-box:first-child{grid-column:span 2}
+  .about-features{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bot{flex-direction:column;text-align:center}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .section{padding:4rem 1.5rem}
+  .hero h1{font-size:1.9rem}
+  .hero-actions{flex-direction:column}
+  .btn{justify-content:center}
+  .phone-num{font-size:2rem}
+}
 </style>
-
-<input class="saine-lang-state" type="radio" name="saine-language" id="saine-lang-cat" checked>
-<input class="saine-lang-state" type="radio" name="saine-language" id="saine-lang-es">
-<input class="saine-menu-state" type="checkbox" id="saine-menu">
-
-<div class="saine-page" id="saine-andorra">
-  <header class="saine-header">
-    <div class="saine-container">
-      <nav class="saine-nav" aria-label="Navegación principal">
-        <a class="saine-logo" href="#inici" aria-label="SAINE Andorra">
-          <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="SAINE Neuropsicologia">
-        </a>
-
-        <div class="saine-nav-links">
-          <a href="#serveis"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></a>
-          <a href="#plataformes"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></a>
-          <a href="#equip"><span class="saine-cat">Equip</span><span class="saine-es">Equipo</span></a>
-          <a href="#contacte"><span class="saine-cat">Contacta</span><span class="saine-es">Contacto</span></a>
-        </div>
-
-        <div class="saine-nav-actions">
-          <div class="saine-lang" aria-label="Selector de idioma">
-            <label class="saine-lang-cat-label" for="saine-lang-cat">CAT</label>
-            <label class="saine-lang-es-label" for="saine-lang-es">ES</label>
-          </div>
-          <a class="saine-button saine-button-primary" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
-        </div>
-
-        <label class="saine-mobile-toggle" for="saine-menu" aria-hidden="true">☰</label>
-      </nav>
-
-      <div class="saine-mobile-menu">
-        <div class="saine-mobile-menu-inner">
-          <a href="#serveis"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></a>
-          <a href="#plataformes"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></a>
-          <a href="#equip"><span class="saine-cat">Equip</span><span class="saine-es">Equipo</span></a>
-          <a href="#contacte"><span class="saine-cat">Contacta</span><span class="saine-es">Contacto</span></a>
-          <div class="saine-mobile-lang">
-            <label class="saine-mobile-lang-cat-label" for="saine-lang-cat">CAT</label>
-            <label class="saine-mobile-lang-es-label" for="saine-lang-es">ES</label>
-          </div>
-          <a class="saine-mobile-cta" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
-        </div>
-      </div>
+</head>
+<body>
+<nav class="nav" id="mainNav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 3C8 3 5 6 5 9.5c0 2 .8 3.8 2.1 5L12 21l4.9-6.5A7.5 7.5 0 0 0 12 3z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5"/></svg>
     </div>
-  </header>
-
-  <main>
-    <section class="saine-hero" id="inici">
-      <div class="saine-container saine-hero-grid">
-        <div class="saine-hero-copy">
-          <p class="saine-eyebrow"><span class="saine-cat">SAINE aprop teu</span><span class="saine-es">SAINE cerca de ti</span></p>
-          <h1 class="saine-title">
-            <span class="saine-cat">Servei <span>d'atenció i intervenció neuropsicològica a Andorra la Vella</span></span>
-            <span class="saine-es">Servicio <span>de atención e intervención neuropsicológica en Andorra la Vella</span></span>
-          </h1>
-          <p class="saine-lead"><span class="saine-cat">Un equip especialitzat en neuropsicologia, psicologia clínica i psicopedagogia per acompanyar cada persona amb una atenció precisa, humana i personalitzada.</span><span class="saine-es">Un equipo especializado en neuropsicología, psicología clínica y psicopedagogía para acompañar a cada persona con una atención precisa, humana y personalizada.</span></p>
-
-          <div class="saine-hero-actions">
-            <a class="saine-button saine-button-primary" href="#contacte"><span class="saine-cat">Concertar visita</span><span class="saine-es">Concertar visita</span></a>
-            <a class="saine-button saine-button-soft" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra"><span class="saine-cat">Enviar un correu</span><span class="saine-es">Enviar un correo</span></a>
-          </div>
-
-          <div class="saine-trust-row" aria-label="Áreas principales">
-            <div class="saine-trust-item">
-              <strong>Neuropsicologia</strong>
-              <span class="saine-cat">Avaluació diagnòstica, intervenció i orientació terapèutica.</span>
-              <span class="saine-es">Evaluación diagnóstica, intervención y orientación terapéutica.</span>
-            </div>
-            <div class="saine-trust-item">
-              <strong><span class="saine-cat">Psicologia</span><span class="saine-es">Psicología</span></strong>
-              <span class="saine-cat">Atenció clínica per a infants, adolescents i adults.</span>
-              <span class="saine-es">Atención clínica para niños, adolescentes y adultos.</span>
-            </div>
-            <div class="saine-trust-item">
-              <strong>Psicopedagogia</strong>
-              <span class="saine-cat">Suport en dificultats d'aprenentatge i neurodesenvolupament.</span>
-              <span class="saine-es">Apoyo en dificultades de aprendizaje y neurodesarrollo.</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="saine-hero-panel" aria-label="SAINE Andorra">
-          <div class="saine-brain-card">
-            <div class="saine-logo-card">
-              <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="Logotipo SAINE Neuropsicologia">
-            </div>
-            <div class="saine-floating-card">
-              <span class="saine-floating-card-badge">Andorra la Vella</span>
-              <p><span class="saine-cat">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals, trastorns d'aprenentatge i trastorns del neurodesenvolupament.</span><span class="saine-es">Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, trastornos de aprendizaje y trastornos del neurodesarrollo.</span></p>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="saine-section" id="saine-andorra-info">
-      <div class="saine-container">
-        <div class="saine-section-head">
-          <div>
-            <p class="saine-eyebrow"><span class="saine-cat">Servei d'atenció i intervenció neuropsicològica a Andorra la Vella</span><span class="saine-es">Servicio de atención e intervención neuropsicológica en Andorra la Vella</span></p>
-            <h2 class="saine-section-title">SAINE Andorra</h2>
-          </div>
-          <p class="saine-lead"><span class="saine-cat">Professionals de diverses disciplines i àmplia experiència compromeses amb el benestar psicològic i emocional.</span><span class="saine-es">Profesionales de varias disciplinas y amplia experiencia comprometidas con el bienestar psicológico y emocional.</span></p>
-        </div>
-
-        <div class="saine-about-card">
-          <div class="saine-copy-card">
-            <p><span class="saine-cat">SAINE som un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona.</span><span class="saine-es">SAINE somos un equipo de profesionales de varias disciplinas y amplia experiencia comprometidas en promover el bienestar psicológico y emocional, centrándonos en las necesidades de cada persona.</span></p>
-            <p><span class="saine-cat">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals així com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.</span><span class="saine-es">Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales, así como en trastornos y dificultades de aprendizaje y trastornos del neurodesarrollo.</span></p>
-            <div class="saine-hero-actions">
-              <a class="saine-button saine-button-primary" href="mailto:info@saine.cat?subject=Consulta%20SAINE%20Andorra"><span class="saine-cat">Clica aquí per a enviar-nos un correu</span><span class="saine-es">Haz clic aquí para enviarnos un correo</span></a>
-            </div>
-          </div>
-
-          <div class="saine-info-card">
-            <div class="saine-info-line">
-              <div class="saine-icon">01</div>
-              <div>
-                <strong><span class="saine-cat">Avaluació</span><span class="saine-es">Evaluación</span></strong>
-                <span class="saine-cat">Anàlisi professional de cada cas per entendre necessitats cognitives, emocionals i conductuals.</span>
-                <span class="saine-es">Análisis profesional de cada caso para entender necesidades cognitivas, emocionales y conductuales.</span>
-              </div>
-            </div>
-            <div class="saine-info-line">
-              <div class="saine-icon">02</div>
-              <div>
-                <strong><span class="saine-cat">Diagnòstic</span><span class="saine-es">Diagnóstico</span></strong>
-                <span class="saine-cat">Valoració especialitzada per orientar el tractament més adequat.</span>
-                <span class="saine-es">Valoración especializada para orientar el tratamiento más adecuado.</span>
-              </div>
-            </div>
-            <div class="saine-info-line">
-              <div class="saine-icon">03</div>
-              <div>
-                <strong><span class="saine-cat">Intervenció</span><span class="saine-es">Intervención</span></strong>
-                <span class="saine-cat">Acompanyament terapèutic i psicopedagògic adaptat a cada persona.</span>
-                <span class="saine-es">Acompañamiento terapéutico y psicopedagógico adaptado a cada persona.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="saine-section" id="serveis">
-      <div class="saine-container">
-        <div class="saine-section-head">
-          <div>
-            <p class="saine-eyebrow"><span class="saine-cat">Serveis</span><span class="saine-es">Servicios</span></p>
-            <h2 class="saine-section-title"><span class="saine-cat">Especialitats per a una intervenció integral</span><span class="saine-es">Especialidades para una intervención integral</span></h2>
-          </div>
-          <p class="saine-lead"><span class="saine-cat">Una estructura clara de serveis pensada per detectar, orientar i intervenir de forma coordinada.</span><span class="saine-es">Una estructura clara de servicios pensada para detectar, orientar e intervenir de forma coordinada.</span></p>
-        </div>
-
-        <div class="saine-services-grid">
-          <article class="saine-service-card">
-            <div class="saine-service-number">01</div>
-            <h3>Neuropsicologia</h3>
-            <p><span class="saine-cat">Des de la neuropsicologia duem a terme avaluacions diagnòstiques, oferim intervenció i/o orientem el tractament més adient a cada cas.</span><span class="saine-es">Desde la neuropsicología llevamos a cabo evaluaciones diagnósticas, ofrecemos intervención y orientamos el tratamiento más adecuado en cada caso.</span></p>
-          </article>
-
-          <article class="saine-service-card">
-            <div class="saine-service-number">02</div>
-            <h3><span class="saine-cat">Psicologia Clínica</span><span class="saine-es">Psicología Clínica</span></h3>
-            <p><span class="saine-cat">Oferim el servei de psicologia clínica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en teràpies de 3a generació.</span><span class="saine-es">Ofrecemos el servicio de psicología clínica, tanto a niños como a adolescentes y adultos, con un enfoque cognitivo conductual y basado en terapias de tercera generación.</span></p>
-          </article>
-
-          <article class="saine-service-card">
-            <div class="saine-service-number">03</div>
-            <h3>Psicopedagogia</h3>
-            <p><span class="saine-cat">L'equip de psicopedagogues intervé en dur a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.</span><span class="saine-es">El equipo de psicopedagogas interviene realizando las intervenciones y abordajes pertinentes en las dificultades de aprendizaje.</span></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="saine-section saine-platform" id="plataformes">
-      <div class="saine-container">
-        <div class="saine-section-head">
-          <div>
-            <p class="saine-eyebrow"><span class="saine-cat">Plataformes integrades</span><span class="saine-es">Plataformas integradas</span></p>
-            <h2 class="saine-section-title"><span class="saine-cat">Millora de la velocitat i la comprensió lectora</span><span class="saine-es">Mejora de la velocidad y la comprensión lectora</span></h2>
-          </div>
-        </div>
-
-        <article class="saine-platform-card">
-          <div class="saine-platform-logo">
-            <img src="https://www.saine.cat/wp-content/uploads/2024/03/logo-glifing.png" alt="Glifing">
-          </div>
-          <div>
-            <h3>Mètode Glifing</h3>
-            <p><span class="saine-cat">A SAINE utilitzem el mètode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evidència científica, és utilitzat per més de 200.000 infants de gabinets, escoles i famílies de diversos països en català, castellà i euskera. El seu format ens recorda a un videojoc i això fa que aprendre a llegir sigui divertit.</span><span class="saine-es">En SAINE utilizamos el método Glifing para el entrenamiento de la lectura. Creado en Cataluña y basado en la evidencia científica, es utilizado por más de 200.000 niños de gabinetes, escuelas y familias de varios países en catalán, castellano y euskera. Su formato recuerda a un videojuego y eso hace que aprender a leer sea divertido.</span></p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="saine-section" id="equip">
-      <div class="saine-container">
-        <div class="saine-team-intro">
-          <p class="saine-eyebrow"><span class="saine-cat">Coneix l'equip de SAINE</span><span class="saine-es">Conoce al equipo de SAINE</span></p>
-          <h2 class="saine-section-title"><span class="saine-cat">Professionals especialitzades a SAINE Andorra</span><span class="saine-es">Profesionales especializadas en SAINE Andorra</span></h2>
-          <p class="saine-lead"><span class="saine-cat">SAINE el formem un equip de professionals de diverses disciplines i àmplia experiència compromeses en promoure el benestar psicològic i emocional centrant-nos en les necessitats de cada persona. Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.</span><span class="saine-es">SAINE lo formamos un equipo de profesionales de varias disciplinas y amplia experiencia comprometidas en promover el bienestar psicológico y emocional, centrándonos en las necesidades de cada persona. Desde SAINE Andorra trabajamos la psicopedagogía, la neuropsicología y la psicología.</span></p>
-        </div>
-
-        <div class="saine-team-grid">
-          <article class="saine-team-card">
-            <div class="saine-team-top">
-              <div class="saine-team-name">
-                <h3>Lorena Nieto Viñals</h3>
-                <span>Neuropsicòloga</span>
-              </div>
-              <a class="saine-email-chip" href="mailto:lnieto.saine@andorra.ad">lnieto.saine@andorra.ad</a>
-            </div>
-            <ul>
-              <li><span class="saine-cat">Màster en Neurologia de la Conducta i Neuropsicologia per la UAB, acreditada professionalment com a Experta en Neuropsicologia Clínica pel COPC.</span><span class="saine-es">Máster en Neurología de la Conducta y Neuropsicología por la UAB, acreditada profesionalmente como Experta en Neuropsicología Clínica por el COPC.</span></li>
-              <li><span class="saine-cat">Postgraduada en Psicopatologia Clínica per la UB.</span><span class="saine-es">Postgraduada en Psicopatología Clínica por la UB.</span></li>
-              <li><span class="saine-cat">Màster en Teràpies Contextuals de 3a generació per l'Instituto ACT.</span><span class="saine-es">Máster en Terapias Contextuales de tercera generación por el Instituto ACT.</span></li>
-              <li><span class="saine-cat">Educadora de pares i de mestres certificada en Disciplina Positiva.</span><span class="saine-es">Educadora de padres y de maestros certificada en Disciplina Positiva.</span></li>
-            </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologialorena"><span class="saine-cat">Contactar amb Lorena</span><span class="saine-es">Contactar con Lorena</span></a>
-          </article>
-
-          <article class="saine-team-card">
-            <div class="saine-team-top">
-              <div class="saine-team-name">
-                <h3>Carla Vergés Rossell</h3>
-                <span>Psicopedagoga</span>
-              </div>
-              <a class="saine-email-chip" href="mailto:cvergesrossell@gmail.com">cvergesrossell@gmail.com</a>
-            </div>
-            <ul>
-              <li><span class="saine-cat">Llicenciada en Psicopedagogia per la Universitat de Barcelona.</span><span class="saine-es">Licenciada en Psicopedagogía por la Universidad de Barcelona.</span></li>
-              <li><span class="saine-cat">Diplomada en Magisteri d'Educació Primària per la Facultat de Psicologia, Ciències de l'Educació i de l'Esport Blanquerna.</span><span class="saine-es">Diplomada en Magisterio de Educación Primaria por la Facultad de Psicología, Ciencias de la Educación y del Deporte Blanquerna.</span></li>
-              <li><span class="saine-cat">Acreditada com a experta en intel·ligència emocional per la UNIR.</span><span class="saine-es">Acreditada como experta en inteligencia emocional por la UNIR.</span></li>
-              <li><span class="saine-cat">Cursos d'especialització en dificultats i trastorns d'aprenentatge.</span><span class="saine-es">Cursos de especialización en dificultades y trastornos de aprendizaje.</span></li>
-              <li><span class="saine-cat">Entrenadora Glifing.</span><span class="saine-es">Entrenadora Glifing.</span></li>
-            </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicopedagogia"><span class="saine-cat">Contactar amb Carla</span><span class="saine-es">Contactar con Carla</span></a>
-          </article>
-
-          <article class="saine-team-card">
-            <div class="saine-team-top">
-              <div class="saine-team-name">
-                <h3>Elisa Bonvilà Queija</h3>
-                <span><span class="saine-cat">Psicòloga Clínica</span><span class="saine-es">Psicóloga Clínica</span></span>
-              </div>
-              <a class="saine-email-chip" href="mailto:ebonvila.saine@andorra.ad">ebonvila.saine@andorra.ad</a>
-            </div>
-            <ul>
-              <li><span class="saine-cat">Llicenciada en Psicologia per la Universitat Autònoma de Barcelona.</span><span class="saine-es">Licenciada en Psicología por la Universidad Autónoma de Barcelona.</span></li>
-              <li><span class="saine-cat">Postgraduada en Formació d'Especialistes en Psicomotricitat i en Teràpia Psicomotriu.</span><span class="saine-es">Postgraduada en Formación de Especialistas en Psicomotricidad y en Terapia Psicomotriz.</span></li>
-              <li><span class="saine-cat">Màster en Atenció Precoç i Psicologia Clínica Infantojuvenil.</span><span class="saine-es">Máster en Atención Precoz y Psicología Clínica Infantojuvenil.</span></li>
-              <li><span class="saine-cat">Màster en Teràpies de Tercera Generació.</span><span class="saine-es">Máster en Terapias de Tercera Generación.</span></li>
-              <li><span class="saine-cat">Educadora de famílies certificada en Disciplina Positiva i entrenadora Glifing.</span><span class="saine-es">Educadora de familias certificada en Disciplina Positiva y entrenadora Glifing.</span></li>
-            </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiaelisa"><span class="saine-cat">Contactar amb Elisa</span><span class="saine-es">Contactar con Elisa</span></a>
-          </article>
-
-          <article class="saine-team-card">
-            <div class="saine-team-top">
-              <div class="saine-team-name">
-                <h3>Natàlia Picó Azanza</h3>
-                <span>Neuropsicòloga</span>
-              </div>
-              <a class="saine-email-chip" href="mailto:npico.saine@andorra.ad">npico.saine@andorra.ad</a>
-            </div>
-            <ul>
-              <li><span class="saine-cat">Llicenciatura en Psicologia per la Universitat de Barcelona.</span><span class="saine-es">Licenciatura en Psicología por la Universidad de Barcelona.</span></li>
-              <li><span class="saine-cat">Màster universitari en Neuropsicologia Clínica per la Universitat de Barcelona.</span><span class="saine-es">Máster universitario en Neuropsicología Clínica por la Universidad de Barcelona.</span></li>
-              <li><span class="saine-cat">Acreditació professional en psicòleg expert en Neuropsicologia Clínica.</span><span class="saine-es">Acreditación profesional en psicólogo experto en Neuropsicología Clínica.</span></li>
-              <li><span class="saine-cat">Acreditació en Psicologia General Sanitària pel Col·legi Oficial de Psicòlegs de Catalunya.</span><span class="saine-es">Acreditación en Psicología General Sanitaria por el Colegio Oficial de Psicólogos de Cataluña.</span></li>
-              <li><span class="saine-cat">Diploma d'Estudis Avançats i suficiència investigadora.</span><span class="saine-es">Diploma de Estudios Avanzados y suficiencia investigadora.</span></li>
-            </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=neuropsicologianatalia"><span class="saine-cat">Contactar amb Natàlia</span><span class="saine-es">Contactar con Natàlia</span></a>
-          </article>
-
-          <article class="saine-team-card">
-            <div class="saine-team-top">
-              <div class="saine-team-name">
-                <h3>Sara Aleix Guillaume</h3>
-                <span><span class="saine-cat">Psicòloga</span><span class="saine-es">Psicóloga</span></span>
-              </div>
-              <a class="saine-email-chip" href="mailto:saleix.saine@andorra.ad">saleix.saine@andorra.ad</a>
-            </div>
-            <ul>
-              <li><span class="saine-cat">Graduada en Psicologia per la Universitat de Barcelona.</span><span class="saine-es">Graduada en Psicología por la Universidad de Barcelona.</span></li>
-              <li><span class="saine-cat">Màster en Psicologia Jurídica i Forense per la Universitat Autònoma de Barcelona.</span><span class="saine-es">Máster en Psicología Jurídica y Forense por la Universidad Autónoma de Barcelona.</span></li>
-              <li><span class="saine-cat">Màster en Psicologia Infantil i Juvenil per la Universitat Oberta de Catalunya.</span><span class="saine-es">Máster en Psicología Infantil y Juvenil por la Universitat Oberta de Catalunya.</span></li>
-            </ul>
-            <a class="saine-button saine-button-soft" href="https://www.saine.cat/contacteandorra/?consulta=psicologiasara"><span class="saine-cat">Contactar amb Sara</span><span class="saine-es">Contactar con Sara</span></a>
-          </article>
-        </div>
-
-        <div class="saine-team-note">
-          <p><span class="saine-cat">Per tal d'oferir una intervenció integral a cada problemàtica el nostre equip el formen neuropsicològues, psicòlogues sanitàries, psicomotricista, logopeda i psicopedagogues que fundamenten l'actuació en el treball cooperatiu mantenint una constant i estreta col·laboració amb la resta de professionals del grup SAINE.</span><span class="saine-es">Para ofrecer una intervención integral a cada problemática, nuestro equipo está formado por neuropsicólogas, psicólogas sanitarias, psicomotricista, logopeda y psicopedagogas que fundamentan la actuación en el trabajo cooperativo, manteniendo una colaboración constante y estrecha con el resto de profesionales del grupo SAINE.</span></p>
-          <a class="saine-button saine-button-soft" href="https://www.saine.cat/equip/"><span class="saine-cat">Coneix + professionals de SAINE</span><span class="saine-es">Conoce más profesionales de SAINE</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="saine-section saine-contact" id="contacte">
-      <div class="saine-container">
-        <div class="saine-contact-wrap">
-          <div class="saine-contact-card">
-            <p class="saine-eyebrow"><span class="saine-cat">Contacta amb SAINE Andorra</span><span class="saine-es">Contacta con SAINE Andorra</span></p>
-            <h2 class="saine-section-title"><span class="saine-cat">Explica'ns el teu cas</span><span class="saine-es">Cuéntanos tu caso</span></h2>
-            <p class="saine-lead"><span class="saine-cat">Emplena aquest formulari i et respondrem el més aviat possible.</span><span class="saine-es">Rellena este formulario y te responderemos lo antes posible.</span></p>
-
-            <form class="saine-form" action="mailto:info@saine.cat" method="post" enctype="text/plain">
-              <div class="saine-form-row">
-                <div class="saine-field">
-                  <label for="saine-name"><span class="saine-cat">Nom i cognoms</span><span class="saine-es">Nombre y apellidos</span></label>
-                  <input id="saine-name" name="Nom" type="text" autocomplete="name" required>
-                </div>
-                <div class="saine-field">
-                  <label for="saine-phone"><span class="saine-cat">Telèfon</span><span class="saine-es">Teléfono</span></label>
-                  <input id="saine-phone" name="Telefon" type="tel" autocomplete="tel" required>
-                </div>
-              </div>
-
-              <div class="saine-form-row">
-                <div class="saine-field">
-                  <label for="saine-email"><span class="saine-cat">Correu electrònic</span><span class="saine-es">Correo electrónico</span></label>
-                  <input id="saine-email" name="Email" type="email" autocomplete="email" required>
-                </div>
-                <div class="saine-field">
-                  <label for="saine-service"><span class="saine-cat">Servei d'interès</span><span class="saine-es">Servicio de interés</span></label>
-                  <select id="saine-service" name="Servei">
-                    <option value="Neuropsicologia">Neuropsicologia</option>
-                    <option value="Psicologia Clínica">Psicologia Clínica</option>
-                    <option value="Psicopedagogia">Psicopedagogia</option>
-                    <option value="Consulta general">Consulta general</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="saine-field">
-                <label for="saine-message"><span class="saine-cat">Missatge</span><span class="saine-es">Mensaje</span></label>
-                <textarea id="saine-message" name="Missatge" placeholder="Explica'ns breument com et podem ajudar" required></textarea>
-              </div>
-
-              <small><span class="saine-cat">En enviar el formulari acceptes que SAINE pugui contactar amb tu per respondre la teva consulta.</span><span class="saine-es">Al enviar el formulario aceptas que SAINE pueda contactar contigo para responder tu consulta.</span></small>
-              <button class="saine-button saine-button-primary" type="submit"><span class="saine-cat">Enviar consulta</span><span class="saine-es">Enviar consulta</span></button>
-            </form>
-          </div>
-
-          <aside class="saine-contact-side">
-            <div class="saine-location-card">
-              <h3><span class="saine-cat">Adreces i contacte</span><span class="saine-es">Direcciones y contacto</span></h3>
-              <div class="saine-location-item">
-                <strong>Andorra la Vella</strong>
-                <span>Prat de la Creu, 93, 1r 1a</span>
-                <a href="tel:+376728877">+376 728877</a>
-              </div>
-              <div class="saine-location-item">
-                <strong>La Seu d'Urgell</strong>
-                <span>Pl. Sta. Magdalena, 109</span>
-                <a href="mailto:info@saine.cat">info@saine.cat</a>
-              </div>
-            </div>
-
-            <div class="saine-call-card">
-              <span><span class="saine-cat">També ens pots trucar al:</span><span class="saine-es">También puedes llamarnos al:</span></span>
-              <strong>+376 728 877</strong>
-              <a class="saine-button saine-button-primary" href="tel:+376728877"><span class="saine-cat">Truca'ns</span><span class="saine-es">Llámanos</span></a>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="saine-footer">
-    <div class="saine-container saine-footer-grid">
-      <div>
-        <img src="https://www.saine.cat/wp-content/uploads/2024/01/Saine-logo-transp-1024x600.png" alt="SAINE">
-        <p><span class="saine-cat">SAINE Neuropsicologia. Atenció i intervenció neuropsicològica a Andorra la Vella.</span><span class="saine-es">SAINE Neuropsicologia. Atención e intervención neuropsicológica en Andorra la Vella.</span></p>
-      </div>
-      <div class="saine-footer-links">
-        <a href="https://www.saine.cat/avis-legal/">Avís Legal</a>
-        <a href="https://www.saine.cat/politica-de-privacitat-i-galetes/">Política de Privacitat i Galetes</a>
-        <a href="https://www.saine.cat/politica-de-proteccio-de-dades/">Política de Protecció de Dades</a>
-        <a href="https://www.saine.cat/kit-digital/">Kit Digital</a>
-        <a href="https://www.instagram.com/saine_neuropsicologia/">Instagram</a>
-      </div>
+    <div style="display:flex;flex-direction:column;line-height:1">
+      <span class="brand-name">Saine</span>
+      <span class="brand-sub" data-t="neuropsico">Neuropsicologia</span>
     </div>
-  </footer>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.saine.cat/" data-t="nav-home">P&agrave;gina inici</a></li>
+    <li><a href="#serveis" data-t="nav-serveis">Serveis</a></li>
+    <li><a href="#plataformes" data-t="nav-plataformes">Plataformes integrades</a></li>
+    <li><a href="#equip" data-t="nav-equip">Equip</a></li>
+    <li class="nav-dropdown">
+      <a data-t="nav-seu">La Seu d'Urgell &#9662;</a>
+      <div class="nav-dropdown-menu">
+        <a href="https://www.saine.cat/la-seu-durgell/" data-t="nav-seu-saine">Saine la Seu</a>
+        <a href="https://www.saine.cat/contacteseu/" data-t="nav-contacta">Contacta</a>
+      </div>
+    </li>
+    <li class="nav-dropdown">
+      <a data-t="nav-andorra">Andorra &#9662;</a>
+      <div class="nav-dropdown-menu">
+        <a href="#hero" data-t="nav-andorra-saine">Saine Andorra</a>
+        <a href="#contacta" data-t="nav-contacta2">Contacta</a>
+      </div>
+    </li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btnCA" onclick="setLang('ca')">CA</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="#contacta" class="nav-cta" data-t="cta">Contacta</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Men&uacute;"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-lang">
+    <button class="active" id="mCA" onclick="setLang('ca');closeMob()">Catal&agrave;</button>
+    <button id="mES" onclick="setLang('es');closeMob()">Espa&ntilde;ol</button>
+  </div>
+  <a href="https://www.saine.cat/" data-t="nav-home">P&agrave;gina inici</a>
+  <a href="#serveis" onclick="closeMob()" data-t="nav-serveis">Serveis</a>
+  <a href="#plataformes" onclick="closeMob()" data-t="nav-plataformes">Plataformes integrades</a>
+  <a href="#equip" onclick="closeMob()" data-t="nav-equip">Equip</a>
+  <a href="https://www.saine.cat/la-seu-durgell/" data-t="nav-seu-saine">La Seu d'Urgell</a>
+  <a href="#contacta" onclick="closeMob()" class="mob-cta" data-t="cta">Contacta</a>
 </div>
+<section class="hero" id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow fu" data-t="eyebrow">SAINE aprop teu</div>
+      <h1 class="fu fu1"><span data-t="h1a">Servei d'atenci&oacute; i intervenci&oacute;</span> <em data-t="h1b">neuropsicol&ograve;gica</em> <span data-t="h1c">a Andorra la Vella</span></h1>
+      <p class="hero-desc fu fu2" data-t="hero-desc">Professionals de diverses disciplines i &agrave;mplia experi&egrave;ncia compromeses en promoure el benestar psicol&ograve;gic i emocional, centrant-nos en les necessitats de cada persona.</p>
+      <div class="hero-actions fu fu3">
+        <a href="tel:00376728877" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span data-t="btn-visita">Concertar visita</span>
+        </a>
+        <a href="#contacta" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span data-t="btn-correu">Enviar un correu</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="stat-label" data-t="stat-lbl">Especialitats</div>
+        <div class="stat-value">3</div>
+        <div class="hero-pills">
+          <span class="hero-pill" data-t="pill1">Neuropsicologia</span>
+          <span class="hero-pill" data-t="pill2">Psicologia Cl&iacute;nica</span>
+          <span class="hero-pill" data-t="pill3">Psicopedagogia</span>
+        </div>
+        <div class="hero-float">
+          <div class="fc-label" data-t="fc-lbl">Equip</div>
+          <div class="fc-value" data-t="fc-val">4 Professionals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="section-label" data-t="ab-lbl">Qui som</p>
+        <h2 class="section-title">SAINE Andorra</h2>
+        <div class="about-text">
+          <p data-t="ab-p1"><b>SAINE</b> som un equip de <b>professionals de diverses disciplines</b> i &agrave;mplia experi&egrave;ncia compromeses en promoure el benestar psicol&ograve;gic i emocional centrant-nos en les necessitats de cada persona.</p>
+          <p data-t="ab-p2">Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals aix&iacute; com els trastorns i dificultats d'aprenentatge i trastorns del neurodesenvolupament.</p>
+          <p data-t="ab-p3">Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.</p>
+        </div>
+        <div class="about-features">
+          <div class="about-feature"><strong data-t="af1t">Avaluaci&oacute; diagn&ograve;stica</strong><span data-t="af1s">Identificaci&oacute; precisa de cada cas</span></div>
+          <div class="about-feature"><strong data-t="af2t">Intervenci&oacute; integral</strong><span data-t="af2s">Abordatge multidisciplinar</span></div>
+          <div class="about-feature"><strong data-t="af3t">Treball cooperatiu</strong><span data-t="af3s">Col&middot;laboraci&oacute; cont&iacute;nua entre professionals</span></div>
+          <div class="about-feature"><strong data-t="af4t">Enfoc personalitzat</strong><span data-t="af4s">Centrat en cada persona</span></div>
+        </div>
+        <div style="margin-top:2rem"><a href="#contacta" class="btn btn-primary" data-t="ab-cta">Clica aqu&iacute; per a enviar-nos un correu &rarr;</a></div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-box"><div class="abn">Andorra la Vella</div><div class="abl">Prat de la Creu, 93, 1r 1a</div></div>
+        <div class="about-box"><div class="abn">20+</div><div class="abl" data-t="ab-exp">Anys d'experi&egrave;ncia</div></div>
+        <div class="about-box"><div class="abn">4</div><div class="abl" data-t="ab-esp">Especialistes</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section services" id="serveis">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto 3rem" class="reveal">
+      <p class="section-label" data-t="sv-lbl">El que oferim</p>
+      <h2 class="section-title" data-t="sv-title">Serveis</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+        <h3 data-t="s1t">Neuropsicologia</h3>
+        <p data-t="s1d">Des de la neuropsicologia duem a terme avaluacions diagn&ograve;stiques, oferim intervenci&oacute; i/o orientem el tractament m&eacute;s adient a cada cas.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3 data-t="s2t">Psicologia Cl&iacute;nica</h3>
+        <p data-t="s2d">Oferim el servei de psicologia cl&iacute;nica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en ter&agrave;pies de 3a generaci&oacute;.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <h3 data-t="s3t">Psicopedagogia</h3>
+        <p data-t="s3d">L'equip de psicopedagogues interv&eacute; en dur a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section platforms" id="plataformes">
+  <div class="container">
+    <div class="plat-grid">
+      <div class="reveal">
+        <p class="section-label" data-t="pl-lbl">Eines que utilitzem</p>
+        <h2 class="section-title" data-t="pl-title">Plataformes integrades</h2>
+        <p class="section-lead" data-t="pl-lead">Implementem les millors eines basades en evid&egrave;ncia cient&iacute;fica per a una intervenci&oacute; efectiva.</p>
+      </div>
+      <div class="plat-card reveal">
+        <div class="plat-badge" data-t="pl-badge">&#10022; Basat en evid&egrave;ncia cient&iacute;fica</div>
+        <span class="glifing-logo">glifing</span>
+        <h3 data-t="gl-title">Millora de la velocitat i la comprensió lectora</h3>
+        <p data-t="gl-desc">A SAINE utilitzem el m&egrave;tode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evid&egrave;ncia cient&iacute;fica, &eacute;s utilitzat per m&eacute;s de 200.000 infants de gabinets, escoles i fam&iacute;lies de diversos pa&iuml;sos en catal&agrave;, castell&agrave; i euskera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section team" id="equip">
+  <div class="container">
+    <div class="team-intro reveal">
+      <p class="section-label" data-t="eq-lbl">El nostre equip</p>
+      <h2 class="section-title" data-t="eq-title">Coneix l'equip de SAINE</h2>
+      <p data-t="eq-d1"><strong>SAINE</strong> el formem un equip de professionals de diverses disciplines i &agrave;mplia experi&egrave;ncia compromeses en promoure el benestar psicol&ograve;gic i emocional centrant-nos en les necessitats de cada persona.</p>
+      <p data-t="eq-d2">Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia. Et presentem el nostre equip:</p>
+    </div>
+    <div class="team-grid">
+      <div class="tc reveal">
+        <div class="tc-head"><span class="tc-email"><a href="mailto:lnieto.saine@andorra.ad">lnieto.saine@andorra.ad</a></span></div>
+        <div class="tc-body">
+          <h2>Lorena Nieto Vi&ntilde;als</h2>
+          <div class="tc-role" data-t="r-neuro">Neuropsic&ograve;loga</div>
+          <ul class="tc-list">
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="l1">M&agrave;ster en <b>Neurologia de la Conducta i Neuropsicologia</b> per la UAB, acreditada professionalment com a Experta en Neuropsicologia Cl&iacute;nica pel COPC.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="l2">Postgraduada en <b>Psicopatologia Cl&iacute;nica</b> per la UB.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="l3">M&agrave;ster en <b>Ter&agrave;pies Contextuals</b> de 3a generaci&oacute; per l'Instituto ACT.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="l4"><b>Educadora</b> de pares i de mestres certificada en <b>Disciplina Positiva.</b></span></li>
+          </ul>
+          <a href="https://www.saine.cat/contacteandorra?consulta=neuropsicologialorena" class="btn-tc" data-t="btn-lor">Contactar amb Lorena</a>
+        </div>
+      </div>
+      <div class="tc reveal">
+        <div class="tc-head"><span class="tc-email"><a href="mailto:cvergesrossell@gmail.com">cvergesrossell@gmail.com</a></span></div>
+        <div class="tc-body">
+          <h2>Carla Verg&eacute;s Rossell</h2>
+          <div class="tc-role" data-t="r-psicoped">Psicopedagoga</div>
+          <ul class="tc-list">
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="c1">Llicenciada en <b>Psicopedagogia</b> per la Universitat de Barcelona.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="c2">Diplomada en <b>Magisteri d'Educaci&oacute; Prim&agrave;ria</b> per la Facultat Blanquerna.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="c3">Acreditada com a <b>experta en intel&middot;lig&egrave;ncia emocional</b> per la UNIR.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="c4">Cursos d'especialitzaci&oacute; en <b>dificultats i trastorns d'aprenentatge</b>.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="c5">Entrenadora <b>Glifing</b>.</span></li>
+          </ul>
+          <a href="https://www.saine.cat/contacteandorra?consulta=psicopedagogia" class="btn-tc" data-t="btn-car">Contactar amb Carla</a>
+        </div>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="tc reveal">
+        <div class="tc-head"><span class="tc-email"><a href="mailto:ebonvila.saine@andorra.ad">ebonvila.saine@andorra.ad</a></span></div>
+        <div class="tc-body">
+          <h2>Elisa Bonvil&agrave; Queija</h2>
+          <div class="tc-role" data-t="r-psicoc">Psic&ograve;loga Cl&iacute;nica</div>
+          <ul class="tc-list">
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e1">Llicenciada en <b>Psicologia</b> per la UAB.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e2">Postgraduada en <b>Psicomotricitat i Ter&agrave;pia Psicomotriu</b> per la Facultat Blanquerna.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e3">Diplomada en <b>Avaluaci&oacute; i Intervenci&oacute; en Psicologia Cl&iacute;nica</b> per ISEP.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e4">M&agrave;ster en <b>Atenci&oacute; Preco&ccedil;</b> per ISEP.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e5">M&agrave;ster en <b>Psicologia Cl&iacute;nica Infantojuvenil</b> per ISEP.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e6">M&agrave;ster en <b>Ter&agrave;pies de Tercera Generaci&oacute;</b> per ISEP.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e7"><b>Terapeuta aqu&agrave;tica</b> amb pacients neurol&ograve;gics i TEA &mdash; IATF.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e8"><b>Docent</b> col&middot;laboradora amb la Universitat d'Andorra (M&agrave;ster d'Educaci&oacute;).</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e9">Educadora de fam&iacute;lies en <b>Disciplina Positiva.</b></span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="e10">Entrenadora <b>Glifing</b>.</span></li>
+          </ul>
+          <a href="https://www.saine.cat/contacteandorra?consulta=psicologiaclinica" class="btn-tc" data-t="btn-eli">Contactar amb Elisa</a>
+        </div>
+      </div>
+      <div class="tc reveal">
+        <div class="tc-head"><span class="tc-email"><a href="mailto:npico.saine@andorra.ad">npico.saine@andorra.ad</a></span></div>
+        <div class="tc-body">
+          <h2>Nat&agrave;lia Pic&oacute; Azanza</h2>
+          <div class="tc-role" data-t="r-neuro">Neuropsic&ograve;loga</div>
+          <ul class="tc-list">
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n1">Llicenciatura en <b>Psicologia</b> per la Universitat de Barcelona.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n2">M&agrave;ster universitari en <b>Neuropsicologia Cl&iacute;nica</b>. Dep. Psiquiatria i Psicobiologia Cl&iacute;nica. UB.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n3">Acreditaci&oacute; professional en <b>psic&ograve;leg expert en Neuropsicologia Cl&iacute;nica</b> &mdash; COP Espanya.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n4">Acreditaci&oacute; en <b>Psicologia General Sanit&agrave;ria</b> &mdash; COPC.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n5">Diploma d'<b>Estudis Avan&ccedil;ats (DEA) i Sufici&egrave;ncia Investigadora</b> &mdash; Fac. Medicina, UB.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="n6">Cursos de <b>Doctorat en Neuroci&egrave;ncies</b> &mdash; Dep. Psiquiatria, UB.</span></li>
+          </ul>
+          <a href="https://www.saine.cat/contacteandorra?consulta=neuropsicologianatalia" class="btn-tc" data-t="btn-nat">Contactar amb Nat&agrave;lia</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:500px;margin:1.5rem auto 0" class="reveal">
+      <div class="tc">
+        <div class="tc-head"><span class="tc-email"><a href="mailto:saleix.saine@andorra.ad">saleix.saine@andorra.ad</a></span></div>
+        <div class="tc-body">
+          <h2>Sara Aleix Guillaume</h2>
+          <div class="tc-role" data-t="r-psico">Psic&ograve;loga</div>
+          <ul class="tc-list">
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="s1">Graduada en <b>Psicologia</b> per la Universitat de Barcelona.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="s2">M&agrave;ster en <b>Psicologia Jur&iacute;dica i Forense</b> per la UAB.</span></li>
+            <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span><span data-t="s3">M&agrave;ster en <b>Psicologia Infantil i Juvenil</b> per la UOC.</span></li>
+          </ul>
+          <a href="https://www.saine.cat/contacteandorra?consulta=psicologia" class="btn-tc" data-t="btn-sar">Contactar amb Sara</a>
+        </div>
+      </div>
+    </div>
+    <div class="team-note reveal">
+      <p data-t="tnote"><b>Per tal d'oferir una intervenci&oacute; integral a cada problem&agrave;tica</b> el nostre equip el formen neuropsic&ograve;logues, psic&ograve;logues sanit&agrave;ries, psicomotricista, logopeda i psicopedagogues que fonamenten l'actuaci&oacute; en el treball cooperatiu.</p>
+      <a href="https://www.saine.cat/la-seu-durgell/#equiplaseu" class="btn btn-secondary" data-t="btn-mes">Coneix + professionals de SAINE</a>
+    </div>
+  </div>
+</section>
+<section class="section contact" id="contacta">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto 3.5rem" class="reveal">
+      <p class="section-label" data-t="ct-lbl">Estem aqu&iacute; per tu</p>
+      <h2 class="section-title" data-t="ct-title">Contacta amb nosaltres</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="cf-wrap reveal">
+        <h3 data-t="f-title">Contacta amb SAINE Andorra</h3>
+        <p class="cf-sub" data-t="f-sub">Emplena aquest formulari i et respondrem el m&eacute;s aviat possible.</p>
+        <div class="form-row">
+          <div class="fg"><label data-t="f-nom">Nom *</label><input type="text" id="fNom" placeholder="El teu nom"></div>
+          <div class="fg"><label data-t="f-cog">Cognoms *</label><input type="text" id="fCog" placeholder="Els teus cognoms"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label data-t="f-tel">Tel&egrave;fon *</label><input type="tel" id="fTel" placeholder="+376 ..."></div>
+          <div class="fg"><label data-t="f-email">Correu electr&ograve;nic *</label><input type="email" id="fEmail" placeholder="correu@exemple.com"></div>
+        </div>
+        <div class="fg">
+          <label data-t="f-consulta">Tipus de consulta *</label>
+          <select id="fConsulta">
+            <option value="general" data-t="o1">General</option>
+            <option value="neuropsicologialorena" data-t="o2">Neuropsicologia amb Lorena</option>
+            <option value="neuropsicologianatalia" data-t="o3">Neuropsicologia amb Nat&agrave;lia</option>
+            <option value="psicologiaclinica" data-t="o4">Psicologia Cl&iacute;nica</option>
+            <option value="psicopedagogia" data-t="o5">Psicopedagogia</option>
+            <option value="psicologia" data-t="o6">Psicologia</option>
+          </select>
+        </div>
+        <div class="fg"><label data-t="f-msg">Missatge *</label><textarea id="fMsg" placeholder="Com et podem ajudar?"></textarea></div>
+        <div class="gdpr">
+          <input type="checkbox" id="gdpr">
+          <label for="gdpr" data-t="gdpr">He llegit, accepto i consenteixo les condicions d'&uacute;s i pol&iacute;tica de privacitat de SAINE.</label>
+        </div>
+        <button type="button" class="btn-sub" id="btnSub" data-t="btn-send">Enviar</button>
+      </div>
+      <div class="cs reveal">
+        <h3 data-t="cs-title">Tamb&eacute; ens pots trucar</h3>
+        <p class="cf-sub" data-t="cs-sub">Estem disponibles per atendre't personalment.</p>
+        <div class="phone-block">
+          <p class="phone-lbl" data-t="ph-lbl">Tel&egrave;fon SAINE Andorra</p>
+          <a href="tel:00376728877" class="phone-num">+376 728 877</a>
+          <a href="tel:00376728877" class="btn-call">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-t="btn-call">Truca'ns</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="fb"><div class="fn">Saine</div><div class="fs" data-t="neuropsico">Neuropsicologia</div><p data-t="ft-desc">Equip de professionals compromesos en promoure el benestar psicol&ograve;gic i emocional centrant-nos en les necessitats de cada persona.</p></div>
+    <div class="fc"><h4 data-t="ft-and">SAINE ANDORRA</h4><div class="faddr"><div class="ai"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Prat de la Creu, 93, 1r 1a<br>Andorra la Vella</span></div><div class="ai"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.65 9.2a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.54 1.5h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:00376728877">+376 728877</a></div></div></div>
+    <div class="fc"><h4 data-t="ft-seu">LA SEU D'URGELL</h4><div class="faddr"><div class="ai"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Pl. Sta. Magdalena, 109<br>La Seu d'Urgell</span></div><div class="ai"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@saine.cat">info@saine.cat</a></div></div></div>
+  </div>
+  <div class="footer-bot">
+    <p data-t="ft-copy">&copy; 2025 SAINE Neuropsicologia. Tots els drets reservats.</p>
+    <div class="flinks">
+      <a href="https://www.saine.cat/avis-legal/" data-t="ft-avis">Av&iacute;s Legal</a>
+      <a href="https://www.saine.cat/politica-de-privacitat-i-galetes/" data-t="ft-priv">Pol&iacute;tica de Privacitat</a>
+      <a href="https://www.saine.cat/politica-de-proteccio-de-dades/" data-t="ft-dades">Protecci&oacute; de Dades</a>
+      <a href="https://www.saine.cat/kit-digital/" data-t="ft-kit">Kit Digital</a>
+      <a href="https://www.instagram.com/saine_neuropsicologia" target="_blank" class="fig"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg><span data-t="ft-ig">Segueix-nos a Instagram</span></a>
+    </div>
+  </div>
+</footer>
+<script>
+const T={ca:{"neuropsico":"Neuropsicologia","nav-home":"P\u00e0gina inici","nav-serveis":"Serveis","nav-plataformes":"Plataformes integrades","nav-equip":"Equip","nav-seu":"La Seu d'Urgell \u25be","nav-seu-saine":"Saine la Seu","nav-contacta":"Contacta","nav-contacta2":"Contacta","nav-andorra":"Andorra \u25be","nav-andorra-saine":"Saine Andorra","cta":"Contacta","eyebrow":"SAINE aprop teu","h1a":"Servei d'atenci\u00f3 i intervenci\u00f3","h1b":"neuropsicol\u00f2gica","h1c":"a Andorra la Vella","hero-desc":"Professionals de diverses disciplines i \u00e0mplia experi\u00e8ncia compromeses en promoure el benestar psicol\u00f2gic i emocional, centrant-nos en les necessitats de cada persona.","btn-visita":"Concertar visita","btn-correu":"Enviar un correu","stat-lbl":"Especialitats","pill1":"Neuropsicologia","pill2":"Psicologia Cl\u00ednica","pill3":"Psicopedagogia","fc-lbl":"Equip","fc-val":"4 Professionals","ab-lbl":"Qui som","ab-p1":"\u003cb\u003eSAINE\u003c\/b\u003e som un equip de \u003cb\u003eprofessionals de diverses disciplines\u003c\/b\u003e i \u00e0mplia experi\u00e8ncia compromeses en promoure el benestar psicol\u00f2gic i emocional.","ab-p2":"Avaluem, diagnostiquem i intervenim en alteracions cognitives, conductuals i emocionals aix\u00ed com els trastorns i dificultats d'aprenentatge.","ab-p3":"Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia.","af1t":"Avaluaci\u00f3 diagn\u00f2stica","af1s":"Identificaci\u00f3 precisa de cada cas","af2t":"Intervenci\u00f3 integral","af2s":"Abordatge multidisciplinar","af3t":"Treball cooperatiu","af3s":"Col\u00b7laboraci\u00f3 cont\u00ednua entre professionals","af4t":"Enfoc personalitzat","af4s":"Centrat en cada persona","ab-cta":"Clica aqu\u00ed per a enviar-nos un correu \u2192","ab-exp":"Anys d'experi\u00e8ncia","ab-esp":"Especialistes","sv-lbl":"El que oferim","sv-title":"Serveis","s1t":"Neuropsicologia","s1d":"Des de la neuropsicologia duem a terme avaluacions diagn\u00f2stiques, oferim intervenci\u00f3 i\/o orientem el tractament m\u00e9s adient a cada cas.","s2t":"Psicologia Cl\u00ednica","s2d":"Oferim el servei de psicologia cl\u00ednica, tant a infants com a adolescents i adults amb un enfocament cognitiu-conductual i basat en ter\u00e0pies de 3a generaci\u00f3.","s3t":"Psicopedagogia","s3d":"L'equip de psicopedagogues interv\u00e9 en dur a terme les intervencions i abordatges pertinents en les dificultats d'aprenentatge.","pl-lbl":"Eines que utilitzem","pl-title":"Plataformes integrades","pl-lead":"Implementem les millors eines basades en evid\u00e8ncia cient\u00edfica per a una intervenci\u00f3 efectiva.","pl-badge":"\u2726 Basat en evid\u00e8ncia cient\u00edfica","gl-title":"Millora de la velocitat i la comprensió lectora","gl-desc":"A SAINE utilitzem el m\u00e8tode Glifing per a l'entrenament de la lectura. Creat a Catalunya i basat en l'evid\u00e8ncia cient\u00edfica, \u00e9s utilitzat per m\u00e9s de 200.000 infants de gabinets, escoles i fam\u00edlies de diversos pa\u00efsos.","eq-lbl":"El nostre equip","eq-title":"Coneix l'equip de SAINE","eq-d1":"\u003cstrong\u003eSAINE\u003c\/strong\u003e el formem un equip de professionals de diverses disciplines i \u00e0mplia experi\u00e8ncia compromeses en promoure el benestar psicol\u00f2gic i emocional.","eq-d2":"Desde SAINE Andorra treballem la psicopedagogia, la neuropsicologia i la psicologia. Et presentem el nostre equip:","r-neuro":"Neuropsic\u00f2loga","r-psicoped":"Psicopedagoga","r-psicoc":"Psic\u00f2loga Cl\u00ednica","r-psico":"Psic\u00f2loga","l1":"M\u00e0ster en \u003cb\u003eNeurologia de la Conducta i Neuropsicologia\u003c\/b\u003e per la UAB, acreditada com a Experta en Neuropsicologia Cl\u00ednica pel COPC.","l2":"Postgraduada en \u003cb\u003ePsicopatologia Cl\u00ednica\u003c\/b\u003e per la UB.","l3":"M\u00e0ster en \u003cb\u003eTer\u00e0pies Contextuals\u003c\/b\u003e de 3a generaci\u00f3 per l'Instituto ACT.","l4":"\u003cb\u003eEducadora\u003c\/b\u003e de pares i de mestres certificada en \u003cb\u003eDisciplina Positiva.\u003c\/b\u003e","btn-lor":"Contactar amb Lorena","c1":"Llicenciada en \u003cb\u003ePsicopedagogia\u003c\/b\u003e per la Universitat de Barcelona.","c2":"Diplomada en \u003cb\u003eMagisteri d'Educaci\u00f3 Prim\u00e0ria\u003c\/b\u003e per la Facultat Blanquerna.","c3":"Acreditada com a \u003cb\u003eexperta en intel\u00b7lig\u00e8ncia emocional\u003c\/b\u003e per la UNIR.","c4":"Cursos d'especialitzaci\u00f3 en \u003cb\u003edificultats i trastorns d'aprenentatge\u003c\/b\u003e.","c5":"Entrenadora \u003cb\u003eGlifing\u003c\/b\u003e.","btn-car":"Contactar amb Carla","e1":"Llicenciada en \u003cb\u003ePsicologia\u003c\/b\u003e per la UAB.","e2":"Postgraduada en \u003cb\u003ePsicomotricitat i Ter\u00e0pia Psicomotriu\u003c\/b\u003e per Blanquerna.","e3":"Diplomada en \u003cb\u003eAvaluaci\u00f3 i Intervenci\u00f3 en Psicologia Cl\u00ednica\u003c\/b\u003e per ISEP.","e4":"M\u00e0ster en \u003cb\u003eAtenci\u00f3 Preco\u00e7\u003c\/b\u003e per ISEP.","e5":"M\u00e0ster en \u003cb\u003ePsicologia Cl\u00ednica Infantojuvenil\u003c\/b\u003e per ISEP.","e6":"M\u00e0ster en \u003cb\u003eTer\u00e0pies de Tercera Generaci\u00f3\u003c\/b\u003e per ISEP.","e7":"\u003cb\u003eTerapeuta aqu\u00e0tica\u003c\/b\u003e amb pacients neurol\u00f2gics i TEA \u2014 IATF.","e8":"\u003cb\u003eDocent\u003c\/b\u003e col\u00b7laboradora amb la Universitat d'Andorra (M\u00e0ster d'Educaci\u00f3).","e9":"Educadora de fam\u00edlies en \u003cb\u003eDisciplina Positiva.\u003c\/b\u003e","e10":"Entrenadora \u003cb\u003eGlifing\u003c\/b\u003e.","btn-eli":"Contactar amb Elisa","n1":"Llicenciatura en \u003cb\u003ePsicologia\u003c\/b\u003e per la Universitat de Barcelona.","n2":"M\u00e0ster universitari en \u003cb\u003eNeuropsicologia Cl\u00ednica\u003c\/b\u003e. UB.","n3":"Acreditaci\u00f3 professional en \u003cb\u003epsic\u00f2leg expert en Neuropsicologia Cl\u00ednica\u003c\/b\u003e \u2014 COP Espanya.","n4":"Acreditaci\u00f3 en \u003cb\u003ePsicologia General Sanit\u00e0ria\u003c\/b\u003e \u2014 COPC.","n5":"Diploma d'\u003cb\u003eEstudis Avan\u00e7ats (DEA) i Sufici\u00e8ncia Investigadora\u003c\/b\u003e \u2014 UB.","n6":"Cursos de \u003cb\u003eDoctorat en Neuroci\u00e8ncies\u003c\/b\u003e \u2014 UB.","btn-nat":"Contactar amb Nat\u00e0lia","s1":"Graduada en \u003cb\u003ePsicologia\u003c\/b\u003e per la Universitat de Barcelona.","s2":"M\u00e0ster en \u003cb\u003ePsicologia Jur\u00eddica i Forense\u003c\/b\u003e per la UAB.","s3":"M\u00e0ster en \u003cb\u003ePsicologia Infantil i Juvenil\u003c\/b\u003e per la UOC.","btn-sar":"Contactar amb Sara","tnote":"\u003cb\u003ePer tal d'oferir una intervenci\u00f3 integral a cada problem\u00e0tica\u003c\/b\u003e el nostre equip el formen neuropsic\u00f2logues, psic\u00f2logues sanit\u00e0ries, psicomotricista, logopeda i psicopedagogues.","btn-mes":"Coneix + professionals de SAINE","ct-lbl":"Estem aqu\u00ed per tu","ct-title":"Contacta amb nosaltres","f-title":"Contacta amb SAINE Andorra","f-sub":"Emplena aquest formulari i et respondrem el m\u00e9s aviat possible.","f-nom":"Nom *","f-cog":"Cognoms *","f-tel":"Tel\u00e8fon *","f-email":"Correu electr\u00f2nic *","f-consulta":"Tipus de consulta *","f-msg":"Missatge *","o1":"General","o2":"Neuropsicologia amb Lorena","o3":"Neuropsicologia amb Nat\u00e0lia","o4":"Psicologia Cl\u00ednica","o5":"Psicopedagogia","o6":"Psicologia","gdpr":"He llegit, accepto i consenteixo les condicions d'\u00fas i pol\u00edtica de privacitat de SAINE.","btn-send":"Enviar","cs-title":"Tamb\u00e9 ens pots trucar","cs-sub":"Estem disponibles per atendre't personalment.","ph-lbl":"Tel\u00e8fon SAINE Andorra","btn-call":"Truca'ns","ft-desc":"Equip de professionals compromesos en promoure el benestar psicol\u00f2gic i emocional.","ft-and":"SAINE ANDORRA","ft-seu":"LA SEU D'URGELL","ft-copy":"\u00a9 2025 SAINE Neuropsicologia. Tots els drets reservats.","ft-avis":"Av\u00eds Legal","ft-priv":"Pol\u00edtica de Privacitat","ft-dades":"Protecci\u00f3 de Dades","ft-kit":"Kit Digital","ft-ig":"Segueix-nos a Instagram"},es:{"neuropsico":"Neuropsicolog\u00eda","nav-home":"P\u00e1gina de inicio","nav-serveis":"Servicios","nav-plataformes":"Plataformas integradas","nav-equip":"Equipo","nav-seu":"La Seu d'Urgell \u25be","nav-seu-saine":"Saine la Seu","nav-contacta":"Contacta","nav-contacta2":"Contacta","nav-andorra":"Andorra \u25be","nav-andorra-saine":"Saine Andorra","cta":"Contacta","eyebrow":"SAINE cerca de ti","h1a":"Servicio de atenci\u00f3n e intervenci\u00f3n","h1b":"neuropsicol\u00f3gica","h1c":"en Andorra la Vella","hero-desc":"Profesionales de diversas disciplinas y amplia experiencia comprometidas en promover el bienestar psicol\u00f3gico y emocional, centr\u00e1ndonos en las necesidades de cada persona.","btn-visita":"Concertar visita","btn-correu":"Enviar un correo","stat-lbl":"Especialidades","pill1":"Neuropsicolog\u00eda","pill2":"Psicolog\u00eda Cl\u00ednica","pill3":"Psicopedagog\u00eda","fc-lbl":"Equipo","fc-val":"4 Profesionales","ab-lbl":"Qui\u00e9nes somos","ab-p1":"\u003cb\u003eSAINE\u003c\/b\u003e somos un equipo de \u003cb\u003eprofesionales de diversas disciplinas\u003c\/b\u003e y amplia experiencia comprometidas en promover el bienestar psicol\u00f3gico y emocional.","ab-p2":"Evaluamos, diagnosticamos e intervenimos en alteraciones cognitivas, conductuales y emocionales as\u00ed como los trastornos y dificultades de aprendizaje.","ab-p3":"Desde SAINE Andorra trabajamos la psicopedagog\u00eda, la neuropsicolog\u00eda y la psicolog\u00eda.","af1t":"Evaluaci\u00f3n diagn\u00f3stica","af1s":"Identificaci\u00f3n precisa de cada caso","af2t":"Intervenci\u00f3n integral","af2s":"Abordaje multidisciplinar","af3t":"Trabajo cooperativo","af3s":"Colaboraci\u00f3n continua entre profesionales","af4t":"Enfoque personalizado","af4s":"Centrado en cada persona","ab-cta":"Haz clic aqu\u00ed para enviarnos un correo \u2192","ab-exp":"A\u00f1os de experiencia","ab-esp":"Especialistas","sv-lbl":"Lo que ofrecemos","sv-title":"Servicios","s1t":"Neuropsicolog\u00eda","s1d":"Desde la neuropsicolog\u00eda llevamos a cabo evaluaciones diagn\u00f3sticas, ofrecemos intervenci\u00f3n y\/u orientamos el tratamiento m\u00e1s adecuado para cada caso.","s2t":"Psicolog\u00eda Cl\u00ednica","s2d":"Ofrecemos el servicio de psicolog\u00eda cl\u00ednica, tanto a ni\u00f1os como a adolescentes y adultos con un enfoque cognitivo-conductual y basado en terapias de 3\u00aa generaci\u00f3n.","s3t":"Psicopedagog\u00eda","s3d":"El equipo de psicopedagogas interviene llevando a cabo las intervenciones y abordajes pertinentes en las dificultades de aprendizaje.","pl-lbl":"Herramientas que utilizamos","pl-title":"Plataformas integradas","pl-lead":"Implementamos las mejores herramientas basadas en evidencia cient\u00edfica para una intervenci\u00f3n efectiva.","pl-badge":"\u2726 Basado en evidencia cient\u00edfica","gl-title":"Mejora de la velocidad y la comprensi\u00f3n lectora","gl-desc":"En SAINE utilizamos el m\u00e9todo Glifing para el entrenamiento de la lectura. Creado en Catalu\u00f1a y basado en la evidencia cient\u00edfica, es utilizado por m\u00e1s de 200.000 ni\u00f1os de gabinetes, escuelas y familias de diversos pa\u00edses.","eq-lbl":"Nuestro equipo","eq-title":"Conoce el equipo de SAINE","eq-d1":"\u003cstrong\u003eSAINE\u003c\/strong\u003e lo formamos un equipo de profesionales de diversas disciplinas y amplia experiencia comprometidas en promover el bienestar psicol\u00f3gico y emocional.","eq-d2":"Desde SAINE Andorra trabajamos la psicopedagog\u00eda, la neuropsicolog\u00eda y la psicolog\u00eda. Os presentamos nuestro equipo:","r-neuro":"Neuropsic\u00f3loga","r-psicoped":"Psicopedagoga","r-psicoc":"Psic\u00f3loga Cl\u00ednica","r-psico":"Psic\u00f3loga","l1":"M\u00e1ster en \u003cb\u003eNeurolog\u00eda de la Conducta y Neuropsicolog\u00eda\u003c\/b\u003e por la UAB, acreditada como Experta en Neuropsicolog\u00eda Cl\u00ednica por el COPC.","l2":"Postgrado en \u003cb\u003ePsicopatolog\u00eda Cl\u00ednica\u003c\/b\u003e por la UB.","l3":"M\u00e1ster en \u003cb\u003eTerapias Contextuales\u003c\/b\u003e de 3\u00aa generaci\u00f3n por el Instituto ACT.","l4":"\u003cb\u003eEducadora\u003c\/b\u003e de padres y maestros certificada en \u003cb\u003eDisciplina Positiva.\u003c\/b\u003e","btn-lor":"Contactar con Lorena","c1":"Licenciada en \u003cb\u003ePsicopedagog\u00eda\u003c\/b\u003e por la Universitat de Barcelona.","c2":"Diplomada en \u003cb\u003eMagisterio de Educaci\u00f3n Primaria\u003c\/b\u003e por la Facultad Blanquerna.","c3":"Acreditada como \u003cb\u003eexperta en inteligencia emocional\u003c\/b\u003e por la UNIR.","c4":"Cursos de especializaci\u00f3n en \u003cb\u003edificultades y trastornos del aprendizaje\u003c\/b\u003e.","c5":"Entrenadora \u003cb\u003eGlifing\u003c\/b\u003e.","btn-car":"Contactar con Carla","e1":"Licenciada en \u003cb\u003ePsicolog\u00eda\u003c\/b\u003e por la UAB.","e2":"Postgrado en \u003cb\u003ePsicomotricidad y Terapia Psicomotriz\u003c\/b\u003e por Blanquerna.","e3":"Diplomada en \u003cb\u003eEvaluaci\u00f3n e Intervenci\u00f3n en Psicolog\u00eda Cl\u00ednica\u003c\/b\u003e por ISEP.","e4":"M\u00e1ster en \u003cb\u003eAtenci\u00f3n Temprana\u003c\/b\u003e por ISEP.","e5":"M\u00e1ster en \u003cb\u003ePsicolog\u00eda Cl\u00ednica Infanto-Juvenil\u003c\/b\u003e por ISEP.","e6":"M\u00e1ster en \u003cb\u003eTerapias de Tercera Generaci\u00f3n\u003c\/b\u003e por ISEP.","e7":"\u003cb\u003eTerapeuta acu\u00e1tica\u003c\/b\u003e con pacientes neurol\u00f3gicos y TEA \u2014 IATF.","e8":"\u003cb\u003eDocente\u003c\/b\u003e colaboradora con la Universidad de Andorra (M\u00e1ster de Educaci\u00f3n).","e9":"Educadora de familias en \u003cb\u003eDisciplina Positiva.\u003c\/b\u003e","e10":"Entrenadora \u003cb\u003eGlifing\u003c\/b\u003e.","btn-eli":"Contactar con Elisa","n1":"Licenciatura en \u003cb\u003ePsicolog\u00eda\u003c\/b\u003e por la Universitat de Barcelona.","n2":"M\u00e1ster universitario en \u003cb\u003eNeuropsicolog\u00eda Cl\u00ednica\u003c\/b\u003e. UB.","n3":"Acreditaci\u00f3n profesional en \u003cb\u003epsic\u00f3logo experto en Neuropsicolog\u00eda Cl\u00ednica\u003c\/b\u003e \u2014 COP Espa\u00f1a.","n4":"Acreditaci\u00f3n en \u003cb\u003ePsicolog\u00eda General Sanitaria\u003c\/b\u003e \u2014 COPC.","n5":"Diploma de \u003cb\u003eEstudios Avanzados (DEA) y Suficiencia Investigadora\u003c\/b\u003e \u2014 UB.","n6":"Cursos de \u003cb\u003eDoctorado en Neurociencias\u003c\/b\u003e \u2014 UB.","btn-nat":"Contactar con Nat\u00e0lia","s1":"Graduada en \u003cb\u003ePsicolog\u00eda\u003c\/b\u003e por la Universitat de Barcelona.","s2":"M\u00e1ster en \u003cb\u003ePsicolog\u00eda Jur\u00eddica y Forense\u003c\/b\u003e por la UAB.","s3":"M\u00e1ster en \u003cb\u003ePsicolog\u00eda Infantil y Juvenil\u003c\/b\u003e por la UOC.","btn-sar":"Contactar con Sara","tnote":"\u003cb\u003ePara ofrecer una intervenci\u00f3n integral a cada problem\u00e1tica\u003c\/b\u003e nuestro equipo lo forman neuropsic\u00f3logas, psic\u00f3logas sanitarias, psicomotricista, logopeda y psicopedagogas.","btn-mes":"Conoce + profesionales de SAINE","ct-lbl":"Estamos aqu\u00ed para ti","ct-title":"Contacta con nosotros","f-title":"Contacta con SAINE Andorra","f-sub":"Rellena este formulario y te responderemos lo antes posible.","f-nom":"Nombre *","f-cog":"Apellidos *","f-tel":"Tel\u00e9fono *","f-email":"Correo electr\u00f3nico *","f-consulta":"Tipo de consulta *","f-msg":"Mensaje *","o1":"General","o2":"Neuropsicolog\u00eda con Lorena","o3":"Neuropsicolog\u00eda con Nat\u00e0lia","o4":"Psicolog\u00eda Cl\u00ednica","o5":"Psicopedagog\u00eda","o6":"Psicolog\u00eda","gdpr":"He le\u00eddo, acepto y consiento las condiciones de uso y pol\u00edtica de privacidad de SAINE.","btn-send":"Enviar","cs-title":"Tambi\u00e9n nos puedes llamar","cs-sub":"Estamos disponibles para atenderte personalmente.","ph-lbl":"Tel\u00e9fono SAINE Andorra","btn-call":"Ll\u00e1manos","ft-desc":"Equipo de profesionales comprometidos en promover el bienestar psicol\u00f3gico y emocional.","ft-and":"SAINE ANDORRA","ft-seu":"LA SEU D'URGELL","ft-copy":"\u00a9 2025 SAINE Neuropsicolog\u00eda. Todos los derechos reservados.","ft-avis":"Aviso Legal","ft-priv":"Pol\u00edtica de Privacidad","ft-dades":"Protecci\u00f3n de Datos","ft-kit":"Kit Digital","ft-ig":"S\u00edguenos en Instagram"}};
+let lang='ca';
+function setLang(l){lang=l;const d=T[l];document.querySelectorAll('[data-t]').forEach(el=>{const k=el.getAttribute('data-t');if(d[k]===undefined)return;if(el.tagName==='OPTION')el.textContent=d[k];else el.innerHTML=d[k];});const ph={ca:{fNom:'El teu nom',fCog:'Els teus cognoms',fTel:'+376 ...',fEmail:'correu@exemple.com',fMsg:'Com et podem ajudar?'},es:{fNom:'Tu nombre',fCog:'Tus apellidos',fTel:'+376 ...',fEmail:'correo@ejemplo.com',fMsg:'\u00bfC\u00f3mo te podemos ayudar?'}};Object.keys(ph[l]).forEach(id=>{const el=document.getElementById(id);if(el)el.placeholder=ph[l][id];});['btnCA','btnES'].forEach(id=>document.getElementById(id).classList.toggle('active',id==='btnCA'?l==='ca':l==='es'));['mCA','mES'].forEach(id=>document.getElementById(id).classList.toggle('active',id==='mCA'?l==='ca':l==='es'));document.documentElement.lang=l;document.title=l==='es'?'SAINE Andorra \u2013 Neuropsicolog\u00eda':'SAINE Andorra \u2013 Neuropsicologia';}
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',scrollY>20));
+const tog=document.getElementById('navToggle'),mob=document.getElementById('mobMenu');
+tog.addEventListener('click',()=>mob.classList.toggle('open'));
+function closeMob(){mob.classList.remove('open')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const id=a.getAttribute('href').slice(1);if(!id)return;const t=document.getElementById(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
+const ro=new IntersectionObserver((entries,obs)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+document.getElementById('btnSub').addEventListener('click',()=>{const m={ca:"Gr\u00e0cies! El teu missatge ha estat enviat. Ens posarem en contacte aviat.",es:"\u00a1Gracias! Tu mensaje ha sido enviado. Nos pondremos en contacto pronto."};alert(m[lang]);});
+</script>
+</body>
+</html>
